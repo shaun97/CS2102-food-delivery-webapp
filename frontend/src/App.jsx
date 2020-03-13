@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './css/App.css';
+import { SplitButton} from 'react-bootstrap';
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Counter />
         <p>
           Edit <code>src/App.js</code> and save to reload.
+          <SplitButton bsSize="large" bsStyle={'default'} title={`Themasdfe`}>
+            </SplitButton>
         </p>
         <span>
           <span>Learn </span>
