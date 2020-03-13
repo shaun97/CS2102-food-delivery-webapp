@@ -1,19 +1,22 @@
+//Basic React Imports
 import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './css/App.css';
-import { SplitButton} from 'react-bootstrap';
+import { SplitButton } from 'react-bootstrap';
+
+//Own Import
+import Login from './components/views/Login/Login';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <Login />
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
           Edit <code>src/App.js</code> and save to reload.
-          <SplitButton bsSize="large" bsStyle={'default'} title={`Themasdfe`}>
-            </SplitButton>
         </p>
         <span>
           <span>Learn </span>
@@ -53,7 +56,7 @@ function App() {
             React Redux
           </a>
         </span>
-      </header>
+      </header> */}
     </div>
   );
 }

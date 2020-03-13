@@ -1,7 +1,7 @@
 //Basic React Imports
 import React, { Component } from 'react';
 
-class Login extends Component {
+class CustomerView extends Component {
   constructor() {
     super();
     this.state = {};
@@ -10,10 +10,10 @@ class Login extends Component {
   render() {
     return (
       <>
-        <p>Login</p>
+        <p>I am a Customer</p>
       </>
     );
   }
 }
 
-export default Login;
+export default CustomerView;
