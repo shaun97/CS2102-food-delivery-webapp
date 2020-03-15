@@ -1,6 +1,9 @@
 //Basic React Imports
 import React, { Component } from 'react';
 
+//Bootstrap
+
+
 class Login extends Component {
   constructor() {
     super();
@@ -9,9 +12,7 @@ class Login extends Component {
 
   render() {
     return (
-      <>
-        <p>Login</p>
-      </>
+ 
     );
   }
 }

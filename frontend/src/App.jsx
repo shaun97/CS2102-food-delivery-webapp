@@ -3,7 +3,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './css/App.css';
-import { SplitButton } from 'react-bootstrap';
+
 
 //Own Import
 import Login from './components/views/Login/Login';
