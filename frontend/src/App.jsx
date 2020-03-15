@@ -1,12 +1,11 @@
 //Basic React Imports
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './css/App.css';
 
 
 //Own Import
 import Login from './components/views/Login/Login';
+import SelectView from './components/views/Login/SelectView';
 
 function App() {
   return (

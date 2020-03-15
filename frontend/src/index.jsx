@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 
 //Css need stylesheet from CDN booststrap?
 import './css/index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import 'semantic-ui-css/semantic.min.css'
 
 import App from './App';
 import store from './app/store';
