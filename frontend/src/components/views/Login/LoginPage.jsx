@@ -15,10 +15,7 @@ class LoginPage extends Component {
     this.state = {
       loginStage: 'viewSelect',
     };
-
   }
-
-
 changeView() {
   counter++;
   console.log('clickeds');
@@ -34,8 +31,7 @@ changeView() {
                     MoodPanda</h1>
 
           <Segment raised>
-            <SelectView viewSelector={this.changeView}></SelectView>
-
+            <SelectView viewSelector={this.changeView}/>
             {/* <SignUp /> */}
             {/* <Login /> */}
 
