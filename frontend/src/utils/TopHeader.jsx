@@ -1,12 +1,13 @@
 import React from 'react'
 import { Header, Segment } from 'semantic-ui-react'
+import { Link } from "react-router-dom"
 
 function TopHeader(props) {
     return(
         <Segment clearing style={{marginLeft: '150px'}}>
-            <Header as='h2' color='blue' floated='right'>
+            <Link to="/"><Header as='h2' color='blue' floated='right'>
             Logout
-            </Header>
+            </Header></Link>
             <Header as='h2' color='blue' floated='left'>
             {props.user}
             </Header>

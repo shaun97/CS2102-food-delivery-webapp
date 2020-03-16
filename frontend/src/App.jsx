@@ -11,8 +11,8 @@ import RiderView from './components/views/RiderView/RiderView.jsx';
 function App() {
   return (
     <div className="App">
-      {/* <Login /> */}
-      <RiderView/>
+      <Login />
+      {/* <RiderView/> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
