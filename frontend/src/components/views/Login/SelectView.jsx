@@ -15,9 +15,7 @@ class SelectView extends Component {
     }
 
     handleClick() {
-
         this.props.viewSelector();
-
     }
 
     render() {
@@ -31,13 +29,13 @@ class SelectView extends Component {
                     <Button onClick={this.handleClick} size='massive' color='blue' circular icon='user'></Button>
                 </span>
                 <span className="selectViewButton">
-                    <Button size='massive' color='blue' circular icon='settings'></Button>
+                    <Button onClick={this.handleClick} size='massive' color='blue' circular icon='settings'></Button>
                 </span>
                 <span className="selectViewButton">
-                    <Link to="/rider"><Button size='massive' color='blue' circular icon='motorcycle'></Button></Link>
+                    <Button onClick={this.handleClick} size='massive' color='blue' circular icon='motorcycle'></Button>
                 </span>
                 <span className="selectViewButton">
-                    <Button size='massive' color='blue' circular icon='settings'></Button>
+                    <Button onClick={this.handleClick} size='massive' color='blue' circular icon='settings'></Button>
                 </span>
             </Segment>
         )
