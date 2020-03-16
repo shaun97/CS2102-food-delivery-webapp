@@ -25,11 +25,6 @@ import SignUp from './SignUp';
 // export default Login;
 
 const Login = () => (
-  <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <h1 class="ui center aligned icon header blue">
-        <i class="circular users icon"></i>
-                MoodPanda</h1>
   
       <Segment raised>
         <SelectView />
@@ -54,8 +49,7 @@ const Login = () => (
         New to us? <a href='#'>Sign Up</a>
       </Message> */}
       </Segment>
-    </Grid.Column>
-  </Grid>
+
 )
 
 export default Login

@@ -4,15 +4,14 @@ import './css/App.css';
 
 
 //Own Import
-import Login from './components/views/Login/Login';
+import LoginPage from './components/views/Login/LoginPage';
 import SelectView from './components/views/Login/SelectView';
 import RiderView from './components/views/RiderView/RiderView.jsx';
 
 function App() {
   return (
     <div className="App">
-      <Login />
-      {/* <RiderView/> */}
+      <LoginPage />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
