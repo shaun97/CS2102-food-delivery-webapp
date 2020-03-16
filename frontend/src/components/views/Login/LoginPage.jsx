@@ -9,6 +9,8 @@ import SelectView from './SelectView';
 import SignUp from './SignUp';
 import Login from './Login';
 let counter = 0;
+
+
 class LoginPage extends Component {
   constructor() {
     super();
@@ -16,10 +18,9 @@ class LoginPage extends Component {
       loginStage: 'viewSelect',
     };
   }
+
 changeView() {
-  counter++;
-  console.log('clickeds');
-  console.log(counter);
+
 }
 
   render() {
@@ -30,12 +31,12 @@ changeView() {
             <i className="circular users icon"></i>
                     MoodPanda</h1>
 
-          <Segment raised>
-            <SelectView viewSelector={this.changeView}/>
+      
+            {/* <SelectView viewSelector={this.changeView}/> */}
             {/* <SignUp /> */}
             {/* <Login /> */}
 
-          </Segment>
+  
         </Grid.Column>
       </Grid>
     );

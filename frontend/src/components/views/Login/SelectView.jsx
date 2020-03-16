@@ -22,7 +22,7 @@ class SelectView extends Component {
 
     render() {
         return (
-            <>
+            <Segment raised>
                 <Header as='h3' color='blue' textAlign='center'>
                     Please select your view
                 </Header>
@@ -39,7 +39,7 @@ class SelectView extends Component {
                 <span className="selectViewButton">
                     <Button size='massive' color='blue' circular icon='settings'></Button>
                 </span>
-            </>
+            </Segment>
         )
     }
 }
