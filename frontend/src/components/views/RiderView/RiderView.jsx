@@ -3,13 +3,18 @@ import React, { Component } from 'react';
 import InfoCard from '../../../utils/InfoCard';
 import NavSideBar from '../../../utils/SideBar';
 import TopHeader from '../../../utils/TopHeader';
-import './RiderView.css';
+// import './RiderView.css';
 
 class RiderView extends Component {
   constructor() {
     super();
     this.state = {
-      menu: ["Summary", "Schedule"]
+      menu: ["Summary", "Schedule"],
+      info: [
+        {header: "Total Salary", details: "$1000"},
+        {header: "Total Hours", details: "24"},
+        {header: "Total Orders", details: "100"}
+      ]
     };
   }
 
@@ -18,9 +23,7 @@ class RiderView extends Component {
       <div className="riderDetails">
         <TopHeader user="Rider"/>
         <NavSideBar navTabs={this.state.menu}/>
-        <InfoCard header="Total Salary" details="$1000"/>
-        <InfoCard header="Total Hours" details="24"/>
-        <InfoCard header="Total Orders" details="100"/>
+        <InfoCard info={this.state.info}/>
       </div>
     );
   }

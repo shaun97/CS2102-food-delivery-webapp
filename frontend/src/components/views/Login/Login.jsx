@@ -32,9 +32,9 @@ const Login = () => (
                 MoodPanda</h1>
   
       <Segment raised>
-        {/* <SelectView /> */}
+        <SelectView />
 
-        <SignUp />
+        {/* <SignUp /> */}
     {/* <Form size='large'> */}
         {/* <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
           <Form.Input
