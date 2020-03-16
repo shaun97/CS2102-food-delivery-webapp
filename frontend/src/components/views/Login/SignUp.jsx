@@ -12,8 +12,8 @@ class SignUp extends Component {
   }
 
   handleClick() {
-    this.props.viewSelector();
-  }
+    this.props.viewSelector('viewLogin');
+}
 
   render() {
     return (

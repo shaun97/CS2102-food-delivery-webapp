@@ -15,27 +15,26 @@ class LoginPage extends Component {
     super();
     this.state = {
       loginStage: 'viewSelect',
+      userType: 'rider'
     };
-    this.changeToLoginView = this.changeToLoginView.bind(this);
-    this.changeToSignUpView = this.changeToSignUpView.bind(this);
+    this.changeView = this.changeView.bind(this);
   }
 
-  changeToLoginView() {
-    this.setState({ loginStage: 'viewLogin' });
-  }
-
-  changeToSignUpView() {
-    this.setState({ loginStage: 'viewSignUp' });
+  changeView(loginStageSelect, userTypeSelect, ) {
+    this.setState({
+      userType: (userTypeSelect != undefined) ? userTypeSelect : this.state.userType,
+      loginStage: loginStageSelect
+    });
   }
 
   render() {
     let view;
     if (this.state.loginStage == 'viewSelect') {
-      view = <SelectView viewSelector={this.changeToLoginView} />;
+      view = <SelectView viewSelector={this.changeView} />;
     } else if (this.state.loginStage == 'viewLogin') {
-      view = <Login viewSelector={this.changeToSignUpView} />;
+      view = <Login viewSelector={this.changeView} userType={this.state.userType} />;
     } else {
-      view = <SignUp viewSelector={this.changeToLoginView} />;
+      view = <SignUp viewSelector={this.changeView} />;
     }
 
     return (
