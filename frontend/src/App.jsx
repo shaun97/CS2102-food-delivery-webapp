@@ -6,11 +6,14 @@ import './css/App.css';
 //Own Import
 import LoginPage from './components/views/Login/LoginPage';
 import SelectView from './components/views/Login/SelectView';
+import RiderView from './components/views/RiderView/RiderView.jsx';
 
 function App() {
   return (
     <div className="App">
+
       <LoginPage />
+
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
