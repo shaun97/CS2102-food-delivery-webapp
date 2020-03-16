@@ -1,5 +1,6 @@
 //Basic React Imports
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 //Semantic
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
@@ -33,7 +34,7 @@ class SelectView extends Component {
                     <Button size='massive' color='blue' circular icon='settings'></Button>
                 </span>
                 <span className="selectViewButton">
-                    <Button size='massive' color='blue' circular icon='motorcycle'></Button>
+                    <Link to="/rider"><Button size='massive' color='blue' circular icon='motorcycle'></Button></Link>
                 </span>
                 <span className="selectViewButton">
                     <Button size='massive' color='blue' circular icon='settings'></Button>

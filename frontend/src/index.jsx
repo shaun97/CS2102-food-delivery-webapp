@@ -9,11 +9,18 @@ import App from './App';
 import store from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { Router } from "react-router-dom";
+import Routes from "./components/Routes";
+import createHistory from 'history/createBrowserHistory';
+const history = createHistory();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>,
+  <Router history={ history }>
+    <Routes />
+  </Router>,
   document.getElementById('root')
 );
 

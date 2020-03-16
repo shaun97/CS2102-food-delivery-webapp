@@ -11,10 +11,7 @@ import RiderView from './components/views/RiderView/RiderView.jsx';
 function App() {
   return (
     <div className="App">
-
-      <LoginPage />
-  
-     
+      <LoginPage />     
     </div>
   );
 }

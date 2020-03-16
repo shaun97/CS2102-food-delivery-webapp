@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 
 function InfoCard(props) {
-    return (
-        <Card.Group>
-            <Card centered style={{marginLeft: '150px'}}>
+    const cardItems = props.info.map((item) =>
+        <Card>
             <Card.Content>
-                <Card.Header>{props.header}</Card.Header>
+                <Card.Header>{item.header}</Card.Header>
                 <Card.Description style={{fontSize: '30px'}}>
-                {props.details}
+                {item.details}
                 </Card.Description>
             </Card.Content>
-            </Card>
+        </Card>
+    );      
+    return (
+        <Card.Group itemsPerRow={3} style={{marginLeft: '150px', marginRight: '10px'}}>
+            {cardItems}
         </Card.Group>
     );
 }
