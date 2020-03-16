@@ -25,31 +25,28 @@ import SignUp from './SignUp';
 // export default Login;
 
 const Login = () => (
-  
-      <Segment raised>
-        <SelectView />
+    <>
+        <Segment raised>
 
-        {/* <SignUp /> */}
-    {/* <Form size='large'> */}
-        {/* <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='Password'
-            type='password'
-          />
+            <Form size='large'>
+                <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+                <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Password'
+                    type='password'
+                />
 
-          <Button color='blue' fluid size='large'>
-            Login
+                <Button color='blue' fluid size='large'>
+                    Login
           </Button>
-               </Form>
+            </Form>
         </Segment>
-      <Message>
-        New to us? <a href='#'>Sign Up</a>
-      </Message> */}
-      </Segment>
-
+        <Message>
+            New to us? <a href='#'>Sign Up</a>
+        </Message>
+    </>
 )
 
 export default Login
