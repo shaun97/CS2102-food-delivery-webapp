@@ -5,18 +5,43 @@ import { Link } from "react-router-dom";
 //Semantic
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
+//Own css styling
+import './Login.css';
 
-const SelectView = () => (
-  
+
+class SelectView extends Component {
+    constructor(props) {
+        super(props);
+        this.handleViewClick = this.handleViewClick.bind(this);
+      }
+
+    handleViewClick() {
+       this.props.viewSelector();
+        console.log("clicked");
+    }
+
+    render() {
+        return (
             <>
                 <Header as='h3' color='blue' textAlign='center'>
                     Please select your view
                 </Header>
-                <Button size='large' color='blue' circular icon='user'></Button>
-                <Button size='large' color='blue' circular icon='settings'></Button>
-                <Link to="/rider"><Button size='large' color='blue' circular icon='motorcycle'></Button></Link>
-                <Button size='large' color='blue' circular icon='settings'></Button>
-            </>
 
-)
+                <span className="selectViewButton" onClick={this.handleViewClick()}>
+                    <Button size='massive' color='blue' circular icon='user'></Button>
+                </span>
+                <span className="selectViewButton">
+                    <Button size='massive' color='blue' circular icon='settings'></Button>
+                </span>
+                <span className="selectViewButton">
+                    <Link to="/rider"><Button size='massive' color='blue' circular icon='motorcycle'></Button></Link>
+                </span>
+                <span className="selectViewButton">
+                    <Button size='massive' color='blue' circular icon='settings'></Button>
+                </span>
+            </>
+        )
+    }
+}
+
 export default SelectView

@@ -8,39 +8,43 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 import SelectView from './SelectView';
 import SignUp from './SignUp';
 import Login from './Login';
+let counter = 0;
+class LoginPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loginStage: 'viewSelect',
+    };
+
+  }
 
 
-// class Login extends Component {
-//   constructor() {
-//     super();
-//     this.state = {};
-//   }
+changeView() {
+  counter++;
+  console.log('clickeds');
+  console.log(counter);
+}
 
-//   render() {
-//     return (
+  render() {
+    return (
+      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <h1 className="ui center aligned icon header blue">
+            <i className="circular users icon"></i>
+                    MoodPanda</h1>
 
-//     );
-//   }
-// }
+          <Segment raised>
+            <SelectView viewSelector={this.changeView}></SelectView>
 
-// export default Login;
+            {/* <SignUp /> */}
+            {/* <Login /> */}
 
-const LoginPage = () => (
-  <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <h1 class="ui center aligned icon header blue">
-        <i class="circular users icon"></i>
-                MoodPanda</h1>
-  
-      <Segment raised>
-        {/* <SelectView /> */}
+          </Segment>
+        </Grid.Column>
+      </Grid>
+    );
+  }
+}
 
-        {/* <SignUp /> */}
-        <Login />
-    
-      </Segment>
-    </Grid.Column>
-  </Grid>
-)
 
 export default LoginPage
