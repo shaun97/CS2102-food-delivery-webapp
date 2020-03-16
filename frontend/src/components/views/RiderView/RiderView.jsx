@@ -1,8 +1,8 @@
 //Basic React Imports
 import React, { Component } from 'react';
-import InfoCard from '../../../utils/InfoCard';
-import NavSideBar from '../../../utils/SideBar';
-import TopHeader from '../../../utils/TopHeader';
+import InfoCard from '../../utils/InfoCard';
+import NavSideBar from '../../utils/SideBar';
+import TopHeader from '../../utils/TopHeader';
 import './RiderView.css';
 
 class RiderView extends Component {
