@@ -32,7 +32,7 @@ changeView() {
                     MoodPanda</h1>
 
       
-            {/* <SelectView viewSelector={this.changeView}/> */}
+            <SelectView viewSelector={this.changeView}/>
             {/* <SignUp /> */}
             {/* <Login /> */}
 
