@@ -11,11 +11,13 @@ class StaffView extends Component {
   constructor() {
     super();
     this.state = {
-      menu: ["Summary", "Schedule"],
+      menu: [
+        { name: "Promotion", icon: "fire" }
+      ],
       info: [
-        {header: "Total Salary", details: "$1000"},
-        {header: "Total Hours", details: "24"},
-        {header: "Total Orders", details: "100"}
+        { header: "Total Salary", details: "$1000" },
+        { header: "Total Hours", details: "24" },
+        { header: "Total Orders", details: "100" }
       ]
     };
   }
@@ -23,9 +25,9 @@ class StaffView extends Component {
   render() {
     return (
       <div className="riderDetails">
-        <TopHeader user="Staff"/>
-        <NavSideBar navTabs={this.state.menu}/>
-        <InfoCard info={this.state.info}/>
+        <TopHeader user="Staff" />
+        <NavSideBar navTabs={this.state.menu} />
+        <InfoCard info={this.state.info} />
       </div>
     );
   }
