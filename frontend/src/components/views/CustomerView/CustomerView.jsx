@@ -6,6 +6,7 @@ import NavSideBar from '../../../components/utils/SideBar';
 import TopHeader from '../../../components/utils/TopHeader';
 import RestaurantsTab from './RestaurantsTab';
 // import './RiderView.css';
+import { Grid, Container } from 'semantic-ui-react'
 
 
 class CustomerView extends Component {
@@ -27,14 +28,14 @@ class CustomerView extends Component {
 
   render() {
     return (
-
-      <div className="riderDetails">
+      <>
         <TopHeader user="Customer" />
         <NavSideBar navTabs={this.state.menu} />
-        <RestaurantsTab></RestaurantsTab>
-        <InfoCard info={this.state.info} />
 
-      </div>
+        <RestaurantsTab></RestaurantsTab>
+       
+
+      </>
     );
   }
 }

@@ -1,7 +1,7 @@
 //Basic React Imports
 import React, { Component } from 'react';
 
-import { Search, Grid, Header, Segment } from 'semantic-ui-react'
+import { Search, Grid, Header, Segment, Container } from 'semantic-ui-react'
 
 //Search 
 import _ from 'lodash'
@@ -15,8 +15,6 @@ const source = _.times(5, () => ({
     price: faker.finance.amount(0, 100, 2, '$'),
 }))
 
-const initialState = { isLoading: false, results: [], value: '' }
-
 class SearchBar extends Component {
     constructor() {
         super();
@@ -27,12 +25,12 @@ class SearchBar extends Component {
         }
     }
 
-  
-
     handleResultSelect = (e, { result }) => this.setState({ value: result.title })
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: true, value })
+
+        let initialState = { isLoadin: false, results: [], value: '' };
 
         setTimeout(() => {
             if (this.state.value.length < 1) return this.setState(initialState)
@@ -48,24 +46,22 @@ class SearchBar extends Component {
     }
 
     render() {
-        const { isLoading, value, results } = this.state
-
         return (
-            <Grid style={{ marginLeft: '150px' }}>
-                <Grid.Column width={6}>
-                    <Search
-                        fluid
-                        loading={isLoading}
-                        onResultSelect={this.handleResultSelect}
-                        onSearchChange={_.debounce(this.handleSearchChange, 500, {
-                            leading: true,
-                        })}
-                        results={results}
-                        value={value}
-                        {...this.props}
-                    />
-                </Grid.Column>
-            </Grid>
+
+                <Search
+                    fluid
+                    input={{ fluid: true }}
+                    loading={this.state.isLoading}
+                    onResultSelect={this.handleResultSelect}
+                    onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                        leading: true,
+                    })}
+                    results={this.state.results}
+                    value={this.state.value}
+                    {...this.props}
+                    style={{margin: '10px', marginLeft: '160px'}}
+                />
+  
         )
     }
 }
