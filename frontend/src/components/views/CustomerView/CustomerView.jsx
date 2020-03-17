@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import InfoCard from '../../../components/utils/InfoCard';
 import NavSideBar from '../../../components/utils/SideBar';
 import TopHeader from '../../../components/utils/TopHeader';
-import RestaurantsTab from './RestaurantsTab';
+import RestaurantsTab from './RestaurantView/RestaurantsTab';
 // import './RiderView.css';
 import { Grid, Container } from 'semantic-ui-react'
 
