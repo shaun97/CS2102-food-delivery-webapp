@@ -14,15 +14,30 @@ import { Link } from "react-router-dom";
 class Login extends Component {
     constructor() {
         super();
-        this.state = {};
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
-        this.props.viewSelector();
+        this.props.viewSelector('viewSignUp');
     }
 
     render() {
+        let page = null;
+        switch(this.props.userType) {
+            case 'customer':
+                page = "/customer";
+                break;
+            case 'staff':
+                page = "/staff";
+                break;
+            case 'rider':
+                page = "/rider";
+                break;
+            case 'manager':
+                page = "/manager";  
+                break;
+       
+        }
         return (
             <>
                 <Segment raised>
@@ -36,7 +51,7 @@ class Login extends Component {
                             placeholder='Password'
                             type='password'
                         />
-                        <Link to="/rider">
+                        <Link to={page}>
                             <Button color='blue' fluid size='large'>
                                 Login
                             </Button>

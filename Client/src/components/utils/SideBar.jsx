@@ -12,8 +12,8 @@ function NavSidebar(props) {
     to render all the tabs required for that class*/
     const tabItems = props.navTabs.map((item) =>
             <Menu.Item as='a'>
-            <Icon name='home' />
-            {item}
+            <Icon name={item.icon} />
+            {item.name}
             </Menu.Item>
     );
     return(

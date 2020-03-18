@@ -14,8 +14,8 @@ class SelectView extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick() {
-        this.props.viewSelector();
+    handleClick(e) {
+        this.props.viewSelector("viewLogin", e);
     }
 
     render() {
@@ -26,16 +26,16 @@ class SelectView extends Component {
                 </Header>
 
                 <span className="selectViewButton">
-                    <Button onClick={this.handleClick} size='massive' color='blue' circular icon='user'></Button>
+                    <Button onClick={() => this.handleClick('customer')} size='massive' color='blue' circular icon='user'></Button>
                 </span>
                 <span className="selectViewButton">
-                    <Button onClick={this.handleClick} size='massive' color='blue' circular icon='settings'></Button>
+                    <Button onClick={() => this.handleClick('staff')} size='massive' color='blue' circular icon='settings'></Button>
                 </span>
                 <span className="selectViewButton">
-                    <Button onClick={this.handleClick} size='massive' color='blue' circular icon='motorcycle'></Button>
+                    <Button onClick={() => this.handleClick('rider')} size='massive' color='blue' circular icon='motorcycle'></Button>
                 </span>
                 <span className="selectViewButton">
-                    <Button onClick={this.handleClick} size='massive' color='blue' circular icon='settings'></Button>
+                    <Button onClick={() => this.handleClick('manager')} size='massive' color='blue' circular icon='settings'></Button>
                 </span>
             </Segment>
         )
