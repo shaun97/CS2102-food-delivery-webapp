@@ -11,12 +11,12 @@ function NavSidebar(props) {
     use <NavSidebar navTabs={this.state.arrayName}/>
     to render all the tabs required for that class*/
     const tabItems = props.navTabs.map((item) =>
-            <Menu.Item as='a'>
+        <Menu.Item id={item.name} as='a' onClick={props.handleChangeTab}>
             <Icon name={item.icon} />
             {item.name}
-            </Menu.Item>
+        </Menu.Item>
     );
-    return(
+    return (
         <Sidebar
             as={Menu}
             direction='left'
@@ -26,7 +26,7 @@ function NavSidebar(props) {
             visible
             width='thin'
         >
-        {tabItems}
+            {tabItems}
         </Sidebar>
     );
 }

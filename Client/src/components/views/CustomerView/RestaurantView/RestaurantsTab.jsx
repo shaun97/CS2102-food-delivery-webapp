@@ -5,15 +5,16 @@ import { Menu } from 'semantic-ui-react'
 
 //Search 
 import SearchBar from './SearchBar'
+import RestaurantMenu from './RestaurantMenu';
 import RestaurantCardsGrid from './RestaurantCardsGrid';
 
 class RestaurantsTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem: 'chinese',
+            activeRestaurant: '',
             restaurants: [
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
+                { restaurantName: 'Macs1', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
                 { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
                 { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
                 { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
@@ -35,43 +36,28 @@ class RestaurantsTab extends Component {
             ]
         }
         this.handleItemClick = this.handleItemClick.bind(this);
+        this.changeActiveRestaurant = this.changeActiveRestaurant.bind(this);
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    
+    changeActiveRestaurant(name) {
+        // console.log(e);
+        this.setState({
+            activeRestaurant: name,
+          });
+    }
 
     render() {
+        let view = (this.state.activeRestaurant == '') ?
+            <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>
+            : <RestaurantMenu restaurantName={this.state.activeRestaurant}></RestaurantMenu>
+
         return (
             <>
                 <SearchBar></SearchBar>
-                <Menu tabular style={{ marginLeft: '160px' }}>
-                    <Menu.Item
-                        name='chinese'
-                        active={this.state.activeItem === 'chinese'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='malay'
-                        active={this.state.activeItem === 'malay'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='western'
-                        active={this.state.activeItem === 'western'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='indian'
-                        active={this.state.activeItem === 'indian'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='japanese'
-                        active={this.state.activeItem === 'japanese'}
-                        onClick={this.handleItemClick}
-                    />
-                </Menu>
                 <div style={{ marginLeft: '160px' }}>
-                    <RestaurantCardsGrid restaurants={this.state.restaurants}></RestaurantCardsGrid>
+                    {view}
                 </div>
             </>
         )
