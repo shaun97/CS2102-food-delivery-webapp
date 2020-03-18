@@ -7,6 +7,7 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 import SelectView from './SelectView';
 import SignUp from './SignUp';
 import Login from './Login';
+import axios from 'axios'
 
 
 class LoginPage extends Component {
@@ -14,7 +15,8 @@ class LoginPage extends Component {
     super();
     this.state = {
       loginStage: 'viewSelect',
-      userType: 'rider'
+      userType: 'rider',
+      msg: null
     };
     this.changeView = this.changeView.bind(this);
   }
@@ -24,6 +26,11 @@ class LoginPage extends Component {
       userType: (userTypeSelect != undefined) ? userTypeSelect : this.state.userType,
       loginStage: loginStageSelect
     });
+  }
+
+  componentDidMount() {
+    axios.get('/hello').then(res => this.setState({msg: res.data}))
+    .catch(err => console.log(err))
   }
   
   render() {
@@ -42,6 +49,7 @@ class LoginPage extends Component {
           <h1 className="ui center aligned icon header blue">
             <i className="circular users icon"></i>
                     MoodPanda</h1>
+                    <div style={{color: 'red'}}>{this.state.msg ? <p>{this.state.msg}</p>: null}</div>
           {view}
         </Grid.Column>
       </Grid>
