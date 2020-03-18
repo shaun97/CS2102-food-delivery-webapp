@@ -15,12 +15,12 @@ import createHistory from 'history/createBrowserHistory';
 const history = createHistory();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  // <Router history={ history }>
-  //   <Routes />
-  // </Router>,
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>,
+  <Router history={ history }>
+    <Routes />
+  </Router>,
   document.getElementById('root')
 );
 
