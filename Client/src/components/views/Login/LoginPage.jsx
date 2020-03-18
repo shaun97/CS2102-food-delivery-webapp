@@ -1,6 +1,5 @@
 //Basic React Imports
 import React, { Component } from 'react';
-
 //Semantic
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
@@ -26,7 +25,7 @@ class LoginPage extends Component {
       loginStage: loginStageSelect
     });
   }
-
+  
   render() {
     let view;
     if (this.state.loginStage == 'viewSelect') {
