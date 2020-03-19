@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Item, Button } from 'semantic-ui-react'
+import { Item, Button, Form } from 'semantic-ui-react'
 
 
 function MenuItem(props) {
@@ -13,13 +13,9 @@ function MenuItem(props) {
                     <span className='cinema'>{item.desc}</span>
                 </Item.Meta>
                 <Item.Description >
-                    <span style={{ fontSize: '150%' }}>${item.price}</span>
                     <Button primary floated='right'>+</Button>
+                    <span style={{ fontSize: '150%' }}>${item.price}</span>
                 </Item.Description>
-                <Item.Extra>
-
-
-                </Item.Extra>
             </Item.Content>
         </Item>
     );

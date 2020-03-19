@@ -40,12 +40,11 @@ class RestaurantsTab extends Component {
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-    
+
     changeActiveRestaurant(name) {
-        // console.log(e);
         this.setState({
             activeRestaurant: name,
-          });
+        });
     }
 
     render() {
@@ -56,9 +55,7 @@ class RestaurantsTab extends Component {
         return (
             <>
                 <SearchBar></SearchBar>
-                <div style={{ marginLeft: '160px' }}>
-                    {view}
-                </div>
+                {view}
             </>
         )
     }

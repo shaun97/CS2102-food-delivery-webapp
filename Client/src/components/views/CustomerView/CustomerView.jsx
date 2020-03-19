@@ -5,6 +5,7 @@ import NavSideBar from '../../utils/SideBar';
 import TopHeader from '../../utils/TopHeader';
 
 import RestaurantsTab from './RestaurantView/RestaurantsTab';
+import CartTab from './CartView/CartTab'
 
 
 class CustomerView extends Component {
@@ -12,7 +13,7 @@ class CustomerView extends Component {
     super();
     this.state = {
       cart: {
-        restaurantName: '',
+        restaurantName: 'Macs',
         cartItems: [//foodname
         ]
       },
@@ -28,8 +29,9 @@ class CustomerView extends Component {
   }
 
   changeActiveTab(event) {
+    console.log(event.currentTarget.id)
     this.setState({
-      activeTab: event.target.id
+      activeTab: event.currentTarget.id
     })
   }
 
@@ -40,7 +42,7 @@ class CustomerView extends Component {
         tab = <RestaurantsTab></RestaurantsTab>;
         break;
       case 'Cart':
-        tab = '';
+        tab = <CartTab cart={this.state.cart}></CartTab>;
         break;
       case 'History':
         tab = '';
@@ -50,7 +52,9 @@ class CustomerView extends Component {
       <div className="riderDetails">
         <TopHeader user="Customer" />
         <NavSideBar handleChangeTab={this.changeActiveTab} navTabs={this.state.menu} />
-        {tab}
+        <div style={{ marginLeft: '160px' }}>
+          {tab}
+        </div>
       </div>
     );
   }

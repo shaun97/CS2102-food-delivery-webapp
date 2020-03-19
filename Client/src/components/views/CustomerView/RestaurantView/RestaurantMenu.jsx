@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Grid, Item } from 'semantic-ui-react';
 import FoodCategoryBar from './FoodCategoryBar';
-import MenuItem from '../utils/MenuItem';
+import MenuItem from './MenuItem';
 
 class RestaurantMenu extends Component {
     constructor(props) {
@@ -10,10 +10,10 @@ class RestaurantMenu extends Component {
         this.state = {
             restaurantName: this.props.restaurantName,
             test: [
-                { name: '100 pcs Chicken',  desc: 'very lovin it', price: '2.00'},
-                { name: '100 pcs Chicken',  desc: 'very lovin it', price: '2.00'},
-                { name: '100 pcs Chicken',  desc: 'very lovin it', price: '2.00'},
-                { name: '100 pcs Chicken',  desc: 'very lovin it', price: '2.00'},
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
             ]
         }
         console.log(this.state.restaurantName);
@@ -43,7 +43,7 @@ class RestaurantMenu extends Component {
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column width={16}>
-                        <MenuItem menuItems={this.state.test}></MenuItem>
+                        <MenuItem isCart={false} menuItems={this.state.test}></MenuItem>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
