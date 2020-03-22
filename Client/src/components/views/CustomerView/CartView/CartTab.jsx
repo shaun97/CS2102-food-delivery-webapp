@@ -7,13 +7,34 @@ class CartTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            test: [
-                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
-                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
-                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
-                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00' },
+            subtotal: 0,
+            deliveryFee: 0,
+            test: [ //rework how this is named....
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00', quantity: 1 },
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00', quantity: 1 },
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00', quantity: 1 },
+                { name: '100 pcs Chicken', desc: 'very lovin it', price: '2.00', quantity: 1 },
             ]
         }
+        this.updateItemQAndP = this.updateItemQAndP.bind(this);
+        this.incOrDecItem= this.incOrDecItem.bind(this);
+    }
+
+    updateItemQAndP(e) {
+        console.log(e.target.value);
+        const name = e.target.name;
+        const value = e.target.value;
+    
+        this.setState({
+            [name] : value,
+        }, () => console.log(this.state.test))
+        //callback function called by cartitem to update state of carttab items
+    }
+
+    incOrDecItem(item, op) {
+        const name = item.name;
+
+        console.log(op);
     }
 
     render() {
@@ -24,7 +45,7 @@ class CartTab extends Component {
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Form>
-                                <CartItem menuItems={this.state.test}></CartItem>
+                                <CartItem updateItem={this.incOrDecItem} handleChange={this.updateItemQAndP} menuItems={this.state.test}></CartItem>
                                 <Segment>
                                     <Form.Field>
                                         <label>Please key in your address</label>
