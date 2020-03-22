@@ -33,7 +33,7 @@ class CartTab extends Component {
 
     incOrDecItem(item, op) {
         const name = item.name;
-
+    //increment/decrement here 
         console.log(op);
     }
 

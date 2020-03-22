@@ -244,3 +244,12 @@ CREATE TABLE FDPromotions (
 	endD DATE
 --	foreign key (pid, startD, endD) references Promotions
 );
+
+-- insert test data into users
+
+INSERT INTO Users 
+VALUES (1,'Alice','ghost@gmail.com',1);
+
+
+INSERT INTO Users 
+VALUES (2,'Rob','sost@gmail.com',2);

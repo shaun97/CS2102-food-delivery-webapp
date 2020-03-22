@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 //Semantic
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
+import axios from 'axios';
 
 class SignUp extends Component {
   constructor(props) {
@@ -33,9 +34,13 @@ class SignUp extends Component {
   }
 
   handleSubmitClick() {
-    console.log(this.state.name);
-    console.log(this.state.email);
-    console.log(this.state.password);
+    const profile = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    }
+    axios.post('/api/posts/userprofiletodb', profile).then(res => console.log("success"))
+      .catch(err => console.log(err));
   }
 
   render() {

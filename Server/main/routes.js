@@ -1,5 +1,7 @@
 var express = require('express')
 var router = express.Router()
+var pool = require('./db')
+
 /*specify api path*/
 router.get('/hello', (req, res) => {
 	res.json('hello world')
@@ -11,14 +13,15 @@ router.get('/hello', (req, res) => {
 */
 
 router.post('/api/posts/userprofiletodb', (req, res, next) => {
-    const values = [req.body.profile.cpassword, 
-                    req.body.profile.email, 
-                    req.body.profile.cname]
-    pool.query(`INSERT INTO customers(cpassword, email, cname)
-                VALUES($1, $2, $3, NOW())
+  console.log(req.body.password);
+    const values = [req.body.password, 
+                    req.body.email, 
+                    req.body.name]
+    pool.query(`INSERT INTO Users(password, email, name)
+                VALUES($1, $2, $3)
                 ON CONFLICT DO NOTHING`, values,
                 (q_err, q_res) => {
-                  res.json(q_res.rows)
+                  res.json("200")
     })
 } )
   
