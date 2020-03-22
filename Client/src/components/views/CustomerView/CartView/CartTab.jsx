@@ -45,6 +45,8 @@ class CartTab extends Component {
                                         <text>Total:</text>
                                         <text style={{ float: 'right' }}>$10</text>
                                     </Segment>
+
+                                    {/* promo code? */}
                                 </Segment>
                                 <Button floated='right' fluid color='blue' type='submit'>Confirm</Button>
                             </Form>
