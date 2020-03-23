@@ -32,9 +32,7 @@ router.get('/api/get/userprofilefromdb', (req, res, next) => {
   pool.query(`SELECT id, name, email FROM users
                 WHERE email=$1 AND password=$2`, [email, password],
     (q_err, q_res) => {
-      res.json(q_res.rows);
-      console.log(q_err);
-      console.log(q_res); //error response if account not found???????????????
+      res.json(q_res.rows); //Is there a better way to show if not found? currently if rows empty then means no account
     })
 })
 

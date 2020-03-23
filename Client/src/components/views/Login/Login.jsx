@@ -31,11 +31,10 @@ class Login extends Component {
 
     handleClick() {
         let context = this.context;
-
         const userEmail = this.state.email;
         const userPassword = this.state.password;
 
-        axios.get('/api/get/userprofilefromdb', { params: { email: userEmail, password: userPassword} })
+        axios.get('/api/get/userprofilefromdb', { params: { email: userEmail, password: userPassword } })
             .then(res => context.signIn(res.data[0]));
     }
 
@@ -85,13 +84,11 @@ class Login extends Component {
                             required={true}
                             onChange={this.handleChange}
                         />
-                        {/* <Link to={page}> */}
-
-
+                        <Link to={page}>
                             <Button color='blue' fluid size='large' onClick={this.handleClick}>
                                 Login
                              </Button>
-                        {/* </Link> */}
+                        </Link>
 
                     </Form>
                 </Segment>
