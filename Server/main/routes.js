@@ -13,7 +13,6 @@ router.get('/hello', (req, res) => {
 */
 
 router.post('/api/posts/userprofiletodb', (req, res, next) => {
-  console.log(req.body.password);
     const values = [req.body.password, 
                     req.body.email, 
                     req.body.name]
@@ -25,7 +24,9 @@ router.post('/api/posts/userprofiletodb', (req, res, next) => {
     })
 } )
   
+
 router.get('/api/get/userprofilefromdb', (req, res, next) => {
+  console.log(req.query);
     const email = req.query.email
     console.log(email)
     pool.query(`SELECT * FROM users

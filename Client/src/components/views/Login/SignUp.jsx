@@ -39,7 +39,7 @@ class SignUp extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    axios.post('/api/posts/userprofiletodb', profile).then(res => console.log("success"))
+    axios.post('/api/posts/userprofiletodb', profile).then(res => alert("Signup Sucessful"))
       .catch(err => console.log(err));
   }
 

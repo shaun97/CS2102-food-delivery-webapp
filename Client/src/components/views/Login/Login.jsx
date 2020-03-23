@@ -4,9 +4,7 @@ import React, { Component } from 'react';
 //Semantic
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-//Own Stuff
-import SelectView from './SelectView';
-import SignUp from './SignUp';
+import axios from 'axios';
 
 import { Link } from "react-router-dom";
 
@@ -34,7 +32,14 @@ class Login extends Component {
     handleClick() {
         console.log(this.state.email);
         console.log(this.state.password);
+
+        const userEmail = this.state.email;
+
+        axios.get('/api/get/userprofilefromdb', {params: {email: userEmail}})
+            .then(res => console.log(res.data));
+       // history.push('/customer');
     }
+
 
     handleSignupClick() {
         this.props.viewSelector('viewSignUp');
@@ -81,8 +86,8 @@ class Login extends Component {
                             onChange={this.handleChange}
                         />
                         <Link to={page}>
-                            <Button color='blue' fluid size='large' onClick={this.handleClick}>
-                                Login
+                        <Button color='blue' fluid size='large' onClick={this.handleClick}>
+                            Login
                             </Button>
                         </Link>
 
