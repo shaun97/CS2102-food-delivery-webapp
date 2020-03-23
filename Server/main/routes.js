@@ -27,14 +27,14 @@ router.post('/api/posts/userprofiletodb', (req, res, next) => {
 
 
 router.get('/api/get/userprofilefromdb', (req, res, next) => {
-  console.log(req.query);
   const email = req.query.email;
   const password = req.query.password;
   pool.query(`SELECT id, name, email FROM users
                 WHERE email=$1 AND password=$2`, [email, password],
     (q_err, q_res) => {
       res.json(q_res.rows);
-
+      console.log(q_err);
+      console.log(q_res); //error response if account not found???????????????
     })
 })
 

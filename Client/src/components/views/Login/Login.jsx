@@ -31,14 +31,12 @@ class Login extends Component {
 
     handleClick() {
         let context = this.context;
-        context.signIn();
 
         const userEmail = this.state.email;
         const userPassword = this.state.password;
 
         axios.get('/api/get/userprofilefromdb', { params: { email: userEmail, password: userPassword} })
             .then(res => context.signIn(res.data[0]));
-        
     }
 
 
@@ -47,7 +45,6 @@ class Login extends Component {
     }
 
     render() {
-        let login = this.context;
         let page = null;
         switch (this.props.userType) {
             case 'customer':
