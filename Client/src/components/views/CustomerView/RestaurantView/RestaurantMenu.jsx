@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Grid, Item } from 'semantic-ui-react';
+import { Grid, Item, Button } from 'semantic-ui-react';
 import FoodCategoryBar from './FoodCategoryBar';
 import MenuItem from './MenuItem';
 
@@ -26,7 +26,6 @@ class RestaurantMenu extends Component {
                 <Grid.Row>
                     <Item.Group>
                         <Item>
-                            {/* <Item.Image size='tiny' src='https://react.semantic-ui.com/images/wireframe/image.png' /> */}
                             <Item.Content>
                                 <Item.Header as='a'>Macs</Item.Header>
                                 <Item.Meta>I'm Loving it</Item.Meta>
@@ -42,7 +41,7 @@ class RestaurantMenu extends Component {
                     <FoodCategoryBar></FoodCategoryBar>
                 </Grid.Row>
                 <Grid.Row>
-                    <Grid.Column width={16}>
+                    <Grid.Column textAlign={'left'}>
                         <MenuItem isCart={false} menuItems={this.state.test}></MenuItem>
                     </Grid.Column>
                 </Grid.Row>
