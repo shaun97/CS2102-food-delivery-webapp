@@ -4,17 +4,45 @@ import './css/App.css';
 
 //Own Import
 import LoginPage from './components/views/Login/LoginPage';
-import SelectView from './components/views/Login/SelectView';
+import StaffView from './components/views/StaffView/StaffView';
 import RiderView from './components/views/RiderView/RiderView.jsx';
+import CustomerView from './components/views/CustomerView/CustomerView';
+import { Route, Switch } from "react-router-dom";
+import { LoginContext } from './components/LoginContext';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.signIn = (user) => {
+      console.log(user);
+      this.setState((state) => ({
+        isLoggedIn: true,
+        user: user
+      }));  
+    };
+
+    this.state = {
+        isLoggedIn: false,
+        user: {},
+        signIn: this.signIn,
+    };
+  }
+
   render() {
     return (
       <div className="App">
-        <LoginPage />      
+        <LoginContext.Provider value={this.state}>
+          <Switch>
+            <Route exact path="/" component={LoginPage} />
+            <Route path="/customer" component={CustomerView} />
+            <Route path="/staff" component={StaffView} />
+            <Route path="/rider" component={RiderView} />
+          </Switch>
+        </LoginContext.Provider>
       </div>
     );
-  } 
+  }
 }
 
 export default App;

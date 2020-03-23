@@ -2,12 +2,10 @@
 import React, { Component } from 'react';
 import { Card, Grid } from 'semantic-ui-react'
 
-
 function RestaurantCardsGrid(props) {
-
     const restaurantCards = props.restaurants.map((item) =>
         <Grid.Column mobile={8} tablet={4} computer={2} >
-            <Card>
+            <Card name={item.restaurantName} onClick={() => props.handleChangeActive(item.restaurantName)}>
                 <Card.Content>
                     <Card.Header>{item.restaurantName}</Card.Header>
                     <Card.Meta>
@@ -23,7 +21,7 @@ function RestaurantCardsGrid(props) {
     return (
         <Grid padded container>
             {restaurantCards}
-        </Grid>
+        </Grid >
     )
 }
 

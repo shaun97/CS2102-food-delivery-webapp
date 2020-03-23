@@ -6,11 +6,9 @@ import './css/index.css';
 import 'semantic-ui-css/semantic.min.css'
 
 import App from './App';
-import store from './app/store';
-import { Provider } from 'react-redux';
+
 import * as serviceWorker from './serviceWorker';
 import { Router } from "react-router-dom";
-import Routes from "./components/Routes";
 import createHistory from 'history/createBrowserHistory';
 const history = createHistory();
 
@@ -19,7 +17,8 @@ ReactDOM.render(
   //   <App />
   // </Provider>,
   <Router history={ history }>
-    <Routes />
+    {/* <Routes /> */}
+    <App />
   </Router>,
   document.getElementById('root')
 );

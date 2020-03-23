@@ -48,20 +48,20 @@ class SearchBar extends Component {
     render() {
         return (
 
-                <Search
-                    fluid
-                    input={{ fluid: true }}
-                    loading={this.state.isLoading}
-                    onResultSelect={this.handleResultSelect}
-                    onSearchChange={_.debounce(this.handleSearchChange, 500, {
-                        leading: true,
-                    })}
-                    results={this.state.results}
-                    value={this.state.value}
-                    {...this.props}
-                    style={{margin: '10px', marginLeft: '160px'}}
-                />
-  
+            <Search
+                fluid
+                input={{ fluid: true }}
+                loading={this.state.isLoading}
+                onResultSelect={this.handleResultSelect}
+                onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                    leading: true,
+                })}
+                results={this.state.results}
+                value={this.state.value}
+                {...this.props}
+                style={{ margin: '10px' }}
+            />
+
         )
     }
 }

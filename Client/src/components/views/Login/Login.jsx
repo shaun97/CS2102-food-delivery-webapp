@@ -4,26 +4,52 @@ import React, { Component } from 'react';
 //Semantic
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-//Own Stuff
-import SelectView from './SelectView';
-import SignUp from './SignUp';
+import axios from 'axios';
 
-import { Link } from "react-router-dom";
+import { LoginContext } from '../../LoginContext';
 
 
 class Login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            email: '',
+            password: ''
+        };
+
         this.handleClick = this.handleClick.bind(this);
+        this.handleSignupClick = this.handleSignupClick.bind(this);
+
+        this.handleChange = (event) => {
+            const { name, value } = event.target;
+            this.setState({
+                [name]: value
+            });
+        };
     }
 
     handleClick() {
+        let context = this.context;
+        context.signIn();
+
+        const userEmail = this.state.email;
+        const userPassword = this.state.password;
+
+        axios.get('/api/get/userprofilefromdb', { params: { email: userEmail, password: userPassword} })
+            .then(res => context.signIn(res.data[0]));
+        
+    }
+
+
+    handleSignupClick() {
         this.props.viewSelector('viewSignUp');
     }
 
     render() {
+        let login = this.context;
         let page = null;
-        switch(this.props.userType) {
+        switch (this.props.userType) {
             case 'customer':
                 page = "/customer";
                 break;
@@ -34,36 +60,52 @@ class Login extends Component {
                 page = "/rider";
                 break;
             case 'manager':
-                page = "/manager";  
+                page = "/manager";
                 break;
-       
+
         }
         return (
             <>
-                <Segment raised>
 
+                <Segment raised>
                     <Form size='large'>
-                        <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+                        <Form.Input
+                            fluid
+                            icon='mail'
+                            iconPosition='left'
+                            placeholder='E-mail address'
+                            name='email'
+                            required={true}
+                            onChange={this.handleChange}
+                        />
                         <Form.Input
                             fluid
                             icon='lock'
                             iconPosition='left'
                             placeholder='Password'
                             type='password'
+                            name='password'
+                            required={true}
+                            onChange={this.handleChange}
                         />
-                        <Link to={page}>
-                            <Button color='blue' fluid size='large'>
+                        {/* <Link to={page}> */}
+
+
+                            <Button color='blue' fluid size='large' onClick={this.handleClick}>
                                 Login
-                            </Button>
-                        </Link>
+                             </Button>
+                        {/* </Link> */}
+
                     </Form>
                 </Segment>
                 <Message>
-                    New to us? <a href='#' onClick={this.handleClick}>Sign Up</a>
+                    New to us? <a href='#' onClick={this.handleSignupClick}>Sign Up</a>
                 </Message>
             </>
         );
     }
 }
+
+Login.contextType = LoginContext;
 
 export default Login;

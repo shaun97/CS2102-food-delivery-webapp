@@ -6,6 +6,7 @@ import NavSideBar from '../../utils/SideBar';
 import TopHeader from '../../utils/TopHeader';
 // import './RiderView.css';
 
+import { Button } from 'semantic-ui-react';
 
 class StaffView extends Component {
   constructor() {

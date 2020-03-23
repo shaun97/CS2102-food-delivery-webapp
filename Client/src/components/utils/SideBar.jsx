@@ -10,13 +10,15 @@ function NavSidebar(props) {
     /*declare an array in class state,
     use <NavSidebar navTabs={this.state.arrayName}/>
     to render all the tabs required for that class*/
-    const tabItems = props.navTabs.map((item) =>
-            <Menu.Item as='a'>
+
+    //const test = () => props.handleChangeTab;
+    const tabItems = props.navTabs.map((item) => //Not responding well???
+        <Menu.Item id={item.name} as='a' onClick={props.handleChangeTab}> 
             <Icon name={item.icon} />
             {item.name}
-            </Menu.Item>
+        </Menu.Item>
     );
-    return(
+    return (
         <Sidebar
             as={Menu}
             direction='left'
@@ -26,7 +28,7 @@ function NavSidebar(props) {
             visible
             width='thin'
         >
-        {tabItems}
+            {tabItems}
         </Sidebar>
     );
 }
