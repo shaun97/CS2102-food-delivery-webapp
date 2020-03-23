@@ -6,6 +6,8 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
+
 import { LoginContext } from '../../LoginContext';
 
 
