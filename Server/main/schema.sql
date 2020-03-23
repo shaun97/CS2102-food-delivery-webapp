@@ -67,6 +67,7 @@ CREATE TYPE o_status AS ENUM (
 CREATE TABLE Restaurants (
 	minOrder integer, -- use trigger to check in order??
 	rname varchar(255) unique not null,
+	descript varchar(255),
     primary key (rname)
 );
 
@@ -252,3 +253,10 @@ VALUES (1,'test','test@gmail.com',1);
 
 INSERT INTO Users 
 VALUES (2,'Rob','sost@gmail.com',2);
+
+INSERT INTO Restaurants
+VALUES(3, 'MacDonalds', 'Im Loving It');
+
+
+INSERT INTO Restaurants
+VALUES(4, 'KFC', 'Finer Lickin Good');

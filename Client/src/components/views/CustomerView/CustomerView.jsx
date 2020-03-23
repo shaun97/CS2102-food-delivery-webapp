@@ -49,7 +49,7 @@ class CustomerView extends Component {
         break;
     }
     return (
-      <div className="riderDetails">
+      <div>
         <TopHeader user="Customer" />
         <NavSideBar handleChangeTab={this.changeActiveTab} navTabs={this.state.menu} />
         <div style={{ marginLeft: '160px' }}>

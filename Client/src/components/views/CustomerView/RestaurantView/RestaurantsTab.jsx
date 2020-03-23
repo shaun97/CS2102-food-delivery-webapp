@@ -8,35 +8,24 @@ import SearchBar from './SearchBar'
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantCardsGrid from './RestaurantCardsGrid';
 
+import axios from 'axios';
+
 class RestaurantsTab extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             activeRestaurant: '',
-            restaurants: [
-                { restaurantName: 'Macs1', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' },
-                { restaurantName: 'Macs', restaurantPrice: '$$', restaurantDesc: 'im lovin it' }
-            ]
+            restaurants: []
+
         }
         this.handleItemClick = this.handleItemClick.bind(this);
         this.changeActiveRestaurant = this.changeActiveRestaurant.bind(this);
+    }
+
+    componentDidMount() {
+        axios.get('/api/get/restaurantsfromdb').then(res => this.setState({ restaurants: res.data }))
+            .catch(err => console.log(err))
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
