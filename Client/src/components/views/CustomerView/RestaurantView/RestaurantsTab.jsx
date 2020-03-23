@@ -17,7 +17,6 @@ class RestaurantsTab extends Component {
         this.state = {
             activeRestaurant: '',
             restaurants: []
-
         }
         this.handleItemClick = this.handleItemClick.bind(this);
         this.changeActiveRestaurant = this.changeActiveRestaurant.bind(this);
