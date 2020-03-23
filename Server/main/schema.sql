@@ -250,6 +250,5 @@ CREATE TABLE FDPromotions (
 INSERT INTO Users 
 VALUES (1,'Alice','ghost@gmail.com',1);
 
-
 INSERT INTO Users 
 VALUES (2,'Rob','sost@gmail.com',2);
