@@ -67,11 +67,12 @@ CREATE TYPE o_status AS ENUM (
 CREATE TABLE Restaurants (
 	minOrder integer, -- use trigger to check in order??
 	rname varchar(255) unique not null,
+	descript varchar(255),
     primary key (rname)
 );
 
 CREATE TABLE Orders (
-	oid serial unique primary key,
+	orid serial unique primary key,
 	cid integer,
 	rname text,
 	cartCost integer, --generate in query
@@ -89,46 +90,46 @@ CREATE TYPE d_status AS ENUM (
 );
 
 CREATE TABLE Deliver (
-	oid integer unique,
-	rid integer unique,
+	orid integer unique,
+	rid integer,
 	clocation varchar(50),
 	fee integer,
 	rname text,
 	status d_status, --use trigger function to update status based on deliveryTime
-	primary key (oid),
-	foreign key (oid) references Orders(oid) on delete cascade,
+	primary key (orid),
+	foreign key (orid) references Orders(orid) on delete cascade,
     foreign key (rid) references Riders(rid) on delete cascade
 );
 
 CREATE TABLE DeliveryTime (
-	oid integer unique,
+	orid integer unique,
 	departForR timestamp,
 	arriveForR timestamp,
 	departFromR timestamp,
 	deliveredTime timestamp unique,
-    primary key (oid),
-	foreign key (oid) references Orders(oid) 
+    primary key (orid),
+	foreign key (orid) references Orders(orid) 
     on update cascade
 	on delete cascade
 );
 
 CREATE TABLE OrderItems ( -- for restaurant staffs to refer to 
-	oid integer,
+	orid integer,
 	foodItem text,
 	quantity integer,
-	foreign key (oid) references Orders (oid)
+	foreign key (orid) references Orders (orid)
 	on delete cascade
 );
 
-CREATE TABLE OrdersDeliveredBy (
-	oid integer,
-    rid integer,
-    deliveredTime timestamp,
-    primary key (rid),
-    foreign key (oid) references Deliver(oid),
-    foreign key (rid) references Deliver(rid),
-    foreign key (deliveredTime) references DeliveryTime(deliveredTime)
-); --getting updates from deliver and deliverytime
+--CREATE TABLE OrdersDeliveredBy (
+--	orid integer,
+--    rid integer,
+--    deliveredTime timestamp,
+--    primary key (orid),
+--    foreign key (orid) references Deliver(orid),
+--    foreign key (rid) references Deliver(rid),
+--    foreign key (deliveredTime) references DeliveryTime(deliveredTime)
+--); --getting updates from deliver and deliverytime
 
 CREATE TABLE Staffs (
 	rname varchar(255),
@@ -142,11 +143,13 @@ CREATE TYPE e_category AS ENUM (
     'Chinese',
     'Malay',
     'Japanese',
-    'Korean'
+    'Korean',
+	'Indian',
+	'Thai'
 );
 
 CREATE TABLE Sells (
-	rname varchar unique not null,
+	rname varchar not null,
 	fname varchar unique not null,
 	sold integer default 0, --trigger based on time reset daily
 	flimit integer,
@@ -157,11 +160,11 @@ CREATE TABLE Sells (
 );
 
 CREATE TABLE Reviews (
-	oid integer,
+	orid integer,
 	foodReview text,
 	deliveryRating integer,
-	primary key (oid),
-	foreign key (oid) references Orders
+	primary key (orid),
+	foreign key (orid) references Orders
 	on delete cascade
 );
 
