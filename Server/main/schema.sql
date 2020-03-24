@@ -247,3 +247,18 @@ CREATE TABLE FDPromotions (
 	endD DATE
 --	foreign key (pid, startD, endD) references Promotions
 );
+
+-- insert test data into users
+
+INSERT INTO Users 
+VALUES (1,'test','test@gmail.com',1);
+
+INSERT INTO Users 
+VALUES (2,'Rob','sost@gmail.com',2);
+
+INSERT INTO Restaurants
+VALUES(3, 'MacDonalds', 'Im Loving It');
+
+
+INSERT INTO Restaurants
+VALUES(4, 'KFC', 'Finer Lickin Good');

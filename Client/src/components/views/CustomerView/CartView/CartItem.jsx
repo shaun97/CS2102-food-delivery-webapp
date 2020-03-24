@@ -5,7 +5,6 @@ import { Item, Button, Form } from 'semantic-ui-react'
 function CartItem(props) {
     const menuItemsItems = props.menuItems.map((item) =>
         <Item>
-            {/* <Item.Image src='https://react.semantic-ui.com/images/wireframe/image.png' /> */}
             <Item.Content>
                 <Item.Header >{item.name}</Item.Header>
                 <Item.Meta>
@@ -16,9 +15,12 @@ function CartItem(props) {
                     <Form.Group floated='right'>
                         <Form.Button content='-' />
                         <Form.Input width={2}
+                            type='input'
                             name='quantity'
+                            value={item.quantity}
+                            onChange = {props.handleChange}
                         />
-                        <Form.Button content='+' />
+                        <Form.Button onClick={() => props.updateItem(item, 1)} content='+' />
                     </Form.Group>
                 </Item.Description>
             </Item.Content>

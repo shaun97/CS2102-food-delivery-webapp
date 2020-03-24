@@ -5,14 +5,14 @@ import { Card, Grid } from 'semantic-ui-react'
 function RestaurantCardsGrid(props) {
     const restaurantCards = props.restaurants.map((item) =>
         <Grid.Column mobile={8} tablet={4} computer={2} >
-            <Card name={item.restaurantName} onClick={() => props.handleChangeActive(item.restaurantName)}>
+            <Card name={item.rname} onClick={() => props.handleChangeActive(item.rname)}>
                 <Card.Content>
-                    <Card.Header>{item.restaurantName}</Card.Header>
+                    <Card.Header>{item.rname}</Card.Header>
                     <Card.Meta>
-                        <span className='price'>{item.restaurantPrice}</span>
+                        <span className='minorder'>Minimum: ${item.minorder}</span>
                     </Card.Meta>
                     <Card.Description>
-                        {item.restaurantDesc}
+                        {item.descript}
                     </Card.Description>
                 </Card.Content>
             </Card>

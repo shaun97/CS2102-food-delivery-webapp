@@ -21,7 +21,7 @@ class LoginPage extends Component {
     this.changeView = this.changeView.bind(this);
   }
 
-  changeView(loginStageSelect, userTypeSelect, ) {
+  changeView(loginStageSelect, userTypeSelect) {
     this.setState({
       userType: (userTypeSelect != undefined) ? userTypeSelect : this.state.userType,
       loginStage: loginStageSelect

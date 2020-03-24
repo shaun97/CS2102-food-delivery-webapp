@@ -1,8 +1,10 @@
 var express = require('express')
 var router = express.Router()
+var pool = require('./db')
+
 /*specify api path*/
 router.get('/hello', (req, res) => {
-	res.json('hello world')
+  res.json('hello world')
 })
 
 
@@ -11,25 +13,38 @@ router.get('/hello', (req, res) => {
 */
 
 router.post('/api/posts/userprofiletodb', (req, res, next) => {
-    const values = [req.body.profile.cpassword, 
-                    req.body.profile.email, 
-                    req.body.profile.cname]
-    pool.query(`INSERT INTO customers(cpassword, email, cname)
-                VALUES($1, $2, $3, NOW())
+  const values = [req.body.password,
+    req.body.email,
+    req.body.name
+  ]
+  pool.query(`INSERT INTO Users(password, email, name)
+                VALUES($1, $2, $3)
                 ON CONFLICT DO NOTHING`, values,
-                (q_err, q_res) => {
-                  res.json(q_res.rows)
+    (q_err, q_res) => {
+      res.json("200")
     })
-} )
-  
+})
+
+
 router.get('/api/get/userprofilefromdb', (req, res, next) => {
-    const email = req.query.email
-    console.log(email)
-    pool.query(`SELECT * FROM users
-                WHERE email=$1`, [ email ],
-                (q_err, q_res) => {
-                    res.json(q_res.rows)
-        })
-} )
+  const email = req.query.email;
+  const password = req.query.password;
+  pool.query(`SELECT id, name, email FROM users
+                WHERE email=$1 AND password=$2`, [email, password],
+    (q_err, q_res) => {
+      res.json(q_res.rows); //Is there a better way to show if not found? currently if rows empty then means no account
+    })
+})
+
+/*
+  RESTAURANT SECTION
+*/
+
+router.get('/api/get/restaurantsfromdb', (req, res, next) => {
+  pool.query(`SELECT * FROM Restaurants`,
+    (q_err, q_res) => {
+      res.json(q_res.rows); 
+    })
+})
 
 module.exports = router
