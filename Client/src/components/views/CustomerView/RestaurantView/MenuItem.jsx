@@ -8,9 +8,9 @@ function MenuItem(props) {
     const menuItemsItems = props.menuItems.map((item) =>
         <Item>
             <Item.Content >
-                <Item.Header fluid>{item.name}</Item.Header>
+                <Item.Header fluid>{item.fname}</Item.Header>
                 <Item.Meta>
-                    <span className='cinema'>{item.desc}</span>
+                    <span className='cinema'>descript?</span>
                 </Item.Meta>
                 <Item.Description >
                     <Button primary floated='right'>+</Button>

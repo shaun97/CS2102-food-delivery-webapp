@@ -47,4 +47,16 @@ router.get('/api/get/restaurantsfromdb', (req, res, next) => {
     })
 })
 
+router.get('/api/get/restaurantmenu', (req, res, next) => {
+  const rname = req.query.rname;
+  console.log(req.rname);
+  pool.query(`SELECT fname, price, category 
+              FROM Restaurants join Sells using (rname)
+              WHERE rname=$1`, [rname],
+    (q_err, q_res) => {
+      console.log(q_res.rows);
+      res.json(q_res.rows); 
+    })
+})
+
 module.exports = router

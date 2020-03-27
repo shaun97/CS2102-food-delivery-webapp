@@ -29,16 +29,16 @@ class RestaurantsTab extends Component {
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
-    changeActiveRestaurant(name) {
+    changeActiveRestaurant(restaurant) {
         this.setState({
-            activeRestaurant: name,
+            activeRestaurant: restaurant,
         });
     }
 
     render() {
         let view = (this.state.activeRestaurant == '') ?
             <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>
-            : <RestaurantMenu restaurantName={this.state.activeRestaurant}></RestaurantMenu>
+            : <RestaurantMenu restaurant={this.state.activeRestaurant}></RestaurantMenu>
 
         return (
             <>

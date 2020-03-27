@@ -8,39 +8,44 @@ class FoodCategoryBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem: 'chinese',
+            activeItem: 'Chinese',
         }
         this.handleItemClick = this.handleItemClick.bind(this);
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, { name }) => {
+        this.setState({
+            activeItem: name
+        });
+        this.props.handleChangeActiveCategory(name);
+    }
 
     render() {
         return (
             <Menu tabular>
                 <Menu.Item
-                    name='chinese'
-                    active={this.state.activeItem === 'chinese'}
+                    name='Chinese'
+                    active={this.state.activeItem === 'Chinese'}
                     onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                    name='malay'
-                    active={this.state.activeItem === 'malay'}
+                    name='Malay'
+                    active={this.state.activeItem === 'Malay'}
                     onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                    name='western'
-                    active={this.state.activeItem === 'western'}
+                    name='Western'
+                    active={this.state.activeItem === 'Western'}
                     onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                    name='indian'
-                    active={this.state.activeItem === 'indian'}
+                    name='Indian'
+                    active={this.state.activeItem === 'Indian'}
                     onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                    name='japanese'
-                    active={this.state.activeItem === 'japanese'}
+                    name='Japanese'
+                    active={this.state.activeItem === 'Japanese'}
                     onClick={this.handleItemClick}
                 />
             </Menu>
