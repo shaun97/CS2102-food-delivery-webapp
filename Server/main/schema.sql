@@ -1,38 +1,3 @@
---need to copy paste to database or \i schema.sql
-
---resetting the tables
-drop table if exists Users cascade;
-drop table if exists Customers cascade;
-drop table if exists Orders cascade;
-
-drop table if exists Deliver cascade;
-drop table if exists DeliveryTime cascade;
-
-drop table if exists OrderItems cascade;
-drop table if exists OrdersDeliveredBy cascade;
-
-drop table if exists Riders cascade;
-drop table if exists FTRiders cascade;
-drop table if exists PTRiders cascade;
-drop table if exists WWS cascade;
-drop table if exists MWS cascade;
-drop table if exists templateShift cascade;
-drop table if exists Salary cascade;
-
-drop table if exists Restaurants cascade;
-drop table if exists Sells cascade;
-drop table if exists Staffs cascade;
-drop table if exists Reviews cascade;
-
-drop table if exists allPromotions cascade;
-drop table if exists RPromotions cascade;
-drop table if exists FDPromotions cascade;
-
---reset the types
-drop type o_status;
-drop type d_status;
-drop type e_category;
-
 CREATE TABLE Users (
     id SERIAL UNIQUE PRIMARY KEY,
     name varchar(255) not null,
@@ -60,10 +25,7 @@ CREATE TABLE Riders (
 );
 /*rider availability => create view when needed*/
 
-CREATE TYPE o_status AS ENUM (
-    'Ongoing', 
-    'Completed'
-);
+
 
 CREATE TABLE Restaurants (
 	minOrder integer, -- use trigger to check in order??
@@ -83,12 +45,6 @@ CREATE TABLE Orders (
 	on delete cascade
 ); --check min order from restaurants
 
-CREATE TYPE d_status AS ENUM (
-    'Rider is departing for restaurant.',
-    'Rider has arrived at restaurant.',
-    'Rider is departing from restaurant.',
-    'Rider has delivered your order.'
-);
 
 CREATE TABLE Deliver (
 	orid integer unique,
@@ -110,16 +66,6 @@ CREATE TABLE DeliveryTime (
 	foreign key (orid) references Orders(orid) 
     on update cascade
 	on delete cascade
-);
-
-CREATE TYPE e_category AS ENUM (
-    'Western', 
-    'Chinese',
-    'Malay',
-    'Japanese',
-    'Korean',
-	'Indian',
-	'Thai'
 );
 
 CREATE TABLE Sells (
