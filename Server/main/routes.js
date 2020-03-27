@@ -27,14 +27,23 @@ router.post('/api/posts/userprofiletodb', (req, res, next) => {
 
 
 router.get('/api/get/userprofilefromdb', (req, res, next) => {
-  console.log(req.query);
   const email = req.query.email;
   const password = req.query.password;
   pool.query(`SELECT id, name, email FROM users
                 WHERE email=$1 AND password=$2`, [email, password],
     (q_err, q_res) => {
-      res.json(q_res.rows);
+      res.json(q_res.rows); //Is there a better way to show if not found? currently if rows empty then means no account
+    })
+})
 
+/*
+  RESTAURANT SECTION
+*/
+
+router.get('/api/get/restaurantsfromdb', (req, res, next) => {
+  pool.query(`SELECT * FROM Restaurants`,
+    (q_err, q_res) => {
+      res.json(q_res.rows); 
     })
 })
 

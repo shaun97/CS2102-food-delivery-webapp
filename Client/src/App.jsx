@@ -16,16 +16,20 @@ class App extends Component {
 
     this.signIn = (user) => {
       console.log(user);
-      this.setState((state) => ({
-        isLoggedIn: true,
-        user: user
-      }));  
+      if (user != null) {
+        this.setState((state) => ({
+          isLoggedIn: true,
+          user: user
+        }));
+      } else {
+        alert("Password or username is wrong!");
+      }
     };
 
     this.state = {
-        isLoggedIn: false,
-        user: {},
-        signIn: this.signIn,
+      isLoggedIn: false,
+      user: {},
+      signIn: this.signIn,
     };
   }
 
