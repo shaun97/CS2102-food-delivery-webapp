@@ -24,6 +24,7 @@ drop table if exists Sells cascade;
 drop table if exists Staffs cascade;
 drop table if exists Reviews cascade;
 
+drop table if exists allPromotions cascade;
 drop table if exists RPromotions cascade;
 drop table if exists FDPromotions cascade;
 
@@ -111,6 +112,27 @@ CREATE TABLE DeliveryTime (
 	on delete cascade
 );
 
+CREATE TYPE e_category AS ENUM (
+    'Western', 
+    'Chinese',
+    'Malay',
+    'Japanese',
+    'Korean',
+	'Indian',
+	'Thai'
+);
+
+CREATE TABLE Sells (
+	rname varchar not null,
+	fname varchar unique not null,
+	sold integer default 0, --trigger based on time reset daily
+	flimit integer,
+	avail bool, --use trigger here based on limit-sold
+	category e_category,  
+	price integer,
+    primary key (rname, fname)
+);
+
 CREATE TABLE OrderItems ( -- for restaurant staffs to refer to 
 	orid integer,
 	fname varchar,
@@ -134,29 +156,8 @@ CREATE TABLE OrderItems ( -- for restaurant staffs to refer to
 CREATE TABLE Staffs (
 	rname varchar(255),
 	stid integer,
-	foreign key (sid) references Users(id) on delete cascade,
+	foreign key (stid) references Users(id) on delete cascade,
 	foreign key (rname) references Restaurants(rname) on delete cascade
-);
-
-CREATE TYPE e_category AS ENUM (
-    'Western', 
-    'Chinese',
-    'Malay',
-    'Japanese',
-    'Korean',
-	'Indian',
-	'Thai'
-);
-
-CREATE TABLE Sells (
-	rname varchar not null,
-	fname varchar unique not null,
-	sold integer default 0, --trigger based on time reset daily
-	flimit integer,
-	avail bool, --use trigger here based on limit-sold
-	category e_category,  
-	price integer,
-    primary key (rname, fname)
 );
 
 CREATE TABLE Reviews (
@@ -220,13 +221,6 @@ CREATE TABLE Salary (
 	foreign key (rid) references Riders on delete cascade
 ); 
 
-
---CREATE TABLE Promotions (
---	pid integer primary key,
---	promoName varchar(30),
---	start DATE,
---	end DATE
---);
 CREATE TABLE allPromotions (
 	pid SERIAL UNIQUE primary key,
 	startD DATE,
@@ -240,19 +234,17 @@ CREATE TABLE RPromotions ( --restaurants may offer promotional prices for menu i
 	fname varchar(30),
 	startD DATE,
 	endD DATE,
-	foreign key (pid, startD, endD) references allPromotions,
-	foreign key (rname) references Restaurants
-	on delete cascade,
-	foreign key (fname) references Sells(fname)
-	on delete cascade
+	foreign key (pid) references allPromotions on delete cascade,
+	foreign key (rname) references Restaurants on delete cascade,
+	foreign key (fname) references Sells (fname) on delete cascade
 );
 
 CREATE TABLE FDPromotions (
 	pid integer primary key,
 	discount integer,
 	startD DATE,
-	endD DATE
-	foreign key (pid, startD, endD) references Promotions
+	endD DATE,
+	foreign key (pid) references allPromotions on delete cascade
 );
 
 -- insert test data into users
