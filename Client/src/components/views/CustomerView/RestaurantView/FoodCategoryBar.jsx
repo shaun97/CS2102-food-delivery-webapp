@@ -48,6 +48,11 @@ class FoodCategoryBar extends Component {
                     active={this.state.activeItem === 'Japanese'}
                     onClick={this.handleItemClick}
                 />
+                  <Menu.Item
+                    name='Thai'
+                    active={this.state.activeItem === 'Thai'}
+                    onClick={this.handleItemClick}
+                />
             </Menu>
         )
     }

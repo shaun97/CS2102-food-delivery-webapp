@@ -29,9 +29,8 @@ class CustomerView extends Component {
   }
 
   changeActiveTab(event) {
-    console.log(event.currentTarget.id)
     this.setState({
-      activeTab: event.currentTarget.id
+      activeTab: event.currentTarget.id,
     })
   }
 
@@ -39,7 +38,7 @@ class CustomerView extends Component {
     let tab;
     switch (this.state.activeTab) {
       case 'Restaurants':
-        tab = <RestaurantsTab></RestaurantsTab>;
+        tab = <RestaurantsTab ></RestaurantsTab>;
         break;
       case 'Cart':
         tab = <CartTab cart={this.state.cart}></CartTab>;
