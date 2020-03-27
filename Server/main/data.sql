@@ -21,9 +21,9 @@ INSERT INTO Customers (cid, points, creditcard) VALUES
 (7, 4, 355605);
 
 -- 2 riders: 2,3
-INSERT INTO Riders (rid, available, totalOrders) VALUES
-(2, true, 2),
-(3, true, 3);
+INSERT INTO Riders (rid, totalOrders) VALUES
+(2, 2),
+(3, 3);
 
 INSERT INTO Restaurants (minOrder, rname, descript) VALUES
 (20, 'Chinese Kitchen', 'Huangyingguangling'),
@@ -38,12 +38,12 @@ INSERT INTO Orders (orid, cid, rname, cartCost, location, status) VALUES
 (4, 4, 'Chinese Kitchen', 24, 'Pasir Panjang', 'Completed'),
 (5, 6, 'Naknoh Thai', 26, 'Kallang', 'Completed');
 
-INSERT INTO Deliver (orid, rid, clocation, fee, rname, status) VALUES
-(1, 2, 'Bukit Panjang', 5, 'Chinese Kitchen', 'Rider has delivered your order.'),
-(2, 3, 'Clementi', 5, 'Song Feng Chicken', 'Rider has delivered your order.'),
-(3, 2, 'Chua Chu Kang', 5, 'Nippi Place', 'Rider has delivered your order.'),
-(4, 3, 'Pasir Panjang', 5, 'Chinese Kitchen', 'Rider has delivered your order.'),
-(5, 3, 'Kallang', 5, 'Naknoh Thai', 'Rider has delivered your order.');
+INSERT INTO Deliver (orid, rid, fee, dstatus) VALUES
+(1, 2, 5, 'Rider has delivered your order.'),
+(2, 3, 5, 'Rider has delivered your order.'),
+(3, 2, 5, 'Rider has delivered your order.'),
+(4, 3, 5, 'Rider has delivered your order.'),
+(5, 3, 5, 'Rider has delivered your order.');
 
 INSERT INTO DeliveryTime (orid, departForR, arriveForR, departFromR, deliveredTime) VALUES
 (1, '2020-03-20 10:23:54', '2020-03-20 10:30:03', '2020-03-20 10:32:50', '2020-03-20 10:40:24'),
@@ -52,7 +52,7 @@ INSERT INTO DeliveryTime (orid, departForR, arriveForR, departFromR, deliveredTi
 (4, '2020-03-21 12:24:54', '2020-03-21 12:32:03', '2020-03-21 12:34:50', '2020-03-21 12:43:24'),
 (5, '2020-03-21 19:25:54', '2020-03-21 19:31:03', '2020-03-21 19:36:50', '2020-03-21 19:46:24');
 
-INSERT INTO OrderItems (orid, foodItem, quantity) VALUES
+INSERT INTO OrderItems (orid, fname, quantity) VALUES
 (1, 'Beef Horfun', 1),
 (1, 'Tomato Noodle Soup', 2),
 (1, 'Fried Rice', 1),
@@ -73,7 +73,7 @@ INSERT INTO OrderItems (orid, foodItem, quantity) VALUES
 --(5, 3, '2020-03-21 19:46:24');
 
 -- 5 Staffs: 5,8,9,10,11
-INSERT INTO Staffs (rname, sid) VALUES
+INSERT INTO Staffs (rname, stid) VALUES
 ('Chinese Kitchen', 5),
 ('Song Feng Chicken', 8),
 ('Nippi Place', 9),
@@ -97,7 +97,7 @@ INSERT INTO Reviews (orid, foodReview, deliveryRating) VALUES
 (1, 'Nice food!', 4),
 (2, 'Not bad', 5),
 (3, 'Horrible, I found a strand of hair', 4),
-(4, 'Food taste like my mom', 5),
+(4, 'Food reminds me of home', 5),
 (5, 'Food was too bland', 3);
 
 INSERT INTO FTRiders (rid) VALUES
@@ -106,9 +106,9 @@ INSERT INTO FTRiders (rid) VALUES
 INSERT INTO PTRiders (rid) VALUES
 (2);
 
-INSERT INTO WWS (rid, day, Week, startT, endT) VALUES 
-(2, 'Fri', '1', '10:00:00', '13:00:00'),
-(2, 'Fri', '1', '16:00:00', '19:00:00');
+INSERT INTO WWS (rid, wDay, whichMonth, Week, startT, endT) VALUES 
+(2, 'Fri', 3, 3, '10:00:00', '13:00:00'),
+(2, 'Fri', 3, 3, '16:00:00', '19:00:00');
 
 INSERT INTO templateShift (Shift, Start1, End1, Start2, End2) VALUES
 (1, 10, 2, 3, 7),
@@ -117,11 +117,15 @@ INSERT INTO templateShift (Shift, Start1, End1, Start2, End2) VALUES
 (4, 1, 5, 6, 10);
 
 INSERT INTO MWS (rid, whichMonth, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift) VALUES
-(3, 'March', 'Thursday', 1, 1, 2, 3 , 1);
+(3, 3, 'Thursday', 1, 1, 2, 3 , 1);
 
-INSERT INTO Salary (Rid, deliveryFees, basePay) VALUES
+INSERT INTO Salary (rid, deliveryFees, basePay) VALUES
 (2, 6, 60),
 (3, 9, 300);
+
+INSERT INTO allPromotions (startD, endD) VALUES
+('2020-03-23', '2020-03-26'),
+('2020-03-23', '2020-03-24');
 
 INSERT INTO RPromotions (pid, discount, rname, fname, startD, endD) VALUES
 (1, 10, 'Chinese Kitchen', 'Beef Horfun', '2020-03-23', '2020-03-26');
