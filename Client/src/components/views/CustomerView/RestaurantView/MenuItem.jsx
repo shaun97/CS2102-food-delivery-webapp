@@ -6,7 +6,7 @@ import { Item, Button, Form } from 'semantic-ui-react'
 function MenuItem(props) {
 
     const menuItemsItems = props.menuItems.map((item) =>
-        <Item>
+        <Item key={item.fname}>
             <Item.Content >
                 <Item.Header fluid>{item.fname}</Item.Header>
                 <Item.Meta>

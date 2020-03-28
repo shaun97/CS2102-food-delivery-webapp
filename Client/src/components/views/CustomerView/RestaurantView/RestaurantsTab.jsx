@@ -1,8 +1,6 @@
 //Basic React Imports
 import React, { Component } from 'react';
 
-import { Menu } from 'semantic-ui-react'
-
 //Search 
 import SearchBar from './SearchBar'
 import RestaurantMenu from './RestaurantMenu';
@@ -29,17 +27,19 @@ class RestaurantsTab extends Component {
     changeActiveRestaurant(restaurant) {
         this.setState({
             activeRestaurant: restaurant,
-        }); 
+        });
     }
 
     render() {
         let view = (this.state.activeRestaurant == '') ?
-            <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>
+            <>
+                  <SearchBar handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></SearchBar>
+                <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>
+            </>
             : <RestaurantMenu restaurant={this.state.activeRestaurant}></RestaurantMenu>
 
         return (
             <>
-                <SearchBar></SearchBar>
                 {view}
             </>
         )
