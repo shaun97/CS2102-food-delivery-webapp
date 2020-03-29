@@ -5,7 +5,8 @@ import NavSideBar from '../../utils/SideBar';
 import TopHeader from '../../utils/TopHeader';
 
 import RestaurantsTab from './RestaurantView/RestaurantsTab';
-import CartTab from './CartView/CartTab'
+import CartTab from './CartView/CartTab';
+import HistoryView from './HistoryView/HistoryView'
 
 
 class CustomerView extends Component {
@@ -51,7 +52,7 @@ class CustomerView extends Component {
         tab = <CartTab cartItems={this.state.cartItems}></CartTab>;
         break;
       case 'History':
-        tab = '';
+        tab = <HistoryView></HistoryView>;
         break;
     }
     return (
