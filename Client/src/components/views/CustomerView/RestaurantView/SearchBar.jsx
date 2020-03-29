@@ -5,19 +5,14 @@ import { Search, Grid, Header, Segment, Container } from 'semantic-ui-react'
 
 //Search 
 import _ from 'lodash'
-import faker from 'faker'
 
 
-const source = _.times(5, () => ({
-    title: faker.company.companyName(),
-    description: faker.company.catchPhrase(),
-    image: faker.internet.avatar(),
-    price: faker.finance.amount(0, 100, 2, '$'),
-}))
+var source;
 
 class SearchBar extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
             isLoading: false,
             results: [],
@@ -25,12 +20,27 @@ class SearchBar extends Component {
         }
     }
 
-    handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+    handleResultSelect = (e, { result }) => {
+        let restaurant = {
+            rname: result.title,
+            descript: result.description,
+            minOrder: result.price
+        }
+        this.props.handleChangeActive(restaurant);
+    }
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: true, value })
 
-        let initialState = { isLoadin: false, results: [], value: '' };
+        let initialState = { isLoading: false, results: [], value: '' };
+
+        source = this.props.restaurants.map(item => {
+            return {
+                title: item.rname,
+                description: item.descript,
+                price: item.minOrder
+            }
+        })
 
         setTimeout(() => {
             if (this.state.value.length < 1) return this.setState(initialState)
@@ -42,12 +52,11 @@ class SearchBar extends Component {
                 isLoading: false,
                 results: _.filter(source, isMatch),
             })
-        }, 300)
+        }, 200)
     }
 
     render() {
         return (
-
             <Search
                 fluid
                 input={{ fluid: true }}
@@ -58,7 +67,6 @@ class SearchBar extends Component {
                 })}
                 results={this.state.results}
                 value={this.state.value}
-                {...this.props}
                 style={{ margin: '10px' }}
             />
 

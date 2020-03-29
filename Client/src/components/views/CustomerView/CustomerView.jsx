@@ -12,11 +12,7 @@ class CustomerView extends Component {
   constructor() {
     super();
     this.state = {
-      cart: {
-        restaurantName: 'Macs',
-        cartItems: [//foodname
-        ]
-      },
+      cartItems: [],
       menu: [
         { name: "Restaurants", icon: "food" },
         { name: "Cart", icon: "shopping cart" },
@@ -26,23 +22,33 @@ class CustomerView extends Component {
     };
 
     this.changeActiveTab = this.changeActiveTab.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
 
   changeActiveTab(event) {
-    console.log(event.currentTarget.id)
     this.setState({
-      activeTab: event.currentTarget.id
+      activeTab: event.currentTarget.id,
     })
+  }
+
+  handleAddToCart(food) {
+    if (this.state.cartItems.some(obj => obj.rname != food.rname)) {
+      alert("Please order only from one restaurant!");
+    }
+    if (this.state.cartItems.includes(food)) return;
+    this.setState(prevState => ({
+      cartItems: [...prevState.cartItems, food]
+    }))
   }
 
   render() {
     let tab;
     switch (this.state.activeTab) {
       case 'Restaurants':
-        tab = <RestaurantsTab></RestaurantsTab>;
+        tab = <RestaurantsTab handleAddToCart={this.handleAddToCart}></RestaurantsTab>;
         break;
       case 'Cart':
-        tab = <CartTab cart={this.state.cart}></CartTab>;
+        tab = <CartTab cartItems={this.state.cartItems}></CartTab>;
         break;
       case 'History':
         tab = '';
