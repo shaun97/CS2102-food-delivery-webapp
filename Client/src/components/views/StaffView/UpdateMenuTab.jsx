@@ -1,7 +1,15 @@
 //Basic React Imports
 import React, { Component } from "react";
 
-import { Button, Divider, Segment, Input } from "semantic-ui-react";
+import {
+  Button,
+  Divider,
+  Segment,
+  Grid,
+  Header,
+  Icon,
+  Search
+} from "semantic-ui-react";
 
 class UpdateMenuTab extends Component {
   constructor(props) {
@@ -13,22 +21,29 @@ class UpdateMenuTab extends Component {
 
   render() {
     return (
-      <Segment basic textAlign="center">
-        <Input
-          action={{ color: "blue", content: "Search" }}
-          icon="search"
-          iconPosition="left"
-          placeholder="Food Name"
-        />
+      <Segment placeholder>
+        <Grid columns={2} stackable textAlign="center">
+          <Divider vertical>Or</Divider>
 
-        <Divider horizontal>Or</Divider>
+          <Grid.Row verticalAlign="middle">
+            <Grid.Column>
+              <Header icon>
+                <Icon name="search" />
+                Search food to edit
+              </Header>
 
-        <Button
-          color="teal"
-          content="Create New Food"
-          icon="add"
-          labelPosition="left"
-        />
+              <Search placeholder="Search foods..." />
+            </Grid.Column>
+
+            <Grid.Column>
+              <Header icon>
+                <Icon name="food" />
+                Add New Food
+              </Header>
+              <Button primary>Add</Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Segment>
     );
   }
