@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar'
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantCardsGrid from './RestaurantCardsGrid';
+import { Loader } from 'semantic-ui-react';
 
 import axios from 'axios';
 
@@ -15,13 +16,18 @@ class RestaurantsTab extends Component {
         this.state = {
             activeRestaurant: '',
             restaurants: [],
+            isLoading: true,
         }
         this.changeActiveRestaurant = this.changeActiveRestaurant.bind(this);
     }
 
     componentDidMount() {
-        axios.get('/api/get/restaurantsfromdb').then(res => this.setState({ restaurants: res.data }))
-            .catch(err => console.log(err))
+        axios.get('/api/get/restaurantsfromdb').then(res => {
+            this.setState({ restaurants: res.data })
+            this.setState({
+                isLoading: false,
+            })
+        }).catch(err => console.log(err))
     }
 
     changeActiveRestaurant(restaurant) {
@@ -33,14 +39,17 @@ class RestaurantsTab extends Component {
     render() {
         let view = (this.state.activeRestaurant == '') ?
             <>
-                  <SearchBar handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></SearchBar>
+                <SearchBar handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></SearchBar>
                 <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>
             </>
-            : <RestaurantMenu restaurant={this.state.activeRestaurant}></RestaurantMenu>
+            : <RestaurantMenu handleAddToCart={this.props.handleAddToCart} restaurant={this.state.activeRestaurant}></RestaurantMenu>
 
+        let loadScreen = (this.state.isLoading) ? <Loader active inline='centered' />
+            : ''
         return (
             <>
                 {view}
+                {loadScreen}
             </>
         )
     }

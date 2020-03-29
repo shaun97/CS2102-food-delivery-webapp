@@ -32,7 +32,6 @@ class RestaurantMenu extends Component {
     }
 
     render() {
-        console.log(this.state.menu);
         const menuItemsToShow = this.state.menu.filter(function (restaurant) {
             return restaurant.category === this.state.activeCategory;
         }, this);
@@ -57,7 +56,7 @@ class RestaurantMenu extends Component {
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column textAlign={'left'}>
-                        <MenuItem isCart={false} menuItems={menuItemsToShow}></MenuItem>
+                        <MenuItem handleAddToCart={this.props.handleAddToCart} isCart={false} menuItems={menuItemsToShow}></MenuItem>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
