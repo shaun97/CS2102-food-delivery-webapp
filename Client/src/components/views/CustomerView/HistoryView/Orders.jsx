@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 
-import { Header, Item, Divider, Segment, Modal, Button } from 'semantic-ui-react'
+import { Header, Item, Divider, Segment, Modal, Button, Rating, Form } from 'semantic-ui-react'
 
 class Orders extends Component {
     constructor(props) {
         super(props);
+        this.state = ({
+            rating: 0,
+        })
+    }
+
+    handleRate = (e, { rating }) => {
+        this.setState({ rating })
+        console.log(rating);
     }
 
     render() {
@@ -37,14 +45,13 @@ class Orders extends Component {
                             <Modal.Content>
                                 <Modal.Description>
                                     <Header>Delivery Rating</Header>
-                                    <p>
-                                        ****
-                                    </p>
+                                    <Rating size='large' icon='star' defaultRating={4} maxRating={5} onRate={this.handleRate} />
                                     <Divider />
                                     <Header>Food Review</Header>
-                                    <p>
-                                        ****
-                                    </p>
+                                    <Form>
+                                        <Form.TextArea placeholder='Tell us what you think!' />
+                                        <Form.Button>Submit</Form.Button>
+                                    </Form>
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>
