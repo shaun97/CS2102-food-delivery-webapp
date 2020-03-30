@@ -8,7 +8,6 @@ class HistoryView extends Component {
     }
 
     render() {
-
         return (
             <>
                 <Header as='h1'>History</Header>

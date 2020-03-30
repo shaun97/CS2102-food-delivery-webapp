@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
-import { Item, Header, Form } from 'semantic-ui-react'
+import { Item, Header, Icon, Form } from 'semantic-ui-react'
 
+//move button???
 
 function CartItem(props) {
-    const menuItemsItems = (props.menuItems.length == 0) ? <Header>There is nothing in your cart!</Header> :
+    const menuItemsItems = (props.menuItems.length == 0) ? '' :
         props.menuItems.map((item) =>
             <Item key={item.fname}>
                 <Item.Content>
-                    <Item.Header >{item.fname}</Item.Header>
+                    <Item.Header>
+                        <Icon style={{
+                            positon: 'relative',
+                            left: -130,
+                            top: -8,
+                        }} name='x' circular inverted fitted corner='top left' size='mini' color='red' link onClick={() => props.handleDeleteItem(item)}></Icon>
+                        {item.fname}
+                    </Item.Header>
                     <Item.Meta>
                         <span className='cinema'>{item.category}</span>
                     </Item.Meta>
                     <Item.Description >
-                        <span style={{ fontSize: '150%', float: 'right' }}>${item.price}</span>
+                        <span style={{ fontSize: '150%', float: 'right' }}>${(item.qty === 0) ? item.price : item.price * item.qty}</span>
                         <Form.Group floated='right'>
-                            <Form.Button onClick={() => props.updateItem(item, -1)}  content='-' />
-                            <Form.Input width={2}
+                            <Form.Button onClick={() => props.updateItem(item, -1)} content='-' />
+                            <Form.Input style={{ width: "100%" }}
                                 type='input'
                                 name='quantity'
                                 value={item.qty}

@@ -24,6 +24,18 @@ class CustomerView extends Component {
 
     this.changeActiveTab = this.changeActiveTab.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
+    this.handleDeleteItem = this.handleDeleteItem.bind(this);
+  }
+
+  handleDeleteItem(item) {
+    const fname = item.fname;
+    this.setState(prevState => {
+      return {
+        cartItems: prevState.cartItems.filter(function (obj) {
+          return obj.fname !== fname;
+        })
+      }
+    })
   }
 
   changeActiveTab(event) {
@@ -36,6 +48,7 @@ class CustomerView extends Component {
     if (this.state.cartItems.some(obj => obj.rname != food.rname)) {
       alert("Please order only from one restaurant!");
     }
+
     if (this.state.cartItems.includes(food)) return;
     this.setState(prevState => ({
       cartItems: [...prevState.cartItems, food]
@@ -49,7 +62,7 @@ class CustomerView extends Component {
         tab = <RestaurantsTab handleAddToCart={this.handleAddToCart}></RestaurantsTab>;
         break;
       case 'Cart':
-        tab = <CartTab cartItems={this.state.cartItems}></CartTab>;
+        tab = <CartTab handleDeleteItem={this.handleDeleteItem} cartItems={this.state.cartItems}></CartTab>;
         break;
       case 'History':
         tab = <HistoryView></HistoryView>;

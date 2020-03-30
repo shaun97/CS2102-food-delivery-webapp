@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
-import { Header, Form, Grid, Button, Segment } from 'semantic-ui-react'
+import { Header, Item, Divider, Form, Grid, Button, Segment } from 'semantic-ui-react'
 import CartItem from './CartItem';
+
+import axios from 'axios';
 
 class CartTab extends Component {
     constructor(props) {
@@ -9,6 +11,9 @@ class CartTab extends Component {
         this.state = {
             subtotal: 0,
             deliveryFee: 0,
+            rname: (this.props.cartItems.length == 0) ? '' : this.props.cartItems[0].rname,
+            descript: '',
+            minOrder: 0,
             cartItems: this.props.cartItems.map(item => {
                 return {
                     fname: item.fname,
@@ -19,18 +24,34 @@ class CartTab extends Component {
                 }
             })
         }
-        this.updateItemQAndP = this.updateItemQAndP.bind(this);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
         this.incOrDecItem = this.incOrDecItem.bind(this);
     }
 
-    updateItemQAndP(value, e) {
-        // const name = e.target.name;
-        // const value = e.target.value;
+    componentDidMount() {
+        if (this.state.cartItems.length == 0) return;
+        axios.get('/api/get/gettherestaurantfromdb', { params: { rname: this.state.rname } }).then(res => {
+            this.setState({
+                minOrder: res.data[0].minorder,
+                descript: res.data[0].descript
+            });
+            console.log(res.data);
+        })
+            .catch(err => console.log(err))
+    }
 
-        // this.setState({
-        //     [name]: value,
-        // }, () => console.log(this.state.test))
-        //callback function called by cartitem to update state of carttab items
+
+    handleDeleteItem(item) {
+        const fname = item.fname;
+        this.setState(prevState => {
+            return {
+                cartItems: prevState.cartItems.filter(function (obj) {
+                    return obj.fname !== fname;
+                })
+            }
+        })
+
+        this.props.handleDeleteItem(item);
     }
 
     incOrDecItem(item, op) {
@@ -50,15 +71,25 @@ class CartTab extends Component {
     }
 
     render() {
-        let rname = (this.props.cartItems.length == 0) ? '' : this.props.cartItems[0].rname;
+        let header = (this.state.cartItems.length == 0) ? <Header>There is nothing in your cart!</Header> :
+            <Item.Group>
+                <Item >
+                    <Item.Content verticalAlign='middle'>
+                        <Item.Header style={{ fontSize: '50px' }} as='h1'>{this.state.rname}</Item.Header>
+                        <Item.Meta>{this.state.descript}</Item.Meta>
+                        <Item.Description>Min Order: ${this.state.minOrder}</Item.Description>
+                    </Item.Content>
+                </Item>
+            </Item.Group>
         return (
             <>
-                <Header as='h1'>{rname}</Header>
                 <Grid padded>
                     <Grid.Row>
-                        <Grid.Column width={16}>
+                        <Grid.Column textAlign='left' width={16}>
+                            {header}
+                            <Divider />
                             <Form>
-                                <CartItem updateItem={this.incOrDecItem} handleChange={this.updateItemQAndP} menuItems={this.state.cartItems}></CartItem>
+                                <CartItem updateItem={this.incOrDecItem} handleDeleteItem={this.handleDeleteItem} menuItems={this.state.cartItems}></CartItem>
                                 <Segment>
                                     <Form.Field>
                                         <label>Please key in your address</label>
