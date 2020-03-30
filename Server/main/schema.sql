@@ -1,37 +1,3 @@
---need to copy paste to database or \i schema.sql
-
---resetting the tables
-drop table if exists Users cascade;
-drop table if exists Customers cascade;
-drop table if exists Orders cascade;
-
-drop table if exists Deliver cascade;
-drop table if exists DeliveryTime cascade;
-
-drop table if exists OrderItems cascade;
-drop table if exists OrdersDeliveredBy cascade;
-
-drop table if exists Riders cascade;
-drop table if exists FTRiders cascade;
-drop table if exists PTRiders cascade;
-drop table if exists WWS cascade;
-drop table if exists MWS cascade;
-drop table if exists templateShift cascade;
-drop table if exists Salary cascade;
-
-drop table if exists Restaurants cascade;
-drop table if exists Sells cascade;
-drop table if exists Staffs cascade;
-drop table if exists Reviews cascade;
-
-drop table if exists RPromotions cascade;
-drop table if exists FDPromotions cascade;
-
---reset the types
-drop type o_status;
-drop type d_status;
-drop type e_category;
-
 CREATE TABLE Users (
     id SERIAL UNIQUE PRIMARY KEY,
     name varchar(255) not null,
@@ -59,10 +25,7 @@ CREATE TABLE Riders (
 );
 /*rider availability => create view when needed*/
 
-CREATE TYPE o_status AS ENUM (
-    'Ongoing', 
-    'Completed'
-);
+
 
 CREATE TABLE Restaurants (
 	minOrder integer, -- use trigger to check in order??
@@ -82,12 +45,6 @@ CREATE TABLE Orders (
 	on delete cascade
 ); --check min order from restaurants
 
-CREATE TYPE d_status AS ENUM (
-    'Rider is departing for restaurant.',
-    'Rider has arrived at restaurant.',
-    'Rider is departing from restaurant.',
-    'Rider has delivered your order.'
-);
 
 CREATE TABLE Deliver (
 	orid integer unique,
@@ -109,6 +66,17 @@ CREATE TABLE DeliveryTime (
 	foreign key (orid) references Orders(orid) 
     on update cascade
 	on delete cascade
+);
+
+CREATE TABLE Sells (
+	rname varchar not null,
+	fname varchar unique not null,
+	sold integer default 0, --trigger based on time reset daily
+	flimit integer,
+	avail bool, --use trigger here based on limit-sold
+	category e_category,  
+	price integer,
+    primary key (rname, fname)
 );
 
 CREATE TABLE OrderItems ( -- for restaurant staffs to refer to 
@@ -134,29 +102,8 @@ CREATE TABLE OrderItems ( -- for restaurant staffs to refer to
 CREATE TABLE Staffs (
 	rname varchar(255),
 	stid integer,
-	foreign key (sid) references Users(id) on delete cascade,
+	foreign key (stid) references Users(id) on delete cascade,
 	foreign key (rname) references Restaurants(rname) on delete cascade
-);
-
-CREATE TYPE e_category AS ENUM (
-    'Western', 
-    'Chinese',
-    'Malay',
-    'Japanese',
-    'Korean',
-	'Indian',
-	'Thai'
-);
-
-CREATE TABLE Sells (
-	rname varchar not null,
-	fname varchar unique not null,
-	sold integer default 0, --trigger based on time reset daily
-	flimit integer,
-	avail bool, --use trigger here based on limit-sold
-	category e_category,  
-	price integer,
-    primary key (rname, fname)
 );
 
 CREATE TABLE Reviews (
@@ -220,13 +167,6 @@ CREATE TABLE Salary (
 	foreign key (rid) references Riders on delete cascade
 ); 
 
-
---CREATE TABLE Promotions (
---	pid integer primary key,
---	promoName varchar(30),
---	start DATE,
---	end DATE
---);
 CREATE TABLE allPromotions (
 	pid SERIAL UNIQUE primary key,
 	startD DATE,
@@ -240,31 +180,17 @@ CREATE TABLE RPromotions ( --restaurants may offer promotional prices for menu i
 	fname varchar(30),
 	startD DATE,
 	endD DATE,
-	foreign key (pid, startD, endD) references allPromotions,
-	foreign key (rname) references Restaurants
-	on delete cascade,
-	foreign key (fname) references Sells(fname)
-	on delete cascade
+	foreign key (pid) references allPromotions on delete cascade,
+	foreign key (rname) references Restaurants on delete cascade,
+	foreign key (fname) references Sells (fname) on delete cascade
 );
 
 CREATE TABLE FDPromotions (
 	pid integer primary key,
 	discount integer,
 	startD DATE,
-	endD DATE
-	foreign key (pid, startD, endD) references Promotions
+	endD DATE,
+	foreign key (pid) references allPromotions on delete cascade
 );
 
 -- insert test data into users
-
-INSERT INTO Users 
-VALUES (1,'test','test@gmail.com',1);
-
-INSERT INTO Users 
-VALUES (2,'Rob','sost@gmail.com',2);
-
-INSERT INTO Restaurants
-VALUES(3, 'MacDonalds', 'Im Loving It');
-
-INSERT INTO Restaurants
-VALUES(4, 'KFC', 'Finer Lickin Good');

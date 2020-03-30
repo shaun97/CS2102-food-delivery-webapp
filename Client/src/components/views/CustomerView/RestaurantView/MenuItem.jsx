@@ -6,14 +6,14 @@ import { Item, Button, Form } from 'semantic-ui-react'
 function MenuItem(props) {
 
     const menuItemsItems = props.menuItems.map((item) =>
-        <Item>
-            <Item.Content >
-                <Item.Header fluid>{item.name}</Item.Header>
+        <Item key={item.fname}>
+            <Item.Content>
+                <Item.Header>{item.fname}</Item.Header>
                 <Item.Meta>
-                    <span className='cinema'>{item.desc}</span>
+                    <span className='cinema'>descript?</span>
                 </Item.Meta>
                 <Item.Description >
-                    <Button primary floated='right'>+</Button>
+                    <Button onClick={() => props.handleAddToCart(item)} primary floated='right'>+</Button>
                     <span style={{ fontSize: '150%' }}>${item.price}</span>
                 </Item.Description>
             </Item.Content>

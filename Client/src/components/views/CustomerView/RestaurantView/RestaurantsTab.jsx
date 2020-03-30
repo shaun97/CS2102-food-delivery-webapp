@@ -1,12 +1,11 @@
 //Basic React Imports
 import React, { Component } from 'react';
 
-import { Menu } from 'semantic-ui-react'
-
 //Search 
 import SearchBar from './SearchBar'
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantCardsGrid from './RestaurantCardsGrid';
+import { Loader } from 'semantic-ui-react';
 
 import axios from 'axios';
 
@@ -16,34 +15,41 @@ class RestaurantsTab extends Component {
 
         this.state = {
             activeRestaurant: '',
-            restaurants: []
+            restaurants: [],
+            isLoading: true,
         }
-        this.handleItemClick = this.handleItemClick.bind(this);
         this.changeActiveRestaurant = this.changeActiveRestaurant.bind(this);
     }
 
     componentDidMount() {
-        axios.get('/api/get/restaurantsfromdb').then(res => this.setState({ restaurants: res.data }))
-            .catch(err => console.log(err))
+        axios.get('/api/get/restaurantsfromdb').then(res => {
+            this.setState({ restaurants: res.data })
+            this.setState({
+                isLoading: false,
+            })
+        }).catch(err => console.log(err))
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-    changeActiveRestaurant(name) {
+    changeActiveRestaurant(restaurant) {
         this.setState({
-            activeRestaurant: name,
+            activeRestaurant: restaurant,
         });
     }
 
     render() {
         let view = (this.state.activeRestaurant == '') ?
-            <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>
-            : <RestaurantMenu restaurantName={this.state.activeRestaurant}></RestaurantMenu>
+            <>
+                <SearchBar handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></SearchBar>
+                <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>
+            </>
+            : <RestaurantMenu handleAddToCart={this.props.handleAddToCart} restaurant={this.state.activeRestaurant}></RestaurantMenu>
 
+        let loadScreen = (this.state.isLoading) ? <Loader active inline='centered' />
+            : ''
         return (
             <>
-                <SearchBar></SearchBar>
                 {view}
+                {loadScreen}
             </>
         )
     }

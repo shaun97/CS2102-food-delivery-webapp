@@ -13,7 +13,7 @@ function NavSidebar(props) {
 
     //const test = () => props.handleChangeTab;
     const tabItems = props.navTabs.map((item) => //Not responding well???
-        <Menu.Item id={item.name} as='a' onClick={props.handleChangeTab}> 
+        <Menu.Item key={item.name} id={item.name} as='a' onClick={props.handleChangeTab}> 
             <Icon name={item.icon} />
             {item.name}
         </Menu.Item>

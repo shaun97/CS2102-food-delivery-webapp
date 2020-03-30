@@ -4,8 +4,8 @@ import { Card, Grid } from 'semantic-ui-react'
 
 function RestaurantCardsGrid(props) {
     const restaurantCards = props.restaurants.map((item) =>
-        <Grid.Column mobile={8} tablet={4} computer={2} >
-            <Card name={item.rname} onClick={() => props.handleChangeActive(item.rname)}>
+        <Grid.Column key={item.rname} mobile={8} tablet={4} computer={3} >
+            <Card name={item.rname} onClick={() => props.handleChangeActive(item)}>
                 <Card.Content>
                     <Card.Header>{item.rname}</Card.Header>
                     <Card.Meta>
