@@ -54,7 +54,7 @@ class SummaryTab extends Component {
 
         <Card>
           <Card.Content>
-            <Card.Header>Top 5 Food Items</Card.Header>
+            <Card.Header>Top 5 Food Items This Month</Card.Header>
           </Card.Content>
           <Card.Content>
             <Feed>
@@ -96,42 +96,6 @@ class SummaryTab extends Component {
           </Card.Content>
         </Card>
       </Card.Group>
-      // return (
-      //   <Segment.Group horizontal>
-      //     <Segment textAlign="center">
-      //       {" "}
-      //       <Statistic>
-      //         <Statistic.Label>Total Number of Completed Orders</Statistic.Label>
-      //         <Statistic.Value>550</Statistic.Value>
-      //       </Statistic>
-      //     </Segment>
-      //     <Segment textAlign="center">
-      //       {" "}
-      //       <Statistic>
-      //         <Statistic.Label>
-      //           Total Cost of Completed Orders <br />
-      //           Excluding Delivery Fees
-      //         </Statistic.Label>
-      //         <Statistic.Value>$5,550</Statistic.Value>
-      //       </Statistic>
-      //     </Segment>
-      //     <Segment textAlign="center">
-      //       {" "}
-      //       <Statistic size="small">
-      //         <Statistic.Label>Top 5 Favourite Food Items</Statistic.Label>
-      //         <Statistic.Value>
-      //           {" "}
-      //           <ol>
-      //             <li>horse</li>
-      //             <li>monkey</li>
-      //             <li>cat</li>
-      //             <li>frog</li>
-      //             <li>donkey</li>
-      //           </ol>
-      //         </Statistic.Value>
-      //       </Statistic>
-      //     </Segment>
-      //   </Segment.Group>
     );
   }
 }

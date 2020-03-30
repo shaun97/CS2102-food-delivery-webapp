@@ -32,7 +32,7 @@ class UpdateMenuTab extends Component {
                 Search food to edit
               </Header>
 
-              <Search placeholder="Search foods..." />
+              <Search placeholder="Search foods..." id="foodname" />
             </Grid.Column>
 
             <Grid.Column>
