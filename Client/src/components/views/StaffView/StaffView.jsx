@@ -1,7 +1,6 @@
 //Basic React Imports
 import React, { Component } from "react";
 
-import InfoCard from "../../utils/InfoCard";
 import NavSideBar from "../../utils/SideBar";
 import TopHeader from "../../utils/TopHeader";
 // import './RiderView.css';
@@ -19,7 +18,7 @@ class StaffView extends Component {
         { name: "This Month's Summary", icon: "calendar" },
         { name: "Other Month's Summary", icon: "calendar alternate" }
       ],
-      activeTab: "This Month's Summary"
+      activeTab: "Update Menu Info"
     };
     this.changeActiveTab = this.changeActiveTab.bind(this);
   }
