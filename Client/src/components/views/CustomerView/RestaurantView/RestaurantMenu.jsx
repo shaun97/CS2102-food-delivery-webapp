@@ -25,7 +25,7 @@ class RestaurantMenu extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/get/restaurantmenu', { params: { rname: this.state.restaurant.rname } }).then(res => this.setState({menu: res.data}))
+        axios.get('/api/get/restaurantmenu', { params: { rname: this.state.restaurant.rname } }).then(res => this.setState({ menu: res.data }))
             .catch(err => console.log(err))
 
         axios.get()
@@ -37,12 +37,12 @@ class RestaurantMenu extends Component {
         }, this);
         return (
             <Grid padded>
-                <Grid.Row>
+                <Grid.Row >
                     <Item.Group>
                         <Item>
-                            <Item.Content>
-                                <Item.Header as='a'>{this.state.restaurant.rname}</Item.Header>
-                                <Item.Meta>{this.state.restaurant.descript}</Item.Meta>
+                            <Item.Content float='left'>
+                                <Item.Header style={{ fontSize: '50px' }} as='h1'>{this.state.restaurant.rname}</Item.Header>
+                                <Item.Meta style={{textAlign: 'left'}}>{this.state.restaurant.descript}</Item.Meta>
                                 {/* <Item.Description>
                                     Open?
                                 </Item.Description>
