@@ -35,12 +35,12 @@ CREATE TABLE Restaurants (
 );
 
 CREATE TABLE Orders (
-	orid serial unique primary key,
+	orid SERIAL UNIQUE PRIMARY KEY,
 	cid integer,
 	rname varchar(255),
 	cartCost integer, --generate in query
 	location varchar(50),
-	status o_status,
+	ostatus o_status,
 	foreign key (rname) references Restaurants(rname)
 	on delete cascade
 ); --check min order from restaurants
