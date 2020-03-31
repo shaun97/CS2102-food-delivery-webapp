@@ -59,11 +59,4 @@ router.get('/api/get/restaurantmenu', (req, res, next) => {
     })
 })
 
-/* 
-  MANAGER SECTION
-// */
-// router.get('/api/get/totalOrders', (req, res, next) => {
-//   pool.query('SELECT count(*) FROM ')
-// })
-
 module.exports = router
