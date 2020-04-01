@@ -2,7 +2,8 @@ CREATE TABLE Users (
     id SERIAL UNIQUE PRIMARY KEY,
     name varchar(255) not null,
     email varchar(255) unique not null,
-    password varchar(30) not null
+    password varchar(30) not null,
+	date_signup DATE DEFAULT CURRENT_DATE
 );
 
 --INSERT into Users(Customer);

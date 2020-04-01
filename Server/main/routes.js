@@ -70,4 +70,26 @@ router.get('/api/get/gettherestaurantfromdb', (req, res, next) => {
 
 })
 
+/*
+  Manager
+*/
+
+router.get('/api/get/getMonthTotalOrders', (req, res, next) => {
+  pool.query(`SELECT orid, cartCost, deliveredtime
+              FROM Orders join DeliveryTime using (orid)
+              where date_part('month', deliveredtime) = date_part('month', now());`,
+    (q_err, q_res) => {
+      res.json(q_res.rows); 
+    })
+})
+
+router.get('/api/get/getNewCustomers', (req, res, next) => {
+  pool.query(`SELECT *
+              FROM Users
+              where date_part('month', date_signup) = date_part('month', now());`,
+    (q_err, q_res) => {
+      res.json(q_res.rows);
+    })
+})
+
 module.exports = router
