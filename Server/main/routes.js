@@ -66,8 +66,20 @@ router.get('/api/get/gettherestaurantfromdb', (req, res, next) => {
     (q_err, q_res) => {
       console.log(q_res.rows);
       res.json(q_res.rows); 
-    })
+    }) 
 
 })
+
+/* 
+  RIDER SECTION
+*/
+
+router.get('/api/get/ordersfromdb', (req, res, next) => {
+  pool.query(`SELECT * FROM Orders`,
+    (q_err, q_res) => {
+      res.json(q_res.rows); 
+    })
+})
+
 
 module.exports = router

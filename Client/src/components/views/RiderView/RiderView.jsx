@@ -1,34 +1,55 @@
 //Basic React Imports
 import React, { Component } from 'react';
 
-import InfoCard from '../../utils/InfoCard';
 import NavSideBar from '../../utils/SideBar';
 import TopHeader from '../../utils/TopHeader';
-// import './RiderView.css';
 
+import PendingOrdersTab from './PendingOrdersView/PendingOrdersTab';
+import DeliveryScheduleTab from './DeliveryScheduleView/DeliveryScheduleTab';
+import SummaryTab from './SummaryView/SummaryTab';
 
 class RiderView extends Component {
   constructor() {
     super();
     this.state = {
       menu: [
-        { name: "Summary", icon: "home" },
-        { name: "Schedule", icon: "calendar"}
+        { name: "Pending Orders", icon: "home" },
+        { name: "Delivery Schedule", icon: "calendar"},
+        { name: "Summary", icon: "calendar"}
       ],
-      info: [
-        { header: "Total Salary", details: "$1000" },
-        { header: "Total Hours", details: "24" },
-        { header: "Total Orders", details: "100" }
-      ]
+      activeTab: "Pending Orders"
     };
+    this.changeActiveTab = this.changeActiveTab.bind(this);
+  }
+
+  changeActiveTab(event) {
+    console.log(event.currentTarget.id);
+    this.setState({
+      activeTab: event.currentTarget.id
+    });
   }
 
   render() {
+    let tab;
+    switch (this.state.activeTab) {
+      case "Pending Orders":
+        tab = <PendingOrdersTab></PendingOrdersTab>;
+        break;
+      case "Delivery Schedule":
+        tab = <DeliveryScheduleTab></DeliveryScheduleTab>;
+        break;
+      case "Summary":
+        tab = <SummaryTab></SummaryTab>;
+        break;
+    }
     return (
-      <div className="riderDetails">
+      <div>
         <TopHeader user="Rider" />
-        <NavSideBar navTabs={this.state.menu} />
-        <InfoCard info={this.state.info} />
+        <NavSideBar 
+          handleChangeTab={this.changeActiveTab}
+          navTabs={this.state.menu}
+        />
+        <div style={{ marginLeft: "160px" }}>{tab}</div>
       </div>
     );
   }
