@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import InfoCard from '../../utils/InfoCard';
 import NavSideBar from '../../utils/SideBar';
 import TopHeader from '../../utils/TopHeader';
-import Summary from './SummaryInfo';
+import Summary from './SummaryTab/SummaryInfo';
+import Customer from './CustomerInfoTab/CustomerInfo';
 // import './RiderView.css';
 
 
@@ -63,7 +64,7 @@ class FDSManagerView extends Component {
         tab = <Summary month={this.state.currentMonth}></Summary>
         break;
       case 'Customer Info':
-        tab = <Summary></Summary>
+        tab = <Customer></Customer>
         break;
       case 'Rider Info':
         tab = <Summary></Summary>
