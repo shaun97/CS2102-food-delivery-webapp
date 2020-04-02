@@ -53,7 +53,7 @@ VALUES
     ('Nippi Place', 'Egg Prata', 0, 5, true, 'Indian', 2),
     ('Naknoh Thai', 'Pad Thai', 3, 7, true, 'Thai', 5),
     ('Naknoh Thai', 'Thai Milk Tea', 3, 3, false, 'Thai', 3);
-    
+
 INSERT INTO Orders
     (cid, rname, cartCost, location, ostatus)
 VALUES
@@ -61,7 +61,8 @@ VALUES
     (1, 'Song Feng Chicken', 9, 'Clementi', 'Completed'),
     (7, 'Nippi Place', 12, 'Chua Chu Kang', 'Completed'),
     (4, 'Chinese Kitchen', 24, 'Pasir Panjang', 'Completed'),
-    (6, 'Naknoh Thai', 26, 'Kallang', 'Completed');
+    (6, 'Naknoh Thai', 26, 'Kallang', 'Completed'),
+    (1, 'Naknoh Thai', 16, 'Kallang', 'Completed');
 
 INSERT INTO Deliver
     (orid, rid, fee, dstatus)
@@ -70,7 +71,8 @@ VALUES
     (2, 3, 5, 'Rider has delivered your order.'),
     (3, 2, 5, 'Rider has delivered your order.'),
     (4, 3, 5, 'Rider has delivered your order.'),
-    (5, 3, 5, 'Rider has delivered your order.');
+    (5, 3, 5, 'Rider has delivered your order.'),
+    (6, 2, 5, 'Rider has delivered your order.');
 
 INSERT INTO DeliveryTime
     (orid, departForR, arriveForR, departFromR, deliveredTime)
@@ -79,7 +81,8 @@ VALUES
     (2, '2020-03-20 13:13:54', '2020-03-20 13:20:03', '2020-03-20 13:22:50', '2020-03-20 13:30:24'),
     (3, '2020-03-20 18:23:54', '2020-03-20 18:30:03', '2020-03-20 18:32:50', '2020-03-20 18:40:24'),
     (4, '2020-03-21 12:24:54', '2020-03-21 12:32:03', '2020-03-21 12:34:50', '2020-03-21 12:43:24'),
-    (5, '2020-03-21 19:25:54', '2020-03-21 19:31:03', '2020-03-21 19:36:50', '2020-03-21 19:46:24');
+    (5, '2020-03-21 19:25:54', '2020-03-21 19:31:03', '2020-03-21 19:36:50', '2020-03-21 19:46:24'),
+    (6, '2020-04-01 19:20:54', '2020-04-01 19:31:03', '2020-04-01 19:36:50', '2020-04-01 19:46:24');
 
 INSERT INTO OrderItems
     (orid, fname, quantity)
@@ -94,7 +97,9 @@ VALUES
     (4, 'Seafood Horfun', 2),
     (5, 'Beef Horfun', 2),
     (5, 'Pad Thai', 3),
-    (5, 'Thai Milk Tea', 3);
+    (5, 'Thai Milk Tea', 3),
+    (6, 'Pad Thai', 2),
+    (6, 'Thai Milk Tea', 2);
 
 --INSERT INTO OrdersDeliveredBy (orid, rid, deliveredTime) VALUES
 --(1, 2, '2020-03-20 10:40:24'),
