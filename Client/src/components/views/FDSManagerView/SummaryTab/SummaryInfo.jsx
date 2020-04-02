@@ -2,31 +2,8 @@ import React, { Component } from 'react'
 import { Dropdown, Grid, Segment, Statistic } from 'semantic-ui-react'
 import { Loader } from 'semantic-ui-react';
 import axios from 'axios';
+import DeliveryTable from './DeliveryTable';
 
-import LineChart from './LineChart';
-// function getRandomDateArray(numItems) {
-//     // Create random array of objects (with date)
-//     let data = [];
-//     let baseTime = new Date('2018-05-01T00:00:00').getTime();
-//     let dayMs = 24 * 60 * 60 * 1000;
-//     for(var i = 0; i < numItems; i++) {
-//       data.push({
-//         time: new Date(baseTime + i * dayMs),
-//         value: Math.round(20 + 80 * Math.random())
-//       });
-//     }
-//     return data;
-// }
-// function getData() {
-//     let data = [];
-  
-//     data.push({
-//       title: 'Visits',
-//       data: getRandomDateArray(150)
-//     });
-
-//     return data;
-// }
 const monthOptions = [
     { key: 'Ja', value: 'Ja', flag: 'Ja', text: 'January' },
     { key: 'Fe', value: 'Fe', flag: 'Fe', text: 'February' },
@@ -51,7 +28,6 @@ class Summary extends Component {
             orderDetails: '',
             totalSales: 0,
             monthIndex: d.getMonth(),
-            // feeds: getData(),
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -84,12 +60,6 @@ class Summary extends Component {
                 isLoading: false,
             })
         }).catch(err => console.log(err))
-
-        // window.setInterval(() => {
-        //     this.setState({
-        //     feeds: getData()
-        //     })
-        // }, 5000)
     }
 
     handleChange = (e, {value}) => {
@@ -178,17 +148,10 @@ class Summary extends Component {
                     </Segment.Group>
                 </Segment.Group>
                 </Grid.Column>
-                {/* <Grid.Column>
-                    <div style={{ height: '1000px', padding: '2%', display: 'inline-block' }}>
-                    <LineChart
-                        data={this.state.feeds[0].data}
-                        title={this.state.feeds[0].title}
-                        color="#3E517A"
-                    />
-                    </div>
-                </Grid.Column> */}
                 <Grid.Column>
-                    <Segment>1</Segment>
+                    <Segment>
+                        <DeliveryTable></DeliveryTable>
+                    </Segment>
                 </Grid.Column>
                 </Grid.Row>
                 {loadScreen}
