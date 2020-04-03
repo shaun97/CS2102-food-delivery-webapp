@@ -28,6 +28,7 @@ class Summary extends Component {
             orderDetails: '',
             totalSales: 0,
             monthIndex: d.getMonth(),
+            deliveryInfo: '',
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -59,6 +60,10 @@ class Summary extends Component {
             this.setState({
                 isLoading: false,
             })
+        }).catch(err => console.log(err))
+
+        axios.get('/api/get/getDeliveryCountByArea').then(res => {
+            this.setState({ deliveryInfo: res.data })
         }).catch(err => console.log(err))
     }
 
@@ -124,7 +129,6 @@ class Summary extends Component {
                         options={monthOptions}
                         onChange={this.handleChange}
                     />
-                    {/* {this.props.month} */}
                     </Segment>
                     <Segment.Group>
                     <Segment>
@@ -149,9 +153,12 @@ class Summary extends Component {
                 </Segment.Group>
                 </Grid.Column>
                 <Grid.Column>
-                    <Segment>
-                        <DeliveryTable></DeliveryTable>
-                    </Segment>
+                    <Segment.Group>
+                        <Segment textAlign='left' size='big'>Number of orders within the past hour</Segment>
+                        <Segment.Group>
+                        <DeliveryTable deliveryInfo={this.state.deliveryInfo}></DeliveryTable>
+                    </Segment.Group>
+                    </Segment.Group>   
                 </Grid.Column>
                 </Grid.Row>
                 {loadScreen}
