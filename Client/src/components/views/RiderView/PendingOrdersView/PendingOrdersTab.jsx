@@ -15,7 +15,7 @@ class PendingOrdersTab extends Component {
       orders: [],
       isLoading: true,
     }
-    this.changeActiveOrder = this.changeActiveOrder.bind(this);
+    this.declineOrder = this.declineOrder.bind(this);
   }
 
   componentDidMount() {
@@ -26,15 +26,26 @@ class PendingOrdersTab extends Component {
       })
     }).catch(err => console.log(err))
   }
-
-  changeActiveOrder(order) {
+  
+  declineOrder(order) {
+    const { orders } = this.state;
+    orders.splice(orders.indexOf(order), 1);
     this.setState({
-      activeOrder: order,
+      orders
     });
   }
 
+  // handleClick = order => event => {
+  //   const { orders } = this.state;
+  //   orders.splice(orders.indexOf(order), 1);
+
+  //   this.setState({
+  //     orders
+  //   });
+  // };
+
   render() {
-    let view = <OrderCardsGrid handleChangeActive ={this.changeActiveOrder} orders = {this.state.orders}></OrderCardsGrid>
+    let view = <OrderCardsGrid handleDeclineOrder ={this.declineOrder} orders = {this.state.orders}></OrderCardsGrid>
     let loadScreen = (this.state.isLoading) ? <Loader active inline = 'centered' /> : ''
     return (
       <>
