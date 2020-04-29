@@ -133,4 +133,13 @@ router.get('/api/get/getCustomerMonthOrderInfo', (req, res, next) => {
     })
 })
 
+router.get('/api/get/getRiderOrdersDelivered', (req, res, next) => {
+  pool.query(`SELECT name, count(*) from deliver join deliverytime using (orid) join users on (rid = id)
+              GROUP BY name, date_trunc('month', deliveredtime)
+              HAVING date_trunc('month', deliveredtime) = date_trunc('month', now());`,
+    (q_err, q_res) => {
+      res.json(q_res.rows);
+    })
+})
+
 module.exports = router

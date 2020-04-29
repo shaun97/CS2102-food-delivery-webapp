@@ -5,6 +5,7 @@ import NavSideBar from '../../utils/SideBar';
 import TopHeader from '../../utils/TopHeader';
 import Summary from './SummaryTab/SummaryInfo';
 import Customer from './CustomerInfoTab/CustomerInfo';
+import Rider from './RiderInfoTab/RiderInfo';
 
 
 class FDSManagerView extends Component {
@@ -43,7 +44,7 @@ class FDSManagerView extends Component {
         tab = <Customer></Customer>
         break;
       case 'Rider Info':
-        tab = <Summary></Summary>
+        tab = <Rider></Rider>
         break;
     }
     return (
