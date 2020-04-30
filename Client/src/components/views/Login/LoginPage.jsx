@@ -29,7 +29,7 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    axios.get('/hello').then(res => this.setState({msg: res.data}))
+    axios.get('/hello').then(res => window.alert(res.data.message))
     .catch(err => console.log(err))
   }
   

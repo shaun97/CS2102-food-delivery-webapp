@@ -29,14 +29,14 @@ class CustomerInfo extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/get/getCustomerMonthOrderInfo', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
+        axios.get('/manager/api/get/getCustomerMonthOrderInfo', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
             this.setState({ customerInfo: res.data })
         }).catch(err => console.log(err))
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.monthIndex !== this.state.monthIndex) {
-            axios.get('/api/get/getCustomerMonthOrderInfo', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
+            axios.get('/manager/api/get/getCustomerMonthOrderInfo', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
                 this.setState({ customerInfo: res.data })
             }).catch(err => console.log(err))
         }
