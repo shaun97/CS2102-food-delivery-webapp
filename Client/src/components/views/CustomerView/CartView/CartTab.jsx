@@ -30,7 +30,7 @@ class CartTab extends Component {
 
     componentDidMount() {
         if (this.state.cartItems.length == 0) return;
-        axios.get('/api/get/gettherestaurantfromdb', { params: { rname: this.state.rname } }).then(res => {
+        axios.get('/restaurant/api/get/gettherestaurantfromdb', { params: { rname: this.state.rname } }).then(res => {
             this.setState({
                 minOrder: res.data[0].minorder,
                 descript: res.data[0].descript

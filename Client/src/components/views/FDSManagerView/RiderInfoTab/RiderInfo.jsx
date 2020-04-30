@@ -34,7 +34,7 @@ class RiderInfo extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/get/getRiderOrdersDelivered').then(res => {
+        axios.get('/manager/api/get/getRiderOrdersDelivered').then(res => {
             this.setState({
                 riderOrders: res.data
             })

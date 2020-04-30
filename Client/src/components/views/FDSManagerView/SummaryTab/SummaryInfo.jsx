@@ -34,7 +34,7 @@ class Summary extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/get/getMonthTotalOrders', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
+        axios.get('/manager/api/get/getMonthTotalOrders', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
             this.setState({ totalOrders: res.data.length })
             this.setState({ orderDetails: res.data })
             this.setState({
@@ -55,14 +55,14 @@ class Summary extends Component {
             this.setState({ totalSales: sum })
         }).catch(err => console.log(err))
 
-        axios.get('/api/get/getNewCustomers', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
+        axios.get('/manager/api/get/getNewCustomers', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
             this.setState({ newCustomers: res.data.length })
             this.setState({
                 isLoading: false,
             })
         }).catch(err => console.log(err))
 
-        axios.get('/api/get/getDeliveryCountByArea').then(res => {
+        axios.get('/manager/api/get/getDeliveryCountByArea').then(res => {
             this.setState({ deliveryInfo: res.data })
         }).catch(err => console.log(err))
     }
@@ -82,7 +82,7 @@ class Summary extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.monthIndex !== this.state.monthIndex) {
-            axios.get('/api/get/getMonthTotalOrders', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
+            axios.get('/manager/api/get/getMonthTotalOrders', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
                 this.setState({ totalOrders: res.data.length })
                 this.setState({ orderDetails: res.data })
                 this.setState({
@@ -103,7 +103,7 @@ class Summary extends Component {
                 this.setState({ totalSales: sum })
             }).catch(err => console.log(err))
 
-            axios.get('/api/get/getNewCustomers', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
+            axios.get('/manager/api/get/getNewCustomers', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
                 this.setState({ newCustomers: res.data.length })
                 this.setState({
                     isLoading: false,
