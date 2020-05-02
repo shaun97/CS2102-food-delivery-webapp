@@ -37,7 +37,8 @@ VALUES
     (20, 'Chinese Kitchen', 'Huangyingguangling'),
     (7, 'Song Feng Chicken', 'Lai Girl what you want'),
     (15, 'Naknoh Thai', 'sawaddekap'),
-    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA');
+    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA'),
+    (3, 'King Fried Chicken', 'Finger Licking Great');
 
 --as of 21 March
 INSERT INTO Sells

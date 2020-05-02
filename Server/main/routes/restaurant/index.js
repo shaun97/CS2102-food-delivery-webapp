@@ -7,7 +7,7 @@ const pool = require('../../db');
 */
 
 restaurant.get('/api/get/restaurantsfromdb', (req, res, next) => {
-    pool.query(`SELECT * FROM Restaurants`,
+    pool.query(`SELECT * FROM restaurants`,
         (q_err, q_res) => {
         res.json(q_res.rows); 
         })

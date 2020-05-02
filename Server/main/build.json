@@ -1,0 +1,10 @@
+{
+    "definitions" : [
+        "drop_table.sql",
+        "create_enum.sql",
+        "schema.sql"
+    ],
+    "instantiations": [
+        "data.sql"
+    ]
+}
