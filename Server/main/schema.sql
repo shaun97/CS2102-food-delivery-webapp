@@ -143,10 +143,10 @@ CREATE TABLE WWS (
 --just to store the fixed shifts, must make sure shift duration dont exceed 4 hrs
 CREATE TABLE templateShift (
 	Shift integer, 
-	Start1 integer, 
-	End1 integer,
-	Start2 integer,
-	End2 integer,
+	Start1 TIME, 
+	End1 TIME,
+	Start2 TIME,
+	End2 TIME,
     primary key (Shift)
 );
 
@@ -154,11 +154,14 @@ CREATE TABLE MWS ( --Will update schedule based on the shift
 	rid integer,
 	whichMonth integer,
 	startDay text, --mon
-	Day1Shift integer references templateShift (shift), --which shift
-	Day2Shift integer references templateShift (shift), 
-	Day3Shift integer references templateShift (shift), 
-	Day4Shift integer references templateShift (shift), 
-	Day5Shift integer references templateShift (shift)
+	startDate DATE not null,
+	Day1Shift integer references templateShift (shift) not null, --which shift
+	Day2Shift integer references templateShift (shift) not null, 
+	Day3Shift integer references templateShift (shift) not null, 
+	Day4Shift integer references templateShift (shift) not null, 
+	Day5Shift integer references templateShift (shift) not null,
+	foreign key (rid) references Riders on delete cascade,
+	primary key (rid, startDate)
 );
 
 CREATE TABLE Salary (
