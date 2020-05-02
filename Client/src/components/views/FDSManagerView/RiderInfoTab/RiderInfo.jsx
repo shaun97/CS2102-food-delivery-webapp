@@ -24,6 +24,7 @@ class RiderInfo extends Component {
         var d = new Date();
         this.state = {
             riderOrders: '',
+            riderInfo: [],
             newCustomers: '',
             orderDetails: '',
             totalSales: 0,
@@ -33,13 +34,93 @@ class RiderInfo extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        axios.get('/manager/api/get/getRiderOrdersDelivered').then(res => {
-            this.setState({
-                riderOrders: res.data
-            })
-        })
+    async componentDidMount() {
+        try {
+        const riderData = await this.getRiderInfo();
+        console.log("rider data\n", riderData);
+        this.setState({ riderInfo: riderData });
+        console.log(this.state.riderInfo);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    async componentDidUpdate(prevProps, prevState) {
+        if (prevState.monthIndex !== this.state.monthIndex) {
+            try {
+                const riderData = await this.getRiderInfo();
+                this.setState({ riderInfo: riderData });
+            } catch(err) {
+                console.log(err);
+            }
+            
+        }
     }
+    getRiderInfo = async () => {
+        try {
+            // const riderHours = await this.getRiderHours();
+            // const riderOrders = await this.getRiderOrders();
+            const [riderHours, riderOrders] = await Promise.all([ this.getRiderHours(), this.getRiderOrders() ]);
+            let riderInfo = [];
+            for (var i = 0; i < riderHours.length; i++) {
+                let numOrder = 0;
+                for (var j = 0; j < riderOrders.length; j++) {
+                    if (riderOrders[j].name === riderHours[i].name) {
+                        numOrder = riderOrders[j].numorders;
+                        console.log("Num Order: ", riderOrders[j].name, numOrder);
+                        break;
+                    }
+                }
+                riderInfo.push({
+                    name: riderHours[i].name,
+                    totalOrders: numOrder,
+                    totalHours: riderHours[i].totalHours,
+                    salary: 0
+                })
+            }  
+            console.log("Rider Info:\n", riderInfo);
+            return riderInfo;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    getRiderOrders = async () => {
+        let res = await axios.get('/manager/api/get/RiderOrdersDelivered', { params: { monthSelected: this.state.monthIndex+1 }}).catch(err=> null);
+        console.log("rider orders:\n", res.data);
+        return res.data;
+    };
+    getRiderHours = async () => {
+        let res = await axios.get('/manager/api/get/totalHoursWorked', { params: { monthSelected: this.state.monthIndex+1 }}).catch(err => null);
+        const data = res.data;
+        let riderInfo = [];
+        if(data !== null) {
+            let totalHours = 0;
+            let riderName = '';
+            let first3days = data[0].map(rider => {
+                return {
+                    name: rider.name,
+                    hour1: rider.totalhours
+                }    
+            })
+            let last2days = data[1].map(rider => {
+                return {
+                    name: rider.name,
+                    hour2: rider.totalhours
+                }
+            })
+            for (var i = 0; i < first3days.length; i++) {
+                totalHours = first3days[i].hour1 + last2days[i].hour2;
+                riderName = first3days[i].name;
+                riderInfo.push({
+                    name: riderName,
+                    totalHours: totalHours
+                })
+            }
+            console.log("Rider hours \n", riderInfo);
+        }
+        return riderInfo;
+    };
+
     handleChange = (e, {value}) => {
         console.log(value);
         let index;
@@ -56,6 +137,21 @@ class RiderInfo extends Component {
     render() {
         let loadScreen = (this.state.isLoading) ? <Loader active inline='centered' />
             : ''
+        const rider = (this.state.riderInfo.length === 0) ?
+            <Table.Row>
+                <Table.Cell>-</Table.Cell>
+                <Table.Cell>-</Table.Cell>
+                <Table.Cell>-</Table.Cell>
+                <Table.Cell>-</Table.Cell>
+            </Table.Row> :
+            this.state.riderInfo.map(item => 
+            <Table.Row>
+                <Table.Cell>{item.name}</Table.Cell>
+                <Table.Cell>{item.totalOrders}</Table.Cell>
+                <Table.Cell>{item.totalHours}</Table.Cell>
+                <Table.Cell>{item.salary}</Table.Cell>
+            </Table.Row>
+            );
         return(
             <Grid columns={2} divided>
                 <Grid.Row stretched>
@@ -84,7 +180,7 @@ class RiderInfo extends Component {
                             </Table.Header>
 
                             <Table.Body>
-                                
+                                {rider}  
                             </Table.Body>
                         </Table>
                     </Segment>
