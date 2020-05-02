@@ -19,7 +19,7 @@ class PendingOrdersTab extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/get/ordersfromdb').then(res => {
+    axios.get('/rider/api/get/ordersfromdb').then(res => {
       this.setState({ orders: res.data })
       this.setState({
         isLoading: false,
