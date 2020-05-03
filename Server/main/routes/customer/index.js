@@ -11,12 +11,13 @@ customer.get('/api/get/getdeliverycost', (req, res, next) => {
 customer.get('/api/get/getorderhistory', (req, res, next) => {
     console.log(req.query);
     const cid = req.query.cid;
-    pool.query(`SELECT orid, cartCost, fee as deliveryCost, deliveredTime, location 
+    pool.query(`SELECT rname, orid, cartCost, fee as deliveryCost, TO_CHAR(deliveredTime, 'dd/mm/yy hh:mm') as deliveredtime, location 
     FROM Deliver NATURAL JOIN Orders NATURAL JOIN DeliveryTime
     WHERE cid=$1`, [cid],
         (q_err, q_res) => {
-            res.json(q_res.rows);
+            res.json(q_res.rows); 
         })
+
 })
 
 
