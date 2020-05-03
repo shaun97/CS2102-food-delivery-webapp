@@ -1,8 +1,11 @@
 {
-    "definitions" : [
+    "definitions": [
         "drop_table.sql",
         "create_enum.sql",
         "schema.sql"
+    ],
+    "triggers": [
+        "triggers.sql"
     ],
     "instantiations": [
         "data.sql"

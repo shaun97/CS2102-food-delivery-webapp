@@ -36,7 +36,7 @@ function read(file) {
 
 async function execute(file, query) {
     const sqlQuery = read(file);
-     await query(sqlQuery);
+    await query(sqlQuery);
     console.log("done");
 }
 
@@ -52,7 +52,7 @@ async function build() {
     try {
         await transact(async (query) => {
             await executeSequentially(definitions, query);
-            //   await executeSequentially(triggers, query);
+            await executeSequentially(triggers, query);
             await executeSequentially(instantiations, query);
         });
         console.log('Successfully built database.');
