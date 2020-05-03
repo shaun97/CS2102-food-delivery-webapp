@@ -35,15 +35,6 @@ class PendingOrdersTab extends Component {
     });
   }
 
-  // handleClick = order => event => {
-  //   const { orders } = this.state;
-  //   orders.splice(orders.indexOf(order), 1);
-
-  //   this.setState({
-  //     orders
-  //   });
-  // };
-
   render() {
     let view = <OrderCardsGrid handleDeclineOrder ={this.declineOrder} orders = {this.state.orders}></OrderCardsGrid>
     let loadScreen = (this.state.isLoading) ? <Loader active inline = 'centered' /> : ''
