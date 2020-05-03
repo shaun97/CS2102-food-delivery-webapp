@@ -234,3 +234,4 @@ CREATE TABLE FDPromotions
 );
 
 -- insert test data into users
+

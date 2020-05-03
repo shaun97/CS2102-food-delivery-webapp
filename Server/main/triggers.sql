@@ -8,10 +8,12 @@
 --     end as deliveryCost
 --     from 
 
+
+--Function to get delivery cost based on the time
 CREATE OR REPLACE FUNCTION getDeliveryCost (OUT deliveryCost INTEGER) RETURNS INTEGER
     AS $$
 SELECT CASE
         WHEN extract(hour from current_time) >= 17 THEN 5
         ELSE 3
-    END AS deliveryCost
+    END
 $$ LANGUAGE sql;
