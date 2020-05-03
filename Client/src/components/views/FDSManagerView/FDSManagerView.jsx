@@ -1,12 +1,11 @@
 //Basic React Imports
 import React, { Component } from 'react';
 
-import InfoCard from '../../utils/InfoCard';
 import NavSideBar from '../../utils/SideBar';
 import TopHeader from '../../utils/TopHeader';
 import Summary from './SummaryTab/SummaryInfo';
 import Customer from './CustomerInfoTab/CustomerInfo';
-// import './RiderView.css';
+import Rider from './RiderInfoTab/RiderInfo';
 
 
 class FDSManagerView extends Component {
@@ -29,28 +28,6 @@ class FDSManagerView extends Component {
     this.changeActiveTab = this.changeActiveTab.bind(this);
   }
 
-  componentDidMount() {
-    var d = new Date();
-    var month = new Array();
-    month[0] = "January";
-    month[1] = "February";
-    month[2] = "March";
-    month[3] = "April";
-    month[4] = "May";
-    month[5] = "June";
-    month[6] = "July";
-    month[7] = "August";
-    month[8] = "September";
-    month[9] = "October";
-    month[10] = "November";
-    month[11] = "December";
-    var n = month[d.getMonth()];
-
-    this.setState({
-      currentMonth: n
-    });
-  };
-
   changeActiveTab(event) {
     this.setState({
       activeTab: event.currentTarget.id,
@@ -61,13 +38,13 @@ class FDSManagerView extends Component {
     let tab;
     switch (this.state.activeTab) {
       case 'Summary':
-        tab = <Summary month={this.state.currentMonth}></Summary>
+        tab = <Summary></Summary>
         break;
       case 'Customer Info':
         tab = <Customer></Customer>
         break;
       case 'Rider Info':
-        tab = <Summary></Summary>
+        tab = <Rider></Rider>
         break;
     }
     return (

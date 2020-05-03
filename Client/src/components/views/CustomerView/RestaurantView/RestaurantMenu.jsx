@@ -25,7 +25,7 @@ class RestaurantMenu extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/get/restaurantmenu', { params: { rname: this.state.restaurant.rname } }).then(res => this.setState({ menu: res.data }))
+        axios.get('/restaurant/api/get/restaurantmenu', { params: { rname: this.state.restaurant.rname } }).then(res => this.setState({ menu: res.data }))
             .catch(err => console.log(err))
 
         axios.get()

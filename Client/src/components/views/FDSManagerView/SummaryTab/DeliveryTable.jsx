@@ -1,8 +1,20 @@
 import React from 'react'
 import { Table } from 'semantic-ui-react'
 
-const DeliveryTable = () => (
-  <Table striped>
+function DeliveryTable(props) { 
+  const delivery = (props.deliveryInfo.length == 0) ? 
+      <Table.Row>
+        <Table.Cell>-</Table.Cell>
+        <Table.Cell>-</Table.Cell>
+      </Table.Row> :
+        props.deliveryInfo.map((item) => 
+      <Table.Row>
+          <Table.Cell>{item.location}</Table.Cell>
+          <Table.Cell>{item.count}</Table.Cell>
+      </Table.Row>
+  );
+  return(
+    <Table striped>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Delivery Area</Table.HeaderCell>
@@ -11,24 +23,10 @@ const DeliveryTable = () => (
     </Table.Header>
 
     <Table.Body>
-      <Table.Row>
-        <Table.Cell>Bukit Panjang</Table.Cell>
-        <Table.Cell>1</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Kallang</Table.Cell>
-        <Table.Cell>2</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Clementi</Table.Cell>
-        <Table.Cell>1</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Chua Chu Kang</Table.Cell>
-        <Table.Cell>1</Table.Cell>
-      </Table.Row>
+      {delivery}
     </Table.Body>
-  </Table>
-)
+    </Table>
+  )
+}
 
-export default DeliveryTable
+export default DeliveryTable;

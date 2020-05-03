@@ -7,7 +7,14 @@ class Orders extends Component {
         super(props);
         this.state = ({
             rating: 0,
+            orid: this.props.order.orid,
+            cartCost: this.props.order.cartCost,
+            location: this.props.order.location,
+            deliveredTime: this.props.order.deliveredTime,
+            deliveryFee: 0,
+            rname: this.props.order.rname,
         })
+        console.log(this.state);
     }
 
     handleRate = (e, { rating }) => {
@@ -20,13 +27,13 @@ class Orders extends Component {
             <Segment width={16}>
                 <Item >
                     <Item.Content textAlign='left'>
-                        <Item.Header as='h3'>Chinese Kitchen</Item.Header>
+                        <Item.Header as='h3'>{this.state.rname}</Item.Header>
                         <Item.Meta>
-                            <span className='price'>Delivered On:</span>
+                            <span className='price'>Delivered On: {this.state.deliveredTime}</span>
 
                         </Item.Meta>
                         <Item.Meta>
-                            <span className='price'>Delivered To:</span>
+                            <span className='price'>Delivered To: {this.state.location}</span>
                         </Item.Meta>
                         <Item.Header as='h5'>Order Summary</Item.Header>
 
@@ -34,10 +41,10 @@ class Orders extends Component {
 
                         <Divider />
                         <Item.Meta>
-                            <p className='price'>Subtotal:</p>
-                            <p className='price'>Delivery Fee:</p>
+                            <p className='price'>Subtotal: ${this.state.cartCost}</p>
+                            <p className='price'>Delivery Fee: ${this.state.deliveryFee}</p>
                             <Divider />
-                            <span className='price'>Total:</span>
+                            <span className='price'>Total: ${this.state.cartCost + this.state.deliveryFee}</span>
                         </Item.Meta>
                         <Divider />
                         <Modal trigger={<Button>Review</Button>}>
@@ -58,9 +65,8 @@ class Orders extends Component {
                     </Item.Content>
                 </Item>
             </Segment>
-        )
+        );
     }
-
 }
 
 export default Orders;

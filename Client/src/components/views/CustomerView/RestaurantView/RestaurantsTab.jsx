@@ -22,7 +22,7 @@ class RestaurantsTab extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/get/restaurantsfromdb').then(res => {
+        axios.get('/restaurant/api/get/restaurantsfromdb').then(res => {
             this.setState({ restaurants: res.data })
             this.setState({
                 isLoading: false,
