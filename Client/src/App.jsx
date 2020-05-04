@@ -26,11 +26,17 @@ class App extends Component {
         alert("Password or username is wrong!");
       }
     };
-
+    this.signOut = () => {
+      this.setState(() => ({
+        isLoggedIn: false,
+        user: {}
+      }));
+    }
     this.state = {
       isLoggedIn: false,
       user: {},
       signIn: this.signIn,
+      signOut: this.signOut,
     };
   }
 

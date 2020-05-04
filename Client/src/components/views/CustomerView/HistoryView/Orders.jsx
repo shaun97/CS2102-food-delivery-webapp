@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { Header, Item, Divider, Segment, Modal, Button, Rating, Form } from 'semantic-ui-react'
 
+import { LoginContext } from '../../../LoginContext';
+
 class Orders extends Component {
     constructor(props) {
         super(props);
@@ -35,12 +37,13 @@ class Orders extends Component {
             );
     }
 
-    handleSubmitReview() {
+    handleSubmitReview() { 
+        let context = this.context;
         axios.post('customer/api/posts/postreview',
             { orid: this.state.orid, foodReview: this.state.review, deliveryRating: this.state.rating })
             .then(res => alert("Signup Sucessful"))
             .catch(err => console.log(err));
-        console.log("submit");
+        console.log(context);
     }
 
     handleReview = (e, { value }) => {
@@ -102,5 +105,7 @@ class Orders extends Component {
         );
     }
 }
+
+Orders.contextType = LoginContext;
 
 export default Orders;

@@ -6,6 +6,7 @@ import TopHeader from '../../utils/TopHeader';
 import Summary from './SummaryTab/SummaryInfo';
 import Customer from './CustomerInfoTab/CustomerInfo';
 import Rider from './RiderInfoTab/RiderInfo';
+import { LoginContext } from '../../LoginContext';
 
 
 class FDSManagerView extends Component {
@@ -49,7 +50,7 @@ class FDSManagerView extends Component {
     }
     return (
       <div className="riderDetails">
-        <TopHeader user="Manager" />
+        <TopHeader signOut={this.context.signOut} user="Manager" />
         <NavSideBar handleChangeTab={this.changeActiveTab} navTabs={this.state.menu}/>
         <div style={{ marginLeft: '160px' }}>
           {tab}
@@ -58,6 +59,6 @@ class FDSManagerView extends Component {
     );
   }
 }
-
+FDSManagerView.contextType = LoginContext;
 export default FDSManagerView;
 

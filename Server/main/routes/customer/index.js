@@ -22,7 +22,7 @@ customer.get('/api/get/getorderhistory', (req, res, next) => {
 customer.get('/api/get/getorderitems', (req, res, next) => {
     const orid = req.query.orid;
     pool.query(`SELECT fname, quantity 
-    FROM orderitems where orid=$1`, [orid],
+    FROM orderitems WHERE orid=$1`, [orid],
         (q_err, q_res) => {
             res.json(q_res.rows);
         })
@@ -41,6 +41,15 @@ customer.post('/api/posts/postreview', (req, res, next) => {
         })
 })
 
+customer.get('/api/get/getrestreviews'), (req, res, next) => {
+    const rname = req.query.rname;
+    pool.query(`SELECT foodreview, deliveryrating 
+    FROM restaurants natural join orders natural join reviews 
+    WHERE rname=$1`, [rname],
+        (q_err, q_res) => {
+            res.json(q_res.rows);
+        })
+}
 
 
 module.exports = customer;

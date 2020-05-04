@@ -6,7 +6,7 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 
 import axios from 'axios';
 
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { LoginContext } from '../../LoginContext';
 
@@ -36,7 +36,7 @@ class Login extends Component {
         const userEmail = this.state.email;
         const userPassword = this.state.password;
 
-        axios.get('/api/get/userprofilefromdb', { params: { email: userEmail, password: userPassword } })
+        axios.get('/api/get/userprofilefromdb', { params: { userType: this.props.userType, email: userEmail, password: userPassword } })
             .then(res => context.signIn(res.data[0]));
     }
 
@@ -62,6 +62,11 @@ class Login extends Component {
                 break;
 
         }
+        if (this.context.isLoggedIn) {
+            console.log("logging in");
+            console.log(page);
+            return <Redirect to={page}/>
+        }
         return (
             <>
 
@@ -86,11 +91,9 @@ class Login extends Component {
                             required={true}
                             onChange={this.handleChange}
                         />
-                        <Link to={page}>
-                            <Button color='blue' fluid size='large' onClick={this.handleClick}>
-                                Login
-                             </Button>
-                        </Link>
+                        <Button color='blue' fluid size='large' onClick={this.handleClick}>
+                            Login
+                        </Button>
 
                     </Form>
                 </Segment>
