@@ -145,8 +145,8 @@ class RiderInfo extends Component {
                 <Table.Cell>-</Table.Cell>
             </Table.Row> :
             this.state.riderInfo.map(item => 
-            <Table.Row>
-                <Table.Cell>{item.name}</Table.Cell>
+            <Table.Row textAlign='right'>
+                <Table.Cell textAlign='left'>{item.name}</Table.Cell>
                 <Table.Cell>{item.totalOrders}</Table.Cell>
                 <Table.Cell>{item.totalHours}</Table.Cell>
                 <Table.Cell>{item.salary}</Table.Cell>

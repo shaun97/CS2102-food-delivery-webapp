@@ -7,6 +7,11 @@ CREATE TABLE Users
 	date_signup DATE DEFAULT CURRENT_DATE
 );
 
+CREATE TABLE Managers (
+	mid integer primary key,
+	foreign key (id) references Users(id)
+	on delete cascade
+);
 --INSERT into Users(Customer);
 
 CREATE TABLE Customers

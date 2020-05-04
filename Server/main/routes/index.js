@@ -40,13 +40,64 @@ router.post('/api/posts/userprofiletodb', (req, res, next) => {
 
 
 router.get('/api/get/userprofilefromdb', (req, res, next) => {
+  let queryText = "";
+  switch(req.query.userType) {
+    case 'customer':
+      queryText = `SELECT id, name, email 
+      FROM users
+      WHERE email=$1 AND password=$2
+      AND exists(
+        SELECT 1
+        FROM customers
+        WHERE cid = id
+      );`
+      break;
+    case 'staff':
+      queryText = `SELECT id, name, email 
+      FROM users
+      WHERE email=$1 AND password=$2
+      AND exists(
+        SELECT 1
+        FROM staffs
+        WHERE stid = id
+      );`
+      break;
+    case 'rider':
+      queryText = `SELECT id, name, email 
+      FROM users
+      WHERE email=$1 AND password=$2
+      AND exists(
+        SELECT 1
+        FROM riders
+        WHERE rid = id
+      );`
+      break;
+    case 'manager':
+      queryText = `SELECT id, name, email 
+      FROM users
+      WHERE email=$1 AND password=$2
+      AND exists(
+        SELECT 1
+        FROM managers
+        WHERE mid = id
+      );`
+      break;
+  }
   const email = req.query.email;
   const password = req.query.password;
-  pool.query(`SELECT id, name, email FROM users
-                WHERE email=$1 AND password=$2`, [email, password],
-    (q_err, q_res) => {
-      res.json(q_res.rows); //Is there a better way to show if not found? currently if rows empty then means no account
-    })
+  if(queryText !== null) {
+    pool.query(queryText, [email, password],
+      (q_err, q_res) => {
+        if (q_res.rowCount !== 0) {
+        res.json(q_res.rows);
+        } //Is there a better way to show if not found? currently if rows empty then means no account
+        else {
+          res.json();
+        }
+      })
+  } else {
+    res.json();
+  }
 })
 
 module.exports = router
