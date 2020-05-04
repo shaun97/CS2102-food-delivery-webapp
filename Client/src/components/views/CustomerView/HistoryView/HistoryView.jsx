@@ -1,14 +1,44 @@
 import React, { Component } from 'react'
 
+import axios from 'axios';
+
 import { Header, Form, Grid, Button, Segment, Divider } from 'semantic-ui-react'
 import Orders from './Orders';
+
+import { LoginContext } from '../../../LoginContext';
 
 class HistoryView extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            orders: []
+        }
     }
 
+    componentDidMount() {
+        let cid = this.context.user.id;
+        axios.get('customer/api/get/getorderhistory', { params: { cid: cid } })
+            .then(res => {
+                this.setState({
+                    orders: res.data.map(item => {
+                        console.log(item.rname);
+                        return {
+                            cartCost: item.cartcost,
+                            deliveredTime: item.deliveredtime,
+                            location: item.location,
+                            orid: item.orid,
+                            rname: item.rname
+                        }
+                    })
+                });
+            }
+            );
+
+    }
     render() {
+        const orders = this.state.orders.map((item) =>
+            <Orders order={item}></Orders>
+        )
         return (
             <Grid textAlign='left' padded>
                 <Grid.Column width={16}>
@@ -17,7 +47,7 @@ class HistoryView extends Component {
                         <Divider />
                     </Grid.Row>
                     <Grid.Row fluid padded>
-                        <Orders ></Orders>
+                        {orders}
                     </Grid.Row>
                 </Grid.Column>
             </Grid >
@@ -25,5 +55,8 @@ class HistoryView extends Component {
     }
 
 }
+
+HistoryView.contextType = LoginContext;
+
 
 export default HistoryView;
