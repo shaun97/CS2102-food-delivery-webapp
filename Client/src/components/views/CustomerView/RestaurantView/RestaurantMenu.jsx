@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Grid, Item, Header, Rating, Container, Segment } from 'semantic-ui-react';
+import { Grid, Item, Header, Rating, Divider, Segment } from 'semantic-ui-react';
 import FoodCategoryBar from './FoodCategoryBar';
 import MenuItem from './MenuItem';
 
@@ -40,7 +40,7 @@ class RestaurantMenu extends Component {
                     <Segment>
                         <Item>
                             <Item.Content style={{ textAlign: 'left' }}>
-                            <Item.Header as='h3'>//Name says </Item.Header>
+                            <Item.Header as='h3'>{item.name}</Item.Header>
                                 <Item.Header as='h4'>Delivery Rating</Item.Header>
                                 <Rating icon='star' disabled defaultRating={item.deliveryrating} maxRating={5} />
                                 <Item.Header as='h4'>Food Review</Item.Header>
@@ -83,9 +83,8 @@ class RestaurantMenu extends Component {
                         <MenuItem handleAddToCart={this.props.handleAddToCart} isCart={false} menuItems={menuItemsToShow}></MenuItem>
                     </Grid.Column>
                 </Grid.Row>
-
                 <Grid.Row>
-                    <Header as='h1'>Reviews</Header>
+                    <Header as='h1'>What people are saying</Header>
                 </Grid.Row>
                 {reviewsToShow}
             </Grid>
