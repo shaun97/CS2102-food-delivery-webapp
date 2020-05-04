@@ -5,6 +5,8 @@ import CartItem from './CartItem';
 
 import axios from 'axios';
 
+import { LoginContext } from '../../../LoginContext';
+
 class CartTab extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +32,7 @@ class CartTab extends Component {
         this.incOrDecItem = this.incOrDecItem.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleGetPrice = this.handleGetPrice.bind(this);
+        this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
     }
 
     componentDidMount() {
@@ -39,7 +42,6 @@ class CartTab extends Component {
                 minOrder: res.data[0].minorder,
                 descript: res.data[0].descript
             });
-            console.log(res.data);
         })
             .catch(err => console.log(err))
     }
@@ -81,6 +83,7 @@ class CartTab extends Component {
     }
 
     handleGetPrice() {
+        console.log(this.state);
         axios.get('/customer/api/get/getdeliverycost').then(res => {
             this.setState({
                 deliveryCost: res.data[0].getdeliverycost,
@@ -88,6 +91,24 @@ class CartTab extends Component {
 
         })
             .catch(err => console.log(err))
+    }
+
+    handleSubmitOrder() {
+        console.log(this.context);
+        let cid = this.context.user.id;
+        //let cid = 5;
+        axios.post('/customer/api/posts/insertorder',
+            { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address })
+            .then(res => alert("Order Placed"))
+            .catch(err => console.log(err));
+        //get orid from here ^
+        let orid = 1;
+        this.state.cartItems.map((item) =>
+            axios.post('/customer/api/posts/insertorder',
+                { orid: orid, fname: item.fname, quantity: item.qty })
+                .then()
+                .catch(err => console.log(err)
+                ));
     }
 
     render() {
@@ -138,7 +159,7 @@ class CartTab extends Component {
 
                                     {/* promo code? */}
                                 </Segment>
-                                <Button floated='right' fluid color='blue' type='submit'>Place Order</Button>
+                                <Button floated='right' fluid color='blue' onClick={this.handleSubmitOrder}>Place Order</Button>
                             </Form>
                         </Grid.Column>
                     </Grid.Row>
@@ -148,5 +169,8 @@ class CartTab extends Component {
     }
 
 }
+
+CartTab.contextType = LoginContext;
+
 
 export default CartTab;

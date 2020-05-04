@@ -17,3 +17,11 @@ SELECT CASE
         ELSE 3
     END
 $$ LANGUAGE sql;
+
+CREATE OR REPLACE FUNCTION insertandscheduleorder(cid int, rname varchar(255), cartcost integer, location varchar(50)) 
+RETURNS void AS $$
+--schedule here
+BEGIN 
+    INSERT INTO Orders(cid, rname, cartCost, location) VALUES (cid, rname, cartcost, location);
+END
+$$ language plpgsql;

@@ -29,7 +29,6 @@ customer.get('/api/get/getorderitems', (req, res, next) => {
 })
 
 customer.post('/api/posts/postreview', (req, res, next) => {
-    console.log(req.body);
     const foodReview = req.body.foodReview;
     const deliveryRating = req.body.deliveryRating;
     const orid = req.body.orid;
@@ -41,16 +40,27 @@ customer.post('/api/posts/postreview', (req, res, next) => {
         })
 })
 
-customer.get('/api/get/getrestreviews'), (req, res, next) => {
-    const rname = req.query.rname;
-    pool.query(`SELECT foodreview, deliveryrating 
-    FROM restaurants natural join orders natural join reviews 
-    WHERE rname=$1`, [rname],
+customer.post('/api/posts/insertorder', (req, res, next) => {
+    console.log("insert");
+    const cid = req.body.cid;
+    const rname = req.body.rname;
+    const cartcost = req.body.cartcost;
+    const location = req.body.location;
+    pool.query(`SELECT insertandscheduleorder($1, $2, $3, $4)`, [cid, rname, cartcost, location],
         (q_err, q_res) => {
-            res.json(q_res.rows);
         })
-}
+})
 
+customer.post('/api/posts/insertorderitem', (req, res, next) => {
+    const orid = req.body.orid;
+    const fname = req.body.fname;
+    const quantity = req.body.quantity;
+
+    pool.query(`INSERT INTO orderitems(orid, fname, quantity)
+                VALUES($1, $2, $3)`, [orid, fname, quantity],
+        (q_err, q_res) => {
+        })
+})
 
 module.exports = customer;
 
