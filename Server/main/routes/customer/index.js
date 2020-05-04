@@ -14,7 +14,7 @@ customer.get('/api/get/getorderhistory', (req, res, next) => {
     FROM Deliver NATURAL JOIN Orders NATURAL JOIN DeliveryTime
     WHERE cid=$1`, [cid],
         (q_err, q_res) => {
-            res.json(q_res.rows); 
+            res.json(q_res.rows);
         })
 
 })
@@ -24,9 +24,20 @@ customer.get('/api/get/getorderitems', (req, res, next) => {
     pool.query(`SELECT fname, quantity 
     FROM orderitems where orid=$1`, [orid],
         (q_err, q_res) => {
-            res.json(q_res.rows); 
+            res.json(q_res.rows);
         })
+})
 
+customer.post('/api/posts/postreview', (req, res, next) => {
+    console.log(req.body);
+    const foodReview = req.body.foodReview;
+    const deliveryRating = req.body.deliveryRating;
+    const orid = req.body.orid;
+    pool.query(`INSERT INTO Reviews(orid, foodreview, deliveryrating)
+                VALUES($1, $2, $3)
+                ON CONFLICT DO NOTHING`, [orid, foodReview, deliveryRating],
+        (q_err, q_res) => {
+        })
 })
 
 

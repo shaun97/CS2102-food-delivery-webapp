@@ -7,7 +7,7 @@ class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            rating: 0,
+            rating: 4,
             review: '',
             orid: this.props.order.orid,
             cartCost: this.props.order.cartCost,
@@ -17,9 +17,6 @@ class Orders extends Component {
             rname: this.props.order.rname,
             orderItems: []
         })
-
-        // this.handleRate = this.handleRate.bind(this);
-        // this.handleReview = this.handleReview.bind(this);
         this.handleSubmitReview = this.handleSubmitReview.bind(this);
     }
 
@@ -39,12 +36,16 @@ class Orders extends Component {
     }
 
     handleSubmitReview() {
-
+        axios.post('customer/api/posts/postreview',
+            { orid: this.state.orid, foodReview: this.state.review, deliveryRating: this.state.rating })
+            .then(res => alert("Signup Sucessful"))
+            .catch(err => console.log(err));
+        console.log("submit");
     }
 
     handleReview = (e, { value }) => {
-        this.setState({ review: value});
-    } 
+        this.setState({ review: value });
+    }
 
 
     handleRate = (e, { rating }) => {
@@ -90,7 +91,7 @@ class Orders extends Component {
                                     <Header>Food Review</Header>
                                     <Form>
                                         <Form.TextArea placeholder='Tell us what you think!' onChange={this.handleReview} />
-                                        <Form.Button>Submit</Form.Button>
+                                        <Form.Button onClick={this.handleSubmitReview}>Submit</Form.Button>
                                     </Form>
                                 </Modal.Description>
                             </Modal.Content>
