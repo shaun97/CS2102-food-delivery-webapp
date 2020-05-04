@@ -9,7 +9,7 @@ CREATE TABLE Users
 
 CREATE TABLE Managers (
 	mid integer primary key,
-	foreign key (id) references Users(id)
+	foreign key (mid) references Users(id)
 	on delete cascade
 );
 --INSERT into Users(Customer);

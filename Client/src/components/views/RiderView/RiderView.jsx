@@ -7,6 +7,7 @@ import TopHeader from '../../utils/TopHeader';
 import PendingOrdersTab from './PendingOrdersView/PendingOrdersTab';
 import DeliveryScheduleTab from './DeliveryScheduleView/DeliveryScheduleTab';
 import SummaryTab from './SummaryView/SummaryTab';
+import { LoginContext } from '../../LoginContext';
 
 class RiderView extends Component {
   constructor() {
@@ -44,7 +45,7 @@ class RiderView extends Component {
     }
     return (
       <div>
-        <TopHeader user="Rider" />
+        <TopHeader signOut={this.context.signOut} user="Rider" />
         <NavSideBar 
           handleChangeTab={this.changeActiveTab}
           navTabs={this.state.menu}
@@ -54,5 +55,5 @@ class RiderView extends Component {
     );
   }
 }
-
+RiderView.contextType = LoginContext;
 export default RiderView;

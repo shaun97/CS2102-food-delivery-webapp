@@ -8,6 +8,7 @@ import TopHeader from "../../utils/TopHeader";
 import UpdateMenuTab from "./UpdateMenuTab";
 import SummaryTab from "./SummaryTab";
 import ChooseMonthTab from "./ChooseMonthTab";
+import { LoginContext } from '../../LoginContext';
 
 class StaffView extends Component {
   constructor() {
@@ -45,7 +46,7 @@ class StaffView extends Component {
     }
     return (
       <div className="summaryDetails">
-        <TopHeader user="Staff" />
+        <TopHeader signOut={this.context.signOut} user="Staff" />
         <NavSideBar
           handleChangeTab={this.changeActiveTab}
           navTabs={this.state.menu}
@@ -55,5 +56,5 @@ class StaffView extends Component {
     );
   }
 }
-
+StaffView.contextType = LoginContext;
 export default StaffView;
