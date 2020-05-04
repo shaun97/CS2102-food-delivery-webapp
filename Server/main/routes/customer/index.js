@@ -35,7 +35,8 @@ customer.post('/api/posts/postreview', (req, res, next) => {
     const orid = req.body.orid;
     pool.query(`INSERT INTO Reviews(orid, foodreview, deliveryrating)
                 VALUES($1, $2, $3)
-                ON CONFLICT DO NOTHING`, [orid, foodReview, deliveryRating],
+                ON CONFLICT (orid) DO UPDATE
+                SET foodreview=$2, deliveryrating=$3`, [orid, foodReview, deliveryRating],
         (q_err, q_res) => {
         })
 })
