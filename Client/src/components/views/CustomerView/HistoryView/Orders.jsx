@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import { Header, Item, Divider, Segment, Modal, Button, Rating, Form } from 'semantic-ui-react'
 
@@ -6,23 +7,56 @@ class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            rating: 0,
+            rating: 4,
+            review: '',
             orid: this.props.order.orid,
             cartCost: this.props.order.cartCost,
             location: this.props.order.location,
             deliveredTime: this.props.order.deliveredTime,
-            deliveryFee: 0,
+            deliveryFee: 0, //need to link with the delivery, is the data consistent?
             rname: this.props.order.rname,
+            orderItems: []
         })
-        console.log(this.state);
+        this.handleSubmitReview = this.handleSubmitReview.bind(this);
     }
+
+    componentDidMount() {
+        axios.get('customer/api/get/getorderitems', { params: { orid: this.state.orid } })
+            .then(res => {
+                this.setState({
+                    orderItems: res.data.map(item => {
+                        return {
+                            fname: item.fname,
+                            quantity: item.quantity
+                        }
+                    })
+                });
+            }
+            );
+    }
+
+    handleSubmitReview() {
+        axios.post('customer/api/posts/postreview',
+            { orid: this.state.orid, foodReview: this.state.review, deliveryRating: this.state.rating })
+            .then(res => alert("Signup Sucessful"))
+            .catch(err => console.log(err));
+        console.log("submit");
+    }
+
+    handleReview = (e, { value }) => {
+        this.setState({ review: value });
+    }
+
 
     handleRate = (e, { rating }) => {
         this.setState({ rating })
-        console.log(rating);
     }
 
     render() {
+        console.log(this.state.review);
+        const orderItems = this.state.orderItems.map((item) =>
+            <header className='price'>{item.quantity} x {item.fname}</header>
+        )
         return (
             <Segment width={16}>
                 <Item >
@@ -37,7 +71,7 @@ class Orders extends Component {
                         </Item.Meta>
                         <Item.Header as='h5'>Order Summary</Item.Header>
 
-                        <span className='price'>1 x Chicken:</span>
+                        {orderItems}
 
                         <Divider />
                         <Item.Meta>
@@ -56,8 +90,8 @@ class Orders extends Component {
                                     <Divider />
                                     <Header>Food Review</Header>
                                     <Form>
-                                        <Form.TextArea placeholder='Tell us what you think!' />
-                                        <Form.Button>Submit</Form.Button>
+                                        <Form.TextArea placeholder='Tell us what you think!' onChange={this.handleReview} />
+                                        <Form.Button onClick={this.handleSubmitReview}>Submit</Form.Button>
                                     </Form>
                                 </Modal.Description>
                             </Modal.Content>
