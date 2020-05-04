@@ -1,43 +1,87 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import { Header, Item, Divider, Segment, Modal, Button, Rating, Form } from 'semantic-ui-react'
+
+import { LoginContext } from '../../../LoginContext';
 
 class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            rating: 0,
+            rating: 4,
+            review: '',
+            orid: this.props.order.orid,
+            cartCost: this.props.order.cartCost,
+            location: this.props.order.location,
+            deliveredTime: this.props.order.deliveredTime,
+            deliveryFee: 0, //need to link with the delivery, is the data consistent?
+            rname: this.props.order.rname,
+            orderItems: []
         })
+        this.handleSubmitReview = this.handleSubmitReview.bind(this);
     }
+
+    componentDidMount() {
+        axios.get('customer/api/get/getorderitems', { params: { orid: this.state.orid } })
+            .then(res => {
+                this.setState({
+                    orderItems: res.data.map(item => {
+                        return {
+                            fname: item.fname,
+                            quantity: item.quantity
+                        }
+                    })
+                });
+            }
+            );
+    }
+
+    handleSubmitReview() { 
+        let context = this.context;
+        axios.post('customer/api/posts/postreview',
+            { orid: this.state.orid, foodReview: this.state.review, deliveryRating: this.state.rating })
+            .then(res => alert("Signup Sucessful"))
+            .catch(err => console.log(err));
+        console.log(context);
+    }
+
+    handleReview = (e, { value }) => {
+        this.setState({ review: value });
+    }
+
 
     handleRate = (e, { rating }) => {
         this.setState({ rating })
-        console.log(rating);
     }
 
     render() {
+        console.log(this.state.review);
+        const orderItems = this.state.orderItems.map((item) =>
+            <header className='price'>{item.quantity} x {item.fname}</header>
+        )
         return (
             <Segment width={16}>
                 <Item >
                     <Item.Content textAlign='left'>
-                        <Item.Header as='h3'>Chinese Kitchen</Item.Header>
+                        <Item.Header as='h3'>{this.state.rname}</Item.Header>
                         <Item.Meta>
-                            <span className='price'>Delivered On:</span>
+                            <span className='price'>Delivered On: {this.state.deliveredTime}</span>
 
                         </Item.Meta>
                         <Item.Meta>
-                            <span className='price'>Delivered To:</span>
+                            <span className='price'>Delivered To: {this.state.location}</span>
                         </Item.Meta>
                         <Item.Header as='h5'>Order Summary</Item.Header>
 
-                        <span className='price'>1 x Chicken:</span>
+                        {orderItems}
 
                         <Divider />
                         <Item.Meta>
-                            <p className='price'>Subtotal:</p>
-                            <p className='price'>Delivery Fee:</p>
+                            <p className='price'>Subtotal: ${this.state.cartCost}</p>
+                            <p className='price'>Delivery Fee: ${this.state.deliveryFee}</p>
                             <Divider />
-                            <span className='price'>Total:</span>
+                            <span className='price'>Total: ${this.state.cartCost + this.state.deliveryFee}</span>
                         </Item.Meta>
                         <Divider />
                         <Modal trigger={<Button>Review</Button>}>
@@ -49,8 +93,8 @@ class Orders extends Component {
                                     <Divider />
                                     <Header>Food Review</Header>
                                     <Form>
-                                        <Form.TextArea placeholder='Tell us what you think!' />
-                                        <Form.Button>Submit</Form.Button>
+                                        <Form.TextArea placeholder='Tell us what you think!' onChange={this.handleReview} />
+                                        <Form.Button onClick={this.handleSubmitReview}>Submit</Form.Button>
                                     </Form>
                                 </Modal.Description>
                             </Modal.Content>
@@ -58,9 +102,10 @@ class Orders extends Component {
                     </Item.Content>
                 </Item>
             </Segment>
-        )
+        );
     }
-
 }
+
+Orders.contextType = LoginContext;
 
 export default Orders;

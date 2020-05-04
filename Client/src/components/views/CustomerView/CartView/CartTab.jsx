@@ -9,8 +9,10 @@ class CartTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            promoCode: '',
+            address: '',
             subtotal: 0,
-            deliveryFee: 0,
+            deliveryCost: 0,
             rname: (this.props.cartItems.length == 0) ? '' : this.props.cartItems[0].rname,
             descript: '',
             minOrder: 0,
@@ -26,6 +28,8 @@ class CartTab extends Component {
         }
         this.handleDeleteItem = this.handleDeleteItem.bind(this);
         this.incOrDecItem = this.incOrDecItem.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleGetPrice = this.handleGetPrice.bind(this);
     }
 
     componentDidMount() {
@@ -70,6 +74,22 @@ class CartTab extends Component {
         }, () => console.log("called"))
     }
 
+    handleChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
+    handleGetPrice() {
+        axios.get('/customer/api/get/getdeliverycost').then(res => {
+            this.setState({
+                deliveryCost: res.data[0].getdeliverycost,
+            });
+
+        })
+            .catch(err => console.log(err))
+    }
+
     render() {
         let header = (this.state.cartItems.length == 0) ? <Header>There is nothing in your cart!</Header> :
             <Item.Group>
@@ -93,27 +113,27 @@ class CartTab extends Component {
                                 <Segment>
                                     <Form.Field>
                                         <label>Please key in your address</label>
-                                        <input placeholder='Address' />
+                                        <input name='address' type='text' onChange={this.handleChange} placeholder='Address' />
                                     </Form.Field>
                                     <Form.Field>
                                         <label>Promo Code</label>
-                                        <input placeholder='$$' />
+                                        <input name='promoCode' onChange={this.handleChange} placeholder='$$' />
                                     </Form.Field>
                                 </Segment>
-                                <Button fluid color='blue' type='submit'>Get Price</Button>
+                                <Button fluid color='blue' onClick={this.handleGetPrice} type='submit'>Get Price</Button>
                                 <Segment>
                                     <Segment basic>
                                         <text>Subtotal:</text>
-                                        <text style={{ float: 'right' }}>$10</text>
+                                        <text style={{ float: 'right' }}>${this.state.subtotal}</text>
                                     </Segment>
                                     <Segment basic>
                                         <text>Delivery:</text>
-                                        <text style={{ float: 'right' }}>$10</text>
+                                        <text style={{ float: 'right' }}>${this.state.deliveryCost}</text>
                                     </Segment>
 
                                     <Segment basic>
                                         <text>Total:</text>
-                                        <text style={{ float: 'right' }}>$10</text>
+                                        <text style={{ float: 'right' }}>${this.state.deliveryCost + this.state.subtotal}</text>
                                     </Segment>
 
                                     {/* promo code? */}
