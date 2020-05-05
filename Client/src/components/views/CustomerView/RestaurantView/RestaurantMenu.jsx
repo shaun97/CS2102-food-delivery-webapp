@@ -54,7 +54,6 @@ class RestaurantMenu extends Component {
                     </Segment>
                 </Grid.Column>
             )
-        console.log(reviewsToShow);
 
         const menuItemsToShow = this.state.menu.filter(function (restaurant) {
             return restaurant.category === this.state.activeCategory;

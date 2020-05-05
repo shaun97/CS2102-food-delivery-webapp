@@ -34,7 +34,6 @@ class SelectView extends Component {
                 color="blue"
                 circular
                 icon="shopping cart"
-                hi
               ></Button>
             }
             content="customer"

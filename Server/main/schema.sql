@@ -7,7 +7,8 @@ CREATE TABLE Users
 	date_signup DATE DEFAULT CURRENT_DATE
 );
 
-CREATE TABLE Managers (
+CREATE TABLE Managers
+(
 	mid integer primary key,
 	foreign key (mid) references Users(id)
 	on delete cascade
@@ -93,7 +94,7 @@ CREATE TABLE Sells
 	sold integer default 0,
 	--trigger based on time reset daily
 	flimit integer,
-	avail bool,
+	avail bool default true,
 	--use trigger here based on limit-sold
 	category e_category not null,
 	price integer,
@@ -211,6 +212,10 @@ CREATE TABLE Salary
 CREATE TABLE allPromotions
 (
 	pid SERIAL UNIQUE primary key,
+	promotiondescript varchar(255),
+	promoname varchar(30),
+	promotiontype varchar(30),
+	discount integer,
 	startD DATE,
 	endD DATE
 );
@@ -219,11 +224,10 @@ CREATE TABLE RPromotions
 (
 	--restaurants may offer promotional prices for menu items
 	pid integer primary key,
-	discount integer,
+--	promotiontype varchar(30), -- 2 types? fixed discount / percentage
 	rname varchar(30),
-	fname varchar(30),
-	startD DATE,
-	endD DATE,
+	fname varchar(30), -- screw fname? overall promo?
+
 	foreign key (pid) references allPromotions on delete cascade,
 	foreign key (rname) references Restaurants on delete cascade,
 	foreign key (fname) references Sells (fname) on delete cascade
@@ -232,9 +236,7 @@ CREATE TABLE RPromotions
 CREATE TABLE FDPromotions
 (
 	pid integer primary key,
-	discount integer,
-	startD DATE,
-	endD DATE,
+--	promotiontype varchar(30), -- 2 types? fixed discount 
 	foreign key (pid) references allPromotions on delete cascade
 );
 
