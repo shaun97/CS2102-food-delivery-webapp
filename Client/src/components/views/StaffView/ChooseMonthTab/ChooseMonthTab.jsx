@@ -53,12 +53,12 @@ class ChooseMonthTab extends Component {
             name="June"
             active={activeItem === "June"}
             onClick={this.handleItemClick}
-          />{" "}
+          />
           <Menu.Item
             name="July"
             active={activeItem === "July"}
             onClick={this.handleItemClick}
-          />{" "}
+          />
           <Menu.Item
             name="Aug"
             active={activeItem === "Aug"}

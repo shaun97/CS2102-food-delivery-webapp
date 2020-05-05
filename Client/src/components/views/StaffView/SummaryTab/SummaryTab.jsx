@@ -14,11 +14,12 @@ class SummaryTab extends Component {
       month: d.getMonth(),
       totalOrders: "0",
       totalCost: "0",
-      topOrder: "",
-      secOrder: "",
-      thirdOrder: "",
-      fourthOrder: "",
-      fifthOrder: "",
+      top5Orders: [],
+      // topOrder: "",
+      // secOrder: "",
+      // thirdOrder: "",
+      // fourthOrder: "",
+      // fifthOrder: "",
     };
   }
 
@@ -26,10 +27,9 @@ class SummaryTab extends Component {
     axios
       .get("/staff/api/get/getTotalOrders", {
         params: {
-          monthSelected: 4,
+          monthSelected: 3,
 
           //monthSelected: this.state.month + 1,
-          rname: "Chinese Kitchen",
         },
       })
       .then((res) => {

@@ -7,7 +7,8 @@ CREATE TABLE Users
 	date_signup DATE DEFAULT CURRENT_DATE
 );
 
-CREATE TABLE Managers (
+CREATE TABLE Managers
+(
 	mid integer primary key,
 	foreign key (mid) references Users(id)
 	on delete cascade
@@ -203,6 +204,7 @@ CREATE TABLE MWS
 CREATE TABLE Salary
 (
 	rid integer primary key,
+	whichMonth integer,
 	deliveryFees integer,--counted weekly for PT and monthly for FT
 	basePay integer,
 	foreign key (rid) references Riders on delete cascade

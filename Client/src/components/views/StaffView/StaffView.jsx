@@ -10,18 +10,17 @@ import ChooseMonthTab from "./ChooseMonthTab/ChooseMonthTab";
 
 import { LoginContext } from "../../LoginContext";
 
-var rname;
-
 class StaffView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rname: "",
       menu: [
         { name: "Update Menu Info", icon: "edit" },
         { name: "This Month's Summary", icon: "calendar" },
         { name: "View Summary", icon: "calendar alternate" },
       ],
+      rname: "",
+      food: [],
       activeTab: "Update Menu Info",
     };
     this.changeActiveTab = this.changeActiveTab.bind(this);
@@ -34,16 +33,16 @@ class StaffView extends Component {
         params: { stid: stid },
       })
       .then((res) => this.setState({ rname: res.data[0].rname }))
+
       .catch((err) => console.log(err));
+
+    console.log(this.state.rname);
 
     axios
       .get("/restaurant/api/get/restaurantmenu", {
-        params: { rname: rname },
+        params: { rname: this.state.rname },
       })
-
-      // this.setState({ menu: res.data })
-
-      .then((res) => console.log(res.data[0]))
+      .then((res) => this.setState({ food: res.data }))
       .catch((err) => console.log(err));
   }
 
@@ -55,23 +54,22 @@ class StaffView extends Component {
   }
 
   render() {
-    console.log(this.context.user.id);
+    console.log(this.state.rname);
     let tab;
     switch (this.state.activeTab) {
       case "Update Menu Info":
-        tab = <UpdateMenuTab>rname={this.state.rname}</UpdateMenuTab>;
+        tab = <UpdateMenuTab rname={this.state.rname}></UpdateMenuTab>;
         break;
       case "This Month's Summary":
-        tab = <SummaryTab></SummaryTab>;
+        tab = <SummaryTab rname={this.state.rname}></SummaryTab>;
         break;
       case "View Summary":
-        tab = <ChooseMonthTab></ChooseMonthTab>;
+        tab = <ChooseMonthTab rname={this.state.rname}></ChooseMonthTab>;
         break;
     }
 
     return (
       <div className="summaryDetails">
-        <h1>{this.context.rname} hello </h1>
         <TopHeader signOut={this.context.signOut} user="Staff" />
         <NavSideBar
           handleChangeTab={this.changeActiveTab}
