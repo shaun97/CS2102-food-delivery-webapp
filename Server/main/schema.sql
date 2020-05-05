@@ -88,7 +88,7 @@ CREATE TABLE Sells
 	sold integer default 0,
 	--trigger based on time reset daily
 	flimit integer,
-	avail bool,
+	avail bool default true,
 	--use trigger here based on limit-sold
 	category e_category not null,
 	price integer,

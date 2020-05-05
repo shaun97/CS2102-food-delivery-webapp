@@ -1,13 +1,12 @@
-//Basic React Imports
 import React, { Component } from "react";
+import axios from "axios";
 
 import NavSideBar from "../../utils/SideBar";
 import TopHeader from "../../utils/TopHeader";
-// import './RiderView.css';
 
-import UpdateMenuTab from "./UpdateMenuTab";
-import SummaryTab from "./SummaryTab";
-import ChooseMonthTab from "./ChooseMonthTab";
+import UpdateMenuTab from "./UpdateTab/UpdateMenuTab";
+import SummaryTab from "./SummaryTab/SummaryTab";
+import ChooseMonthTab from "./ChooseMonthTab/ChooseMonthTab";
 
 class StaffView extends Component {
   constructor() {
@@ -16,9 +15,9 @@ class StaffView extends Component {
       menu: [
         { name: "Update Menu Info", icon: "edit" },
         { name: "This Month's Summary", icon: "calendar" },
-        { name: "Other Month's Summary", icon: "calendar alternate" }
+        { name: "Other Month's Summary", icon: "calendar alternate" },
       ],
-      activeTab: "Update Menu Info"
+      activeTab: "Update Menu Info",
     };
     this.changeActiveTab = this.changeActiveTab.bind(this);
   }
@@ -26,7 +25,7 @@ class StaffView extends Component {
   changeActiveTab(event) {
     console.log(event.currentTarget.id);
     this.setState({
-      activeTab: event.currentTarget.id
+      activeTab: event.currentTarget.id,
     });
   }
 
@@ -44,7 +43,7 @@ class StaffView extends Component {
         break;
     }
     return (
-      <div className="summaryDetails">
+      <div>
         <TopHeader user="Staff" />
         <NavSideBar
           handleChangeTab={this.changeActiveTab}

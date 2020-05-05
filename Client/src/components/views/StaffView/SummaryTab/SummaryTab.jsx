@@ -1,14 +1,59 @@
 //Basic React Imports
 import React, { Component } from "react";
 
-import { Card, Feed, Header, Segment, List } from "semantic-ui-react";
+import { Card, Feed, Header } from "semantic-ui-react";
+
+import axios from "axios";
 
 class SummaryTab extends Component {
   constructor(props) {
     super(props);
+    var d = new Date();
     this.state = {
-      menu: []
+      // menu: []
+      month: d.getMonth(),
+      totalOrders: "0",
+      totalCost: "0",
+      topOrder: "",
+      secOrder: "",
+      thirdOrder: "",
+      fourthOrder: "",
+      fifthOrder: "",
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get("/staff/api/get/getTotalOrders", {
+        params: {
+          monthSelected: 4,
+
+          //monthSelected: this.state.month + 1,
+          rname: "Chinese Kitchen",
+        },
+      })
+      .then((res) => {
+        this.setState({ totalOrders: res.data.length });
+        this.setState({ orderDetails: res.data });
+        this.setState({
+          isLoading: false,
+        });
+        //calculate total sales **need to remove the delivery charges
+        let orders = this.state.orderDetails.map((item) => {
+          return {
+            orid: item.orid,
+            cost: item.cartcost,
+            fee: item.fee,
+          };
+        });
+        let sum = 0;
+        for (let i = 0; i < orders.length; i++) {
+          sum += orders[i].cost;
+          sum -= orders[i].fee; //need to remove deliveryfees
+        }
+        this.setState({ totalCost: sum });
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -25,7 +70,7 @@ class SummaryTab extends Component {
               <Feed.Event>
                 <Feed.Content>
                   <Header size="huge" textAlign="center">
-                    1000
+                    {this.state.totalOrders}
                   </Header>
                 </Feed.Content>
               </Feed.Event>
@@ -44,7 +89,7 @@ class SummaryTab extends Component {
               <Feed.Event>
                 <Feed.Content>
                   <Header size="huge" textAlign="center">
-                    $30,000
+                    ${this.state.totalCost}
                   </Header>
                 </Feed.Content>
               </Feed.Event>
