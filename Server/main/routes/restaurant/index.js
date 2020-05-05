@@ -40,7 +40,8 @@ restaurant.get('/api/get/getrestreviews', (req, res, next) => {
         const rname = req.query.rname;
         pool.query(`SELECT name, foodreview, deliveryrating 
         FROM restaurants NATURAL JOIN orders NATURAL JOIN reviews INNER JOIN users on users.id=orders.cid
-        WHERE rname=$1`, [rname],
+        WHERE rname=$1
+        ORDER BY orid DESC`, [rname],
                 (q_err, q_res) => {
                         if (q_res != undefined) {
                                 res.json(q_res.rows);

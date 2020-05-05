@@ -34,14 +34,14 @@ VALUES
 INSERT INTO Customers
     (cid, points, creditcard)
 VALUES
-    (1, 4, 303179),
-    (4, 8, 401795),
-    (6, 4, 354067),
-    (7, 4, 355605),
-    (12, 4, 352205),
-    (13, 4, 310605),
-    (14, 4, 489005),
-    (15, 4, 235601);
+    (1, 2, 303179),
+    (4, 3, 401795),
+    (6, 2, 354067),
+    (7, 3, 355605),
+    (12, 1, 352205),
+    (13, 1, 310605),
+    (14, 2, 489005),
+    (15, 3, 235601);
 
 -- 2 riders: 2,3,16,17,18
 INSERT INTO Riders
@@ -233,17 +233,19 @@ VALUES
     (18, 3, 6, 100);
 
 INSERT INTO allPromotions
-    (startD, endD)
+    (promotiondescript, promoname, promotiontype, discount,startD, endD)
 VALUES
-    ('2020-03-23', '2020-03-26'),
-    ('2020-03-23', '2020-03-24');
+    ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 ,'2020-03-23', '2020-05-26'),
+    ('May the discounts be with you! Enjoy 50% off your cart items on MoodPanda! #StayHomeStaySafe', 'May the fourth', 'percentage', 50, '2020-03-23', '2020-05-24'),
+    ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24');
 
 INSERT INTO RPromotions
-    (pid, discount, rname, fname, startD, endD)
+    (pid, rname)
 VALUES
-    (1, 10, 'Chinese Kitchen', 'Beef Horfun', '2020-03-23', '2020-03-26');
+    (3, 'Chinese Kitchen');
 
 INSERT INTO FDPromotions
-    (pid, discount, startD, endD)
+    (pid)
 VALUES
-    (2, 5, '2020-03-23', '2020-03-24');
+    (1),
+    (2);
