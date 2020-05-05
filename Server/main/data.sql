@@ -224,13 +224,13 @@ VALUES
     ;
 
 INSERT INTO Salary
-    (rid, deliveryFees, basePay)
+    (rid, whichMonth, deliveryFees, basePay)
 VALUES
-    (2, 9, 60),
-    (3, 9, 300),
-    (16, 9, 300),
-    (17, 3, 100),
-    (18, 6, 100);
+    (2, 3, 9, 60),
+    (3, 3, 9, 300),
+    (16, 4, 9, 300),
+    (17, 3, 3, 100),
+    (18, 3, 6, 100);
 
 INSERT INTO allPromotions
     (startD, endD)
