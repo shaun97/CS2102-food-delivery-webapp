@@ -22,10 +22,11 @@ class HistoryView extends Component {
             .then(res => {
                 this.setState({
                     orders: res.data.map(item => {
-                        console.log(item.rname);
+                        console.log(item);
                         return {
                             cartCost: item.cartcost,
                             deliveredTime: item.deliveredtime,
+                            deliveryCost: item.deliverycost,
                             location: item.location,
                             orid: item.orid,
                             rname: item.rname

@@ -13,7 +13,7 @@ customer.get('/api/get/getorderhistory', (req, res, next) => {
     pool.query(`SELECT rname, orid, cartCost, fee as deliveryCost, TO_CHAR(deliveredTime, 'dd/mm/yy hh:mm') as deliveredtime, location 
     FROM Deliver NATURAL JOIN Orders NATURAL JOIN DeliveryTime
     WHERE cid=$1
-    ORDER BY deliveredTime 
+    ORDER BY orid desc
     LIMIT 5`, [cid],
         (q_err, q_res) => {
             res.json(q_res.rows);
@@ -48,7 +48,6 @@ customer.post('/api/posts/insertorder', (req, res, next) => {
     const cartcost = req.body.cartcost;
     const location = req.body.location;
     const deliverycost = req.body.deliverycost;
-    console.log(deliverycost);
     pool.query(`SELECT insertandscheduleorder($1, $2, $3, $4, $5)`, [cid, rname, cartcost, location, deliverycost],
         (q_err, q_res) => {
             if (q_res == undefined) {

@@ -52,8 +52,8 @@ async function build() {
     try {
         await transact(async (query) => {
             await executeSequentially(definitions, query);
-            await executeSequentially(triggers, query);
             await executeSequentially(instantiations, query);
+            await executeSequentially(triggers, query);
         });
         console.log('Successfully built database.');
         process.exit(0);
