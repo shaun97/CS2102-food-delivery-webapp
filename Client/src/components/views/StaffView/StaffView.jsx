@@ -10,7 +10,6 @@ import ChooseMonthTab from "./ChooseMonthTab/ChooseMonthTab";
 
 import { LoginContext } from "../../LoginContext";
 
-var stid;
 var rname;
 
 class StaffView extends Component {
@@ -18,7 +17,6 @@ class StaffView extends Component {
     super(props);
     this.state = {
       rname: "",
-
       menu: [
         { name: "Update Menu Info", icon: "edit" },
         { name: "This Month's Summary", icon: "calendar" },
@@ -38,15 +36,16 @@ class StaffView extends Component {
       .then((res) => this.setState({ rname: res.data[0].rname }))
       .catch((err) => console.log(err));
 
-    alert(rname);
+    axios
+      .get("/restaurant/api/get/restaurantmenu", {
+        params: { rname: rname },
+      })
+
+      // this.setState({ menu: res.data })
+
+      .then((res) => console.log(res.data[0]))
+      .catch((err) => console.log(err));
   }
-  //   axios
-  //     .get("/restaurant/api/get/restaurantmenu", {
-  //       params: { rname: this.state.restaurant.rname },
-  //     })
-  //     .then((res) => this.setState({ menu: res.data }))
-  //     .catch((err) => console.log(err));
-  // }
 
   changeActiveTab(event) {
     console.log(event.currentTarget.id);
