@@ -21,7 +21,7 @@ function OrderCardsGrid(props) {
                         <Button basic color = 'green'>
                             Accept Delivery
                         </Button>
-                        <Button basic color='red'>
+                        <Button basic color='red' onClick={() => props.handleDeclineOrder(item)}>
                             Decline Delivery
                         </Button>
                     </div>
