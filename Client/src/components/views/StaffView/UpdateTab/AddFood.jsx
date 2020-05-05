@@ -1,31 +1,25 @@
-//Basic React Imports
 import React, { Component } from "react";
-
-//Semantic
-import { Button, Form } from "semantic-ui-react";
-
+import { Button, Form, Select } from "semantic-ui-react";
 import axios from "axios";
 
-var rname = "Chinese Kitchen"; //todo: change this later
+//var rname = "Chinese Kitchen"; //todo: change this later
 
-// const categoryOptions = [
-//   { key: "Western", value: "Western", flag: "Western", text: "Western" },
-//   { key: "chi", value: "Chinese", flag: "chi", text: "Chinese" },
-//   { key: "mal", value: "Malay", flag: "mal", text: "Malay" },
-//   { key: "jap", value: "Japanese", flag: "jap", text: "Japanese" },
-//   { key: "kor", value: "Korean", flag: "kor", text: "Korean" },
-//   { key: "ind", value: "Indian", flag: "ind", text: "Indian" },
-//   { key: "tha", value: "Thai", flag: "tha", text: "Thai" },
-// ];
-
-const categoryOptions = [{ key: "Western", text: "Western", value: "Western" }];
+const categoryOptions = [
+  { key: "Western", value: "Western", flag: "Western", text: "Western" },
+  { key: "Chinese", value: "Chinese", flag: "Chinese", text: "Chinese" },
+  { key: "Malay", value: "Malay", flag: "Malay", text: "Malay" },
+  { key: "Japanese", value: "Japanese", flag: "Japanese", text: "Japanese" },
+  { key: "Korean", value: "Korean", flag: "Korean", text: "Korean" },
+  { key: "Indian", value: "Indian", flag: "Indian", text: "Indian" },
+  { key: "Thai", value: "Thai", flag: "Thai", text: "Thai" },
+];
 
 class AddFood extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      rname: rname,
+      rname: this.props.rname,
       fname: "",
       sold: "",
       flimit: "",
@@ -42,9 +36,16 @@ class AddFood extends Component {
         [name]: value,
       });
     };
+
+    this.handleDropdown = (event, data) => {
+      this.setState({
+        [data.name]: data.value,
+      });
+    };
   }
 
   handleSubmitClick() {
+    console.log(this.state.rname);
     const newFood = {
       //   rname: "Chinese Kitchen",
       //   fname: "Food",
@@ -93,10 +94,12 @@ class AddFood extends Component {
             fluid
             placeholder="Select Category"
             required={true}
-            selection
+            // selection
+            control={Select}
             options={categoryOptions}
             name="category"
-            onChange={this.handleChange}
+            onChange={this.handleDropdown}
+            value={this.state.selectedCategory}
           />
           <Form.Input
             fluid

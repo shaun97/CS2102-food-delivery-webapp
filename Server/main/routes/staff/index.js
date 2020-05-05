@@ -6,13 +6,14 @@ const pool = require("../../db");
 */
 
 staff.get("/api/get/getRestaurant", (req, res, next) => {
-  const staffID = req.query.id;
+  const stid = req.query.stid;
   pool.query(
     `SELECT rname 
               FROM Staffs
               WHERE stid = $1`,
-    [staffID],
+    [stid],
     (q_err, q_res) => {
+      console.log(q_res.rows);
       res.json(q_res.rows);
     }
   );
@@ -46,9 +47,11 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
               VALUES($1, $2, $3, $4, $5, $6, $7)
               ON CONFLICT (fname) DO UPDATE
               SET fname=$2, sold=$3, flimit=$4, avail=$5, category=$6, price=$7
-              WHERE rname=$1`,
+              WHERE Sells.rname=$1`,
     [rname, fname, sold, flimit, avail, category, price],
-    (q_err, q_res) => {}
+    (q_err, q_res) => {
+      console.log(q_err);
+    }
   );
 });
 
@@ -80,4 +83,5 @@ staff.get("/api/get/getTop5Orders", (req, res, next) => {
     }
   );
 });
+
 module.exports = staff;
