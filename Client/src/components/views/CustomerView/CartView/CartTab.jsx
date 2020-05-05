@@ -96,9 +96,12 @@ class CartTab extends Component {
 
     handleSubmitOrder() {
         let cid = this.context.user.id;
-        console.log(cid);
+        if (this.state.deliveryCost == 0) {
+            alert('Please click get price first!');
+            return;
+        }
         axios.post('/customer/api/posts/insertorder',
-            { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address })
+            { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address, deliverycost: this.state.deliveryCost })
             .then(
                 (res) => {
                     console.log(res);
@@ -174,7 +177,6 @@ class CartTab extends Component {
             </>
         )
     }
-
 }
 
 CartTab.contextType = LoginContext;

@@ -18,14 +18,21 @@ SELECT CASE
     END
 $$ LANGUAGE sql;
 
-CREATE OR REPLACE FUNCTION insertandscheduleorder(cid int, rname varchar(255), cartcost integer, location varchar(50)) 
+
+--Insert an order and return the orid to react to run insert order items
+--Insert into deliver and deliver will have a trigger function to find a matching rider
+
+CREATE OR REPLACE FUNCTION insertandscheduleorder(cid int, rname varchar(255), cartcost integer, location varchar(50), deliveryFee int) 
 RETURNS INTEGER AS $$
 --schedule here
 DECLARE
-    res INT;
+    newOrid INT;
 BEGIN 
-    INSERT INTO Orders(cid, rname, cartCost, location) VALUES (cid, rname, cartcost, location) RETURNING orid INTO res;
-    return res;
+    INSERT INTO Orders(cid, rname, cartCost, location) VALUES (cid, rname, cartcost, location) 
+    RETURNING orid INTO newOrid;
+    INSERT INTO Deliver(orid, fee) VALUES (newOrid, deliveryFee);
+
+    return newOrid;
 END
 $$ language plpgsql;
 

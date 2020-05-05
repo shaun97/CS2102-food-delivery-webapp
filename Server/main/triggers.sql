@@ -1,3 +1,4 @@
+--Trigger to check the min order and return and exception if not hit
 CREATE OR REPLACE FUNCTION check_min_order
 () RETURNS TRIGGER AS $$
 DECLARE
@@ -7,7 +8,7 @@ BEGIN
     INTO minorder
     FROM RESTAURANTS R
     WHERE R.rname = NEW.rname;
-IF NEW.cartCost < minOrder THEN
+    IF NEW.cartCost < minOrder THEN
             RAISE EXCEPTION 'Order did not hit min order';
 --RETURN NULL;
 END
@@ -25,3 +26,25 @@ UPDATE OR INSERT
     FOR EACH ROW
 EXECUTE FUNCTION check_min_order
 ();
+
+--Trigger to add all the respective delivery times for the delivery
+CREATE OR REPLACE FUNCTION update_delivery_time
+() RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO DeliveryTime(orid, departForR, arriveForR, departFromR, deliveredTime) 
+    VALUES (NEW.orid, NOW(), NOW() + interval '30  minutes', NOW() + interval '60  minutes', NOW() + interval '90  minutes');
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS update_delivery_time_trigger
+ON Deliver;
+CREATE TRIGGER update_delivery_time_trigger
+    AFTER
+UPDATE OR INSERT
+    ON Deliver
+    FOR EACH ROW
+EXECUTE FUNCTION update_delivery_time
+();
+
+
