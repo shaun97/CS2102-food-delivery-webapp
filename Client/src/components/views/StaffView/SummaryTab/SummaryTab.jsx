@@ -10,6 +10,8 @@ class SummaryTab extends Component {
     super(props);
     var d = new Date();
     this.state = {
+      rname: this.props.rname,
+
       // menu: []
       month: d.getMonth(),
       totalOrders: "0",
@@ -24,11 +26,12 @@ class SummaryTab extends Component {
   }
 
   componentDidMount() {
+    console.log(this.state.rname);
     axios
       .get("/staff/api/get/getTotalOrders", {
         params: {
-          monthSelected: 3,
-
+          monthSelected: 4,
+          rname: this.state.rname,
           //monthSelected: this.state.month + 1,
         },
       })
@@ -54,6 +57,7 @@ class SummaryTab extends Component {
         this.setState({ totalCost: sum });
       })
       .catch((err) => console.log(err));
+    console.log(this.state.totalCost);
   }
 
   render() {
