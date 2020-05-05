@@ -43,14 +43,14 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
   const category = req.body.category;
   const price = req.body.price;
   pool.query(
-    `INSERT INTO Sells (rname, fname, sold, flimit, avail, category, price)
+    `INSERT INTO Sells(rname, fname, sold, flimit, avail, category, price)
               VALUES($1, $2, $3, $4, $5, $6, $7)
               ON CONFLICT (fname) DO UPDATE
-              SET fname=$2, sold=$3, flimit=$4, avail=$5, category=$6, price=$7
-              WHERE Sells.rname=$1`,
+              SET fname=$2, sold=$3, flimit=$4, avail=$5, category=$6, price=$7`,
     [rname, fname, sold, flimit, avail, category, price],
     (q_err, q_res) => {
       console.log(q_err);
+      res.json(q_res.rows);
     }
   );
 });
@@ -58,13 +58,18 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
 staff.get("/api/get/getTotalOrders", (req, res, next) => {
   const monthSelected = req.query.monthSelected;
   const rname = req.query.rname;
+  console.log(rname);
   pool.query(
     `SELECT orid, cartCost, fee
-              FROM Orders join Deliver USING (orid)
-              WHERE date_part('month', deliveredtime) = $1, rname = $2`,
+    FROM Orders join Deliver USING (orid)
+    WHERE date_part('month', deliveredtime)=$1, rname=$2`,
+    // `SELECT orid, cartCost, fee
+    //           FROM Orders join Deliver USING (orid)
+    //           WHERE date_part('month', deliveredtime) = $1, rname = $2`,
     [monthSelected, rname],
     (q_err, q_res) => {
-      res.json(q_res.rows);
+      console.log(q_err);
+      //res.json(q_res.rows);
     }
   );
 });

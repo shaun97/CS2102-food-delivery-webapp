@@ -58,7 +58,7 @@ class AddFood extends Component {
 
     axios
       .post("staff/api/posts/addNewFood", newFood)
-      .then((res) => alert("New Food Added"))
+      .then((res) => alert("New Food Added")) //can put trigger if got fname conflict
       .catch((err) => alert("Please fill in the form with the correct inputs"));
   }
 
