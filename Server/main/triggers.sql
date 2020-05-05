@@ -1,30 +1,27 @@
--- create or replace function GetCost
--- (promoCode text, totalFoodCost integer, out deliveryCost integer, out subtotal integer) 
--- returns record as $$
-
---     select (deliverFoodCost * discount) as subtotal, case
---         when extract(hour from current_time) >= 20 then 5
---         else 3
---     end as deliveryCost
---     from 
-
-
---Function to get delivery cost based on the time
-CREATE OR REPLACE FUNCTION getDeliveryCost (OUT deliveryCost INTEGER) RETURNS INTEGER
-    AS $$
-SELECT CASE
-        WHEN extract(hour from current_time) >= 17 THEN 5
-        ELSE 3
-    END
-$$ LANGUAGE sql;
-
-CREATE OR REPLACE FUNCTION insertandscheduleorder(cid int, rname varchar(255), cartcost integer, location varchar(50)) 
-RETURNS INTEGER AS $$
---schedule here
+CREATE OR REPLACE FUNCTION check_min_order
+() RETURNS TRIGGER AS $$
 DECLARE
-    res INT;
-BEGIN 
-    INSERT INTO Orders(cid, rname, cartCost, location) VALUES (cid, rname, cartcost, location) RETURNING orid INTO res;
-    return res;
+    minorder INT;
+BEGIN
+    SELECT R.minOrder
+    INTO minorder
+    FROM RESTAURANTS R
+    WHERE R.rname = NEW.rname;
+IF NEW.cartCost < minOrder THEN
+            RAISE EXCEPTION 'Order did not hit min order';
+--RETURN NULL;
 END
-$$ language plpgsql;
+IF;
+        RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS check_min_order_trigger
+ON Orders;
+CREATE TRIGGER check_min_order_trigger
+    BEFORE
+UPDATE OR INSERT
+    ON ORDERS
+    FOR EACH ROW
+EXECUTE FUNCTION check_min_order
+();

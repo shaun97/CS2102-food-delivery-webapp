@@ -47,7 +47,11 @@ customer.post('/api/posts/insertorder', (req, res, next) => {
     const location = req.body.location;
     pool.query(`SELECT insertandscheduleorder($1, $2, $3, $4)`, [cid, rname, cartcost, location],
         (q_err, q_res) => {
-            res.json(q_res.rows);
+            if (q_res == undefined) {
+                res.json("MinOrder Failed")
+            } else {
+                res.json(q_res.rows);
+            }
         })
 })
 

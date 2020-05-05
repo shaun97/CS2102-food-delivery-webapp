@@ -33,7 +33,6 @@ class CartTab extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleGetPrice = this.handleGetPrice.bind(this);
         this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
-        this.insertOrderItems = this.insertOrderItems.bind(this);
     }
 
     componentDidMount() {
@@ -72,9 +71,10 @@ class CartTab extends Component {
                         if (!(op < 0 && item.qty === 0)) item.qty += op;
                     }
                     return item;
-                })
+                }),
+                subtotal: this.state.cartItems.reduce((total, item) => total += item.qty * item.price, 0)
             }
-        }, () => console.log("called"))
+        }, () => console.log(this.state))
     }
 
     handleChange(event) {
@@ -94,16 +94,6 @@ class CartTab extends Component {
             .catch(err => console.log(err))
     }
 
-    insertOrderItems(orid) {
-        console.log(orid);
-        this.state.cartItems.map((item) =>
-            axios.post('/customer/api/posts/insertorderitem',
-                { orid: orid, fname: item.fname, quantity: item.qty })
-                .then()
-                .catch(err => console.log(err)
-                ));
-    }
-
     handleSubmitOrder() {
         let cid = this.context.user.id;
         console.log(cid);
@@ -111,14 +101,19 @@ class CartTab extends Component {
             { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address })
             .then(
                 (res) => {
-                    let orid = res.data[0].insertandscheduleorder;
-                    this.state.cartItems.map((item) =>
-                        axios.post('/customer/api/posts/insertorderitem',
-                            { orid: orid, fname: item.fname, quantity: item.qty })
-                            .then()
-                            .catch(err => console.log(err)
-                            ));
+                    console.log(res);
+                    if (res.data == 'MinOrder Failed') {
+                        alert("Min order not hit, please order more :)")
+                    } else {
+                        let orid = res.data[0].insertandscheduleorder;
+                        this.state.cartItems.map((item) =>
+                            axios.post('/customer/api/posts/insertorderitem',
+                                { orid: orid, fname: item.fname, quantity: item.qty })
+                                .then()
+                                .catch(err => console.log(err)
+                                ));
                         alert("Order sucessfully placed, you can check the status of your order the history tab");
+                    }
                 })
             .catch(err => console.log(err));
     }
