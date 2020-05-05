@@ -109,7 +109,7 @@ class RiderInfo extends Component {
                 }
             })
             for (var i = 0; i < first3days.length; i++) {
-                totalHours = first3days[i].hour1 + last2days[i].hour2;
+                totalHours = 4*(first3days[i].hour1 + last2days[i].hour2);
                 riderName = first3days[i].name;
                 riderInfo.push({
                     name: riderName,

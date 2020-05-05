@@ -25,6 +25,8 @@ drop table if exists allPromotions cascade;
 drop table if exists RPromotions cascade;
 drop table if exists FDPromotions cascade;
 
+drop table if exists Managers cascade;
+
 drop type o_status;
 drop type d_status;
 drop type e_category;
