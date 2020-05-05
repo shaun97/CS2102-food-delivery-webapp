@@ -15,7 +15,7 @@ class Orders extends Component {
             cartCost: this.props.order.cartCost,
             location: this.props.order.location,
             deliveredTime: this.props.order.deliveredTime,
-            deliveryFee: 0, //need to link with the delivery, is the data consistent?
+            deliveryCost: this.props.order.deliveryCost, //need to link with the delivery, is the data consistent?
             rname: this.props.order.rname,
             orderItems: []
         })
@@ -79,9 +79,9 @@ class Orders extends Component {
                         <Divider />
                         <Item.Meta>
                             <p className='price'>Subtotal: ${this.state.cartCost}</p>
-                            <p className='price'>Delivery Fee: ${this.state.deliveryFee}</p>
+                            <p className='price'>Delivery Fee: ${this.state.deliveryCost}</p>
                             <Divider />
-                            <span className='price'>Total: ${this.state.cartCost + this.state.deliveryFee}</span>
+                            <span className='price'>Total: ${this.state.cartCost + this.state.deliveryCost}</span>
                         </Item.Meta>
                         <Divider />
                         <Modal trigger={<Button>Review</Button>}>

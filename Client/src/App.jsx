@@ -34,7 +34,7 @@ class App extends Component {
     }
     this.state = {
       isLoggedIn: false,
-      user: {},
+      user: {id:1},
       signIn: this.signIn,
       signOut: this.signOut,
     };

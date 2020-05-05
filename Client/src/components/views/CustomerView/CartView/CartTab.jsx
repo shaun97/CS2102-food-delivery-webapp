@@ -5,6 +5,8 @@ import CartItem from './CartItem';
 
 import axios from 'axios';
 
+import { LoginContext } from '../../../LoginContext';
+
 class CartTab extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +32,7 @@ class CartTab extends Component {
         this.incOrDecItem = this.incOrDecItem.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleGetPrice = this.handleGetPrice.bind(this);
+        this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
     }
 
     componentDidMount() {
@@ -39,7 +42,6 @@ class CartTab extends Component {
                 minOrder: res.data[0].minorder,
                 descript: res.data[0].descript
             });
-            console.log(res.data);
         })
             .catch(err => console.log(err))
     }
@@ -69,9 +71,10 @@ class CartTab extends Component {
                         if (!(op < 0 && item.qty === 0)) item.qty += op;
                     }
                     return item;
-                })
+                }),
+                subtotal: this.state.cartItems.reduce((total, item) => total += item.qty * item.price, 0)
             }
-        }, () => console.log("called"))
+        }, () => console.log(this.state))
     }
 
     handleChange(event) {
@@ -81,6 +84,7 @@ class CartTab extends Component {
     }
 
     handleGetPrice() {
+        console.log(this.state);
         axios.get('/customer/api/get/getdeliverycost').then(res => {
             this.setState({
                 deliveryCost: res.data[0].getdeliverycost,
@@ -88,6 +92,33 @@ class CartTab extends Component {
 
         })
             .catch(err => console.log(err))
+    }
+
+    handleSubmitOrder() {
+        let cid = this.context.user.id;
+        if (this.state.deliveryCost == 0) {
+            alert('Please click get price first!');
+            return;
+        }
+        axios.post('/customer/api/posts/insertorder',
+            { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address, deliverycost: this.state.deliveryCost })
+            .then(
+                (res) => {
+                    console.log(res);
+                    if (res.data == 'MinOrder Failed') {
+                        alert("Min order not hit, please order more :)")
+                    } else {
+                        let orid = res.data[0].insertandscheduleorder;
+                        this.state.cartItems.map((item) =>
+                            axios.post('/customer/api/posts/insertorderitem',
+                                { orid: orid, fname: item.fname, quantity: item.qty })
+                                .then()
+                                .catch(err => console.log(err)
+                                ));
+                        alert("Order sucessfully placed, you can check the status of your order the history tab");
+                    }
+                })
+            .catch(err => console.log(err));
     }
 
     render() {
@@ -138,7 +169,7 @@ class CartTab extends Component {
 
                                     {/* promo code? */}
                                 </Segment>
-                                <Button floated='right' fluid color='blue' type='submit'>Place Order</Button>
+                                <Button floated='right' fluid color='blue' onClick={this.handleSubmitOrder}>Place Order</Button>
                             </Form>
                         </Grid.Column>
                     </Grid.Row>
@@ -146,7 +177,9 @@ class CartTab extends Component {
             </>
         )
     }
-
 }
+
+CartTab.contextType = LoginContext;
+
 
 export default CartTab;
