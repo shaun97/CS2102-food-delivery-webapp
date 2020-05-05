@@ -52,7 +52,7 @@ CREATE TABLE Orders
 	cartCost integer,
 	--generate in query
 	location varchar(50),
-	ostatus o_status,
+	ostatus o_status DEFAULT 'Ongoing',
 	foreign key (rname) references Restaurants(rname)
 	on delete cascade
 );
@@ -65,7 +65,7 @@ CREATE TABLE Deliver
 	rid integer,
 	fee integer,
 	--based on time criteria
-	dstatus d_status,
+	dstatus d_status DEFAULT 'Rider is departing for restaurant.',
 	--use trigger function to update status based on deliveryTime
 	primary key (orid),
 	foreign key (orid) references Orders(orid) on delete cascade,

@@ -17,17 +17,20 @@ class HistoryView extends Component {
 
     componentDidMount() {
         let cid = this.context.user.id;
+        console.log(cid);
         axios.get('customer/api/get/getorderhistory', { params: { cid: cid } })
             .then(res => {
                 this.setState({
                     orders: res.data.map(item => {
-                        console.log(item.rname);
+                        console.log(item);
                         return {
                             cartCost: item.cartcost,
                             deliveredTime: item.deliveredtime,
+                            deliveryCost: item.deliverycost,
                             location: item.location,
                             orid: item.orid,
-                            rname: item.rname
+                            rname: item.rname,
+                            dstatus: item.dstatus
                         }
                     })
                 });

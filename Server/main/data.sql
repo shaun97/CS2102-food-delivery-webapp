@@ -89,7 +89,7 @@ VALUES
     (7, 'Nippi Place', 12, 'Chua Chu Kang', 'Completed'),
     (4, 'Chinese Kitchen', 24, 'Pasir Panjang', 'Completed'),
     (6, 'Naknoh Thai', 26, 'Kallang', 'Completed'),
-    (1, 'Naknoh Thai', 10, 'Kallang', 'Completed'),
+    (1, 'Naknoh Thai', 15, 'Kallang', 'Completed'),
     (12, 'Naknoh Thai', 20, 'Toa Payoh', 'Completed'),
     (13, 'Chinese Kitchen', 24, 'Clementi', 'Completed'),
     (14, 'Song Feng Chicken', 15, 'Chua Chu Kang', 'Completed'),
