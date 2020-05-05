@@ -17,6 +17,7 @@ class HistoryView extends Component {
 
     componentDidMount() {
         let cid = this.context.user.id;
+        console.log(cid);
         axios.get('customer/api/get/getorderhistory', { params: { cid: cid } })
             .then(res => {
                 this.setState({

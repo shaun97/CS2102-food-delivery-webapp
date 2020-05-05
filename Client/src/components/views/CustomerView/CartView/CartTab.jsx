@@ -33,6 +33,7 @@ class CartTab extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleGetPrice = this.handleGetPrice.bind(this);
         this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
+        this.insertOrderItems = this.insertOrderItems.bind(this);
     }
 
     componentDidMount() {
@@ -93,22 +94,33 @@ class CartTab extends Component {
             .catch(err => console.log(err))
     }
 
-    handleSubmitOrder() {
-        console.log(this.context);
-        let cid = this.context.user.id;
-        //let cid = 5;
-        axios.post('/customer/api/posts/insertorder',
-            { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address })
-            .then(res => alert("Order Placed"))
-            .catch(err => console.log(err));
-        //get orid from here ^
-        let orid = 1;
+    insertOrderItems(orid) {
+        console.log(orid);
         this.state.cartItems.map((item) =>
-            axios.post('/customer/api/posts/insertorder',
+            axios.post('/customer/api/posts/insertorderitem',
                 { orid: orid, fname: item.fname, quantity: item.qty })
                 .then()
                 .catch(err => console.log(err)
                 ));
+    }
+
+    handleSubmitOrder() {
+        let cid = this.context.user.id;
+        console.log(cid);
+        axios.post('/customer/api/posts/insertorder',
+            { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address })
+            .then(
+                (res) => {
+                    let orid = res.data[0].insertandscheduleorder;
+                    this.state.cartItems.map((item) =>
+                        axios.post('/customer/api/posts/insertorderitem',
+                            { orid: orid, fname: item.fname, quantity: item.qty })
+                            .then()
+                            .catch(err => console.log(err)
+                            ));
+                        alert("Order sucessfully placed, you can check the status of your order the history tab");
+                })
+            .catch(err => console.log(err));
     }
 
     render() {

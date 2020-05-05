@@ -41,13 +41,13 @@ customer.post('/api/posts/postreview', (req, res, next) => {
 })
 
 customer.post('/api/posts/insertorder', (req, res, next) => {
-    console.log("insert");
     const cid = req.body.cid;
     const rname = req.body.rname;
     const cartcost = req.body.cartcost;
     const location = req.body.location;
     pool.query(`SELECT insertandscheduleorder($1, $2, $3, $4)`, [cid, rname, cartcost, location],
         (q_err, q_res) => {
+            res.json(q_res.rows);
         })
 })
 

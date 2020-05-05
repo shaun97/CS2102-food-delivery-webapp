@@ -52,7 +52,7 @@ CREATE TABLE Orders
 	cartCost integer,
 	--generate in query
 	location varchar(50),
-	ostatus o_status,
+	ostatus o_status DEFAULT 'Ongoing',
 	foreign key (rname) references Restaurants(rname)
 	on delete cascade
 );

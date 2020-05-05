@@ -19,9 +19,12 @@ SELECT CASE
 $$ LANGUAGE sql;
 
 CREATE OR REPLACE FUNCTION insertandscheduleorder(cid int, rname varchar(255), cartcost integer, location varchar(50)) 
-RETURNS void AS $$
+RETURNS INTEGER AS $$
 --schedule here
+DECLARE
+    res INT;
 BEGIN 
-    INSERT INTO Orders(cid, rname, cartCost, location) VALUES (cid, rname, cartcost, location);
+    INSERT INTO Orders(cid, rname, cartCost, location) VALUES (cid, rname, cartcost, location) RETURNING orid INTO res;
+    return res;
 END
 $$ language plpgsql;
