@@ -12,45 +12,21 @@ import {
   Modal,
 } from "semantic-ui-react";
 
-import axios from "axios";
 import AddFood from "./AddFood";
 import SearchBar from "./SearchBar";
-
-var rname = ""; //get this from the sign in
-const id = 5;
 
 class UpdateMenuTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      rname: this.props.rname,
       query: "",
       menu: [],
       isLoading: false,
     };
+    console.log(this.props);
     this.changeActiveFood = this.changeActiveFood.bind(this);
     // this.handleAdd = this.handleAdd.bind(this);
-  }
-
-  componentDidMount() {
-    axios
-      .get("/staff/api/get/getRestaurant", { params: { staffID: id } })
-      .then((res) => {
-        this.setState({ rname: res.data });
-        this.setState({
-          isLoading: false,
-        });
-      })
-      .catch((err) => console.log(err));
-
-    axios
-      .get("/staff/api/get/getRestaurantFood", { params: { rname: rname } })
-      .then((res) => {
-        this.setState({ food: res.data });
-        this.setState({
-          isLoading: false,
-        });
-      })
-      .catch((err) => console.log(err));
   }
 
   changeActiveRestaurant(restaurant) {
@@ -64,6 +40,7 @@ class UpdateMenuTab extends Component {
       activeFood: food,
     });
   }
+
   handleOnInputChange = (event) => {
     const query = event.target.value;
     if (!query) {
@@ -80,9 +57,7 @@ class UpdateMenuTab extends Component {
   // }
 
   render() {
-    const menuItemsToShow = this.state.menu.filter(function (restaurant) {
-      return restaurant.rname === this.state.activeCategory;
-    }, this);
+    console.log(this.state.rname);
 
     return (
       <Segment placeholder>
@@ -104,7 +79,7 @@ class UpdateMenuTab extends Component {
               <Search
                 placeholder="Search foods..."
                 fluid
-                results={this.handleOnInputChange}
+                //results={this.handleOnInputChange}
                 //resultRenderer={}
               />
             </Grid.Column>
@@ -116,7 +91,7 @@ class UpdateMenuTab extends Component {
               </Header>
               <Modal trigger={<Button primary>Add</Button>} closeIcon>
                 <Modal.Content>
-                  <AddFood></AddFood>
+                  <AddFood rname={this.state.rname}></AddFood>
                 </Modal.Content>
               </Modal>
             </Grid.Column>
