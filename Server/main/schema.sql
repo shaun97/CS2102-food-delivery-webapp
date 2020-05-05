@@ -190,7 +190,6 @@ CREATE TABLE MWS
 	whichMonth integer,
 	startDay text,
 	--mon
-	startDate DATE not null,
 	Day1Shift integer references templateShift (shift) not null,
 	--which shift
 	Day2Shift integer references templateShift (shift) not null,
@@ -198,7 +197,7 @@ CREATE TABLE MWS
 	Day4Shift integer references templateShift (shift) not null,
 	Day5Shift integer references templateShift (shift) not null,
 	foreign key (rid) references Riders on delete cascade,
-	primary key (rid, startDate)
+	primary key (rid, whichMonth)
 );
 
 CREATE TABLE Salary

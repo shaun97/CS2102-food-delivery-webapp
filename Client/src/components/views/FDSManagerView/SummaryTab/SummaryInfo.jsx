@@ -78,6 +78,7 @@ class Summary extends Component {
         this.setState({
             monthIndex: index
         });
+        console.log(this.state.monthIndex)
     };
 
     componentDidUpdate(prevProps, prevState) {

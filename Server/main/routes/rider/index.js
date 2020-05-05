@@ -82,5 +82,50 @@ rider.get('/api/get/getDeliveryFees', (req, res, next) => {
   })
 })
 
+rider.get('/api/get/getRiderStatus', (req, res, next) => {
+  const cid = req.query.cid;
+  pool.query(`SELECT CASE
+                      WHEN EXISTS (SELECT 1
+                                    FROM FTRiders m
+                                    WHERE m.rid = $1) THEN 1
+                      ELSE 0
+                      END AS ft
+              FROM FTRiders`, [cid],
+  (q_err, q_res) => {
+    console.log(q_res.rows);
+    res.json(q_res.rows); 
+  })
+})
+
+rider.get('/api/get/getPastMonthSchedule', (req, res, next) => {
+  const cid = req.query.cid;
+  pool.query(`SELECT to_char(to_timestamp (whichMonth::text, 'MM'), 'Month') AS month, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift
+              FROM MWS
+              WHERE rid = $1
+              ORDER BY whichMonth`, [cid],
+    (q_err, q_res) => {
+      res.json(q_res.rows);
+    })
+})
+
+rider.post('/api/posts/insertMWSSchedule', (req,res,next) => {
+  const rid = req.body.cid;
+  const whichMonth = req.body.month;
+  const startDay = req.body.startDay;
+  const Day1Shift = req.body.day1shift;
+  const Day2Shift = req.body.day2shift;
+  const Day3Shift = req.body.day3shift;
+  const Day4Shift = req.body.day4shift;
+  const Day5Shift = req.body.day5shift;
+  pool.query(`INSERT INTO MWS(rid, whichMonth, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift)
+              VALUES($1,$2,$3,$4,$5,$6,$7,$8)
+              ON CONFLICT (rid, whichMonth) DO UPDATE
+              SET startDay=$3, Day1Shift=$4, Day2Shift=$5, Day3Shift=$6, Day4Shift=$7, Day5Shift=$8`,
+              [rid, whichMonth, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift],
+      (q_err, q_res) => {
+        console.log(q_res.rows)
+  })
+})
+
 
 module.exports = rider;
