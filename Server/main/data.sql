@@ -191,7 +191,7 @@ VALUES
 INSERT INTO FTRiders
     (rid)
 VALUES
-    (default);
+    (3);
 
 INSERT INTO PTRiders
     (rid)
@@ -217,20 +217,20 @@ INSERT INTO MWS
 VALUES
     (3, 3, 'Thursday', '2020-03-05', 1, 1, 2, 3, 1),
     (16, 3, 'Monday', '2020-03-02', 1, 1, 1, 1, 1 ),
-    (17, 4, 'Wednesday', '2020-04-01', 1, 1, 1, 1, 1),
+    --(17, 4, 'Wednesday', '2020-04-01', 1, 1, 1, 1, 1),
     (18, 4, 'Wednesday', '2020-04-01', 2, 2, 2, 2, 2),
     (3, 4, 'Thursday', '2020-04-02', 3, 3, 3, 3, 3),
     (16, 4, 'Friday', '2020-04-03', 4, 4, 4, 4, 4)
     ;
 
 INSERT INTO Salary
-    (rid, deliveryFees, basePay)
+    (rid, whichMonth, deliveryFees, basePay)
 VALUES
-    (2, 9, 60),
-    (3, 9, 300),
-    (16, 9, 300),
-    (17, 3, 100),
-    (18, 6, 100);
+    (2, 3, 9, 60),
+    (3, 3, 9, 300),
+    (16, 4, 9, 300),
+    (17, 3, 3, 100),
+    (18, 3, 6, 100);
 
 INSERT INTO allPromotions
     (promotiondescript, promoname, promotiontype, discount,startD, endD)
