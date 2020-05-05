@@ -22,6 +22,7 @@ rider.get('/api/get/getOrdersDelivered', (req, res, next) => {
               GROUP BY name, date_part('month', deliveredtime), orid
               HAVING date_part('month', deliveredtime) = $2;`, [cid, month],
   (q_err, q_res) => {
+    console.log(q_res.rows);
     if (q_err) {
       return res.status(404).send({ message: "Rider's total orders delivered could not be found."});
     }
@@ -53,6 +54,7 @@ rider.get('/api/get/getHoursWorked', (req, res, next) => {
                 FROM FTHour f ,PTHour p`, [cid, month],
                 
     (q_err, q_res) => {
+      console.log(q_res.rows);
       res.json(q_res.rows);
       
     })
@@ -75,6 +77,7 @@ rider.get('/api/get/getDeliveryFees', (req, res, next) => {
               WHERE d.rid = $1
               AND date_part('month',deliveredTime) = $2`, [cid,month],
   (q_err, q_res) => {
+    console.log(q_res.rows);
     res.json(q_res.rows); 
   })
 })
