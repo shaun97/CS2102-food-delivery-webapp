@@ -17,7 +17,7 @@ CREATE TABLE Managers (
 CREATE TABLE Customers
 (
 	cid integer,
-	points integer,
+	points integer default 0,
 	creditCard integer,
 	primary key (cid),
 	foreign key (cid) references Users(id)
@@ -27,7 +27,7 @@ CREATE TABLE Customers
 CREATE TABLE Riders
 (
 	rid integer,
-	totalOrders integer,
+	totalOrders integer default 0,
 	-- trigger case fulltime reset to 0 every end of month, PT end week
 	primary key (rid),
 	foreign key (rid) references Users(id)
