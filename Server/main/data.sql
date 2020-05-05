@@ -213,14 +213,14 @@ VALUES
     (4, '13:00:00', '17:00:00', '18:00:00', '22:00:00');
 
 INSERT INTO MWS
-    (rid, whichMonth, startDay, startDate, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift)
+    (rid, whichMonth, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift)
 VALUES
-    (3, 3, 'Thursday', '2020-03-05', 1, 1, 2, 3, 1),
-    (16, 3, 'Monday', '2020-03-02', 1, 1, 1, 1, 1 ),
+    (3, 3, 'Thursday', 1, 1, 2, 3, 1),
+    (16, 3, 'Monday', 1, 1, 1, 1, 1 ),
     --(17, 4, 'Wednesday', '2020-04-01', 1, 1, 1, 1, 1),
-    (18, 4, 'Wednesday', '2020-04-01', 2, 2, 2, 2, 2),
-    (3, 4, 'Thursday', '2020-04-02', 3, 3, 3, 3, 3),
-    (16, 4, 'Friday', '2020-04-03', 4, 4, 4, 4, 4)
+    (18, 4, 'Wednesday', 2, 2, 2, 2, 2),
+    (3, 4, 'Thursday', 3, 3, 3, 3, 3),
+    (16, 4, 'Friday', 4, 4, 4, 4, 4)
     ;
 
 INSERT INTO Salary

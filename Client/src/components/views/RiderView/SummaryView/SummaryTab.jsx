@@ -174,7 +174,7 @@ class SummaryTab extends Component {
             <Segment>
               <Statistic>
                 <Statistic.Label>Salary Earned</Statistic.Label>
-                <Statistic.Value>{this.state.riderSalary}</Statistic.Value>
+                <Statistic.Value> ${this.state.riderSalary}</Statistic.Value>
               </Statistic>
             </Segment>
           </Segment.Group>
