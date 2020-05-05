@@ -2,11 +2,19 @@
 import React, { Component } from "react";
 
 //Semantic
-import { Button, Form, Message, Segment } from "semantic-ui-react";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment,
+} from "semantic-ui-react";
 
 import axios from "axios";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import { LoginContext } from "../../LoginContext";
 
@@ -16,16 +24,16 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSignupClick = this.handleSignupClick.bind(this);
 
-    this.handleChange = event => {
+    this.handleChange = (event) => {
       const { name, value } = event.target;
       this.setState({
-        [name]: value
+        [name]: value,
       });
     };
   }
@@ -37,9 +45,13 @@ class Login extends Component {
 
     axios
       .get("/api/get/userprofilefromdb", {
-        params: { email: userEmail, password: userPassword }
+        params: {
+          userType: this.props.userType,
+          email: userEmail,
+          password: userPassword,
+        },
       })
-      .then(res => context.signIn(res.data[0]));
+      .then((res) => context.signIn(res.data[0]));
   }
 
   handleSignupClick() {
@@ -61,6 +73,11 @@ class Login extends Component {
       case "manager":
         page = "/manager";
         break;
+    }
+    if (this.context.isLoggedIn) {
+      console.log("logging in");
+      console.log(page);
+      return <Redirect to={page} />;
     }
     return (
       <>
@@ -85,16 +102,9 @@ class Login extends Component {
               required={true}
               onChange={this.handleChange}
             />
-            <Link to={page}>
-              <Button
-                color="blue"
-                fluid
-                size="large"
-                onClick={this.handleClick}
-              >
-                Login
-              </Button>
-            </Link>
+            <Button color="blue" fluid size="large" onClick={this.handleClick}>
+              Login
+            </Button>
           </Form>
         </Segment>
         <Message>
@@ -107,7 +117,5 @@ class Login extends Component {
     );
   }
 }
-
 Login.contextType = LoginContext;
-
 export default Login;

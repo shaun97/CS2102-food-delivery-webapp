@@ -7,12 +7,17 @@ CREATE TABLE Users
 	date_signup DATE DEFAULT CURRENT_DATE
 );
 
+CREATE TABLE Managers (
+	mid integer primary key,
+	foreign key (mid) references Users(id)
+	on delete cascade
+);
 --INSERT into Users(Customer);
 
 CREATE TABLE Customers
 (
 	cid integer,
-	points integer,
+	points integer default 0,
 	creditCard integer,
 	primary key (cid),
 	foreign key (cid) references Users(id)
@@ -22,7 +27,7 @@ CREATE TABLE Customers
 CREATE TABLE Riders
 (
 	rid integer,
-	totalOrders integer,
+	totalOrders integer default 0,
 	-- trigger case fulltime reset to 0 every end of month, PT end week
 	primary key (rid),
 	foreign key (rid) references Users(id)
@@ -47,7 +52,7 @@ CREATE TABLE Orders
 	cartCost integer,
 	--generate in query
 	location varchar(50),
-	ostatus o_status,
+	ostatus o_status DEFAULT 'Ongoing',
 	foreign key (rname) references Restaurants(rname)
 	on delete cascade
 );
@@ -60,7 +65,7 @@ CREATE TABLE Deliver
 	rid integer,
 	fee integer,
 	--based on time criteria
-	dstatus d_status,
+	dstatus d_status DEFAULT 'Rider is departing for restaurant',
 	--use trigger function to update status based on deliveryTime
 	primary key (orid),
 	foreign key (orid) references Orders(orid) on delete cascade,

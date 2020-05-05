@@ -1,11 +1,15 @@
 import React from "react";
 import { Header, Segment, Menu } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 function TopHeader(props) {
+  // function handleLogOut() {
+  //     console.log(props.signOut);
+  //     return <Redirect to="/" />
+  // }
   return (
     <Segment clearing style={{ marginLeft: "150px" }}>
-      <Link to="/">
+      <Link to="/" onClick={props.signOut}>
         <Header as="h2" color="blue" floated="right">
           Logout
         </Header>

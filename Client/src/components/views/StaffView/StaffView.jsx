@@ -43,8 +43,8 @@ class StaffView extends Component {
         break;
     }
     return (
-      <div>
-        <TopHeader user="Staff" />
+      <div className="summaryDetails">
+        <TopHeader signOut={this.context.signOut} user="Staff" />
         <NavSideBar
           handleChangeTab={this.changeActiveTab}
           navTabs={this.state.menu}
@@ -54,5 +54,5 @@ class StaffView extends Component {
     );
   }
 }
-
+StaffView.contextType = LoginContext;
 export default StaffView;

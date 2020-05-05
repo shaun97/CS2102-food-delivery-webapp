@@ -5,44 +5,37 @@ import axios from 'axios';
 import { Header, Form, Grid, Button, Segment, Divider } from 'semantic-ui-react'
 import Orders from './Orders';
 
+import { LoginContext } from '../../../LoginContext';
+
 class HistoryView extends Component {
     constructor(props) {
         super(props);
         this.state = {
             orders: []
-            // cartItems: this.props.cartItems.map(item => {
-            //     return {
-            //         fname: item.fname,
-            //         price: item.price,
-            //         category: item.category,
-            //         rname: item.rname,
-            //         qty: 0,
-            //     }
-            // })
         }
     }
 
     componentDidMount() {
-        let cid = 4;
+        let cid = this.context.user.id;
+        console.log(cid);
         axios.get('customer/api/get/getorderhistory', { params: { cid: cid } })
             .then(res => {
                 this.setState({
                     orders: res.data.map(item => {
-                        console.log(item.rname);
+                        console.log(item);
                         return {
                             cartCost: item.cartcost,
                             deliveredTime: item.deliveredtime,
+                            deliveryCost: item.deliverycost,
                             location: item.location,
                             orid: item.orid,
-                            rname: item.rname
+                            rname: item.rname,
+                            dstatus: item.dstatus
                         }
                     })
                 });
             }
             );
-        // this.setState({
-        //     orders: orderGet
-        // })
 
     }
     render() {
@@ -65,5 +58,8 @@ class HistoryView extends Component {
     }
 
 }
+
+HistoryView.contextType = LoginContext;
+
 
 export default HistoryView;

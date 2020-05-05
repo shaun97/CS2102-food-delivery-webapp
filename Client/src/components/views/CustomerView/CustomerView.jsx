@@ -7,11 +7,12 @@ import TopHeader from '../../utils/TopHeader';
 import RestaurantsTab from './RestaurantView/RestaurantsTab';
 import CartTab from './CartView/CartTab';
 import HistoryView from './HistoryView/HistoryView'
+import { LoginContext } from '../../LoginContext';
 
 
 class CustomerView extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       cartItems: [],
       menu: [
@@ -69,9 +70,10 @@ class CustomerView extends Component {
         tab = <HistoryView></HistoryView>;
         break;
     }
+   // console.log("Props passed: ", this.context.signOut);
     return (
       <div>
-        <TopHeader user="Customer" />
+        <TopHeader signOut={this.context.signOut} user="Customer" />
         <NavSideBar handleChangeTab={this.changeActiveTab} navTabs={this.state.menu} />
         <div style={{ marginLeft: '160px' }}>
           {tab}
@@ -80,5 +82,5 @@ class CustomerView extends Component {
     );
   }
 }
-
+CustomerView.contextType = LoginContext;
 export default CustomerView;

@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { Header, Item, Divider, Segment, Modal, Button, Rating, Form } from 'semantic-ui-react'
 
+import { LoginContext } from '../../../LoginContext';
+
 class Orders extends Component {
     constructor(props) {
         super(props);
@@ -13,8 +15,9 @@ class Orders extends Component {
             cartCost: this.props.order.cartCost,
             location: this.props.order.location,
             deliveredTime: this.props.order.deliveredTime,
-            deliveryFee: 0, //need to link with the delivery, is the data consistent?
+            deliveryCost: this.props.order.deliveryCost, //need to link with the delivery, is the data consistent?
             rname: this.props.order.rname,
+            d_status: this.props.order.dstatus,
             orderItems: []
         })
         this.handleSubmitReview = this.handleSubmitReview.bind(this);
@@ -36,11 +39,12 @@ class Orders extends Component {
     }
 
     handleSubmitReview() {
+        let context = this.context;
         axios.post('customer/api/posts/postreview',
             { orid: this.state.orid, foodReview: this.state.review, deliveryRating: this.state.rating })
             .then(res => alert("Signup Sucessful"))
             .catch(err => console.log(err));
-        console.log("submit");
+        console.log(context);
     }
 
     handleReview = (e, { value }) => {
@@ -63,6 +67,9 @@ class Orders extends Component {
                     <Item.Content textAlign='left'>
                         <Item.Header as='h3'>{this.state.rname}</Item.Header>
                         <Item.Meta>
+                            <span className='price'>Status: {this.state.d_status}</span>
+                        </Item.Meta>
+                        <Item.Meta>
                             <span className='price'>Delivered On: {this.state.deliveredTime}</span>
 
                         </Item.Meta>
@@ -76,9 +83,9 @@ class Orders extends Component {
                         <Divider />
                         <Item.Meta>
                             <p className='price'>Subtotal: ${this.state.cartCost}</p>
-                            <p className='price'>Delivery Fee: ${this.state.deliveryFee}</p>
+                            <p className='price'>Delivery Fee: ${this.state.deliveryCost}</p>
                             <Divider />
-                            <span className='price'>Total: ${this.state.cartCost + this.state.deliveryFee}</span>
+                            <span className='price'>Total: ${this.state.cartCost + this.state.deliveryCost}</span>
                         </Item.Meta>
                         <Divider />
                         <Modal trigger={<Button>Review</Button>}>
@@ -102,5 +109,7 @@ class Orders extends Component {
         );
     }
 }
+
+Orders.contextType = LoginContext;
 
 export default Orders;
