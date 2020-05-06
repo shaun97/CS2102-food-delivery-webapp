@@ -34,14 +34,6 @@ class StaffView extends Component {
       })
       .then((res) => this.setState({ rname: res.data[0].rname }))
       .catch((err) => console.log(err));
-
-      console.log(this.state.rname);
-    axios
-      .get("/restaurant/api/get/restaurantmenu", {
-        params: { rname: this.state.rname },
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
   }
 
   changeActiveTab(event) {

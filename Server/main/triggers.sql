@@ -135,4 +135,82 @@ UPDATE OR INSERT
 EXECUTE FUNCTION check_food_qty
 ();
 
+-- Trigger to update customer points after order completed
+CREATE OR REPLACE FUNCTION update_customer_points() RETURNS TRIGGER
+    AS $$
+BEGIN
+    UPDATE customers c 
+    SET points = points + 1
+    WHERE c.cid =  NEW.cid;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS update_customer_points_trigger ON orders CASCADE;
+CREATE TRIGGER update_customer_points_trigger 
+    AFTER UPDATE OF ostatus
+    ON orders
+    FOR EACH ROW
+    WHEN (NEW.ostatus = 'Completed')
+    EXECUTE PROCEDURE update_customer_points();
+
+-- Trigger to ensure that order is not completed before rider is assigned or deliver is not included
+CREATE OR REPLACE FUNCTION complete_order_check() returns TRIGGER
+    AS $$
+DECLARE 
+    violating_orid INTEGER;
+BEGIN
+    SELECT o.orid INTO violating_orid
+        FROM orders o
+        WHERE o.ostatus = 'Completed'
+        AND (NOT EXISTS(
+            SELECT 1
+            FROM deliver d
+            WHERE d.orid = o.orid
+        ) OR EXISTS (
+            SELECT 1
+            FROM deliver d1
+            WHERE d1.orid = o.orid AND d1.rid IS NULL
+        ));
+    IF violating_orid IS NOT NULL THEN 
+        RAISE exception 'order % cannot be completed without rider or a deliver', violating_orid;
+    END IF;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS complete_order_check_trigger ON orders;
+CREATE CONSTRAINT TRIGGER complete_order_check_trigger 
+    AFTER INSERT OR UPDATE ON orders
+    DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW
+    EXECUTE PROCEDURE complete_order_check();
+
+-- Trigger to enforce that all the food is from the same restaurant 
+CREATE OR REPLACE FUNCTION ensure_single_restaurant() returns TRIGGER
+    AS $$
+DECLARE 
+    violating_orid INTEGER;
+BEGIN
+    SELECT o.orid into violating_orid
+    FROM orderitems NATURAL JOIN orders o
+    WHERE NOT EXISTS ( 
+        SELECT 1
+        FROM orderitems oi1 NATURAL JOIN orders o1 INNER JOIN sells s ON o1.rname=s.rname
+        WHERE NEW.fname = s.fname 
+        AND o.orid = o1.orid
+    ) AND o.orid = NEW.orid;
+
+    IF violating_orid IS NOT NULL THEN 
+        RAISE exception 'order % contains food not found in this restaurant', violating_orid;
+    END IF;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS ensure_single_restaurant_trigger ON orders;
+CREATE CONSTRAINT TRIGGER ensure_single_restaurant_trigger 
+    AFTER INSERT ON orderitems
+    DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW
+    EXECUTE PROCEDURE ensure_single_restaurant();
