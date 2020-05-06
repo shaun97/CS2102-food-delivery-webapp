@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Header, Item, Divider, Form, Grid, Button, Segment, Modal } from 'semantic-ui-react'
+import { Header, Item, Divider, Form, Grid, Button, Segment, Modal, Checkbox } from 'semantic-ui-react'
 import CartItem from './CartItem';
 
 import axios from 'axios';
@@ -20,6 +20,10 @@ class CartTab extends Component {
             minOrder: 0,
             addresshistory: [],
             ccnumber: 0,
+            points: 0,
+            isPointsUsed: false,
+            promoapplied: '',
+            promos: [],
             cartItems: this.props.cartItems.map(item => {
                 return {
                     fname: item.fname,
@@ -37,27 +41,37 @@ class CartTab extends Component {
         this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
         this.handleUpdateAddress = this.handleUpdateAddress.bind(this);
         this.handleUpdateCC = this.handleUpdateCC.bind(this);
+        this.handleSelectUsePts = this.handleSelectUsePts.bind(this);
+        this.handleSelectPromo = this.handleSelectPromo.bind(this);
     }
 
     componentDidMount() {
         let cid = this.context.user.id;
-        if (this.state.cartItems.length == 0) return;
         axios.get('/customer/api/get/getaddresshistory', { params: { cid: cid } }).then(res => {
-            //console.log(res.data);
-            this.setState({
-                addresshistory: res.data.map((item) => {
-                    return item.location;
+            if (res != "") {
+                this.setState({
+                    addresshistory: res.data.map((item) => {
+                        return item.location;
+                    })
                 })
-            })
+            }
         });
-
+        this.handleUpdateCC();
+        if (this.state.cartItems.length == 0) return;
         axios.get('/restaurant/api/get/gettherestaurantfromdb', { params: { rname: this.state.rname } }).then(res => {
             this.setState({
                 minOrder: res.data[0].minorder,
                 descript: res.data[0].descript
             });
-        })
-            .catch(err => console.log(err))
+        });
+
+
+        axios.get('/customer/api/get/getpromo', { params: { rname: this.state.rname } }).then(res => {
+            console.log(res.data);
+            this.setState({
+                promos: res.data
+            })
+        });
     }
 
 
@@ -98,7 +112,10 @@ class CartTab extends Component {
     }
 
     handleGetPrice() {
-        console.log(this.state);
+        if (this.state.address == '') {
+            alert("Please input an address");
+            return;
+        }
         axios.get('/customer/api/get/getdeliverycost').then(res => {
             this.setState({
                 deliveryCost: res.data[0].getdeliverycost,
@@ -116,12 +133,29 @@ class CartTab extends Component {
 
     handleUpdateCC() {
         let cid = this.context.user.id;
-        axios.get('/customer/api/get/getccnumber', { params: { cid: cid } }).then(res => {
-            console.log(res.data);
+        axios.get('/customer/api/get/getccnumberandpts', { params: { cid: cid } }).then(res => {
             this.setState({
-                ccnumber: res.data[0].creditcard
+                ccnumber: res.data[0].creditcard,
+                points: res.data[0].points
             })
         });
+    }
+
+    handleSelectUsePts() {
+        this.setState(prevState => ({
+            isPointsUsed: !prevState.isPointsUsed
+        }))
+    }
+
+    handleSelectPromo(event) {
+        alert("Promotion applied");
+        let i = event.target.name;
+        let temp = this.state.promos;
+        temp[i].selected = true;
+        this.setState({
+            promos: temp,
+            promoapplied: temp[i]
+        })
     }
 
     handleSubmitOrder() {
@@ -130,21 +164,30 @@ class CartTab extends Component {
             alert('Please click get price first!');
             return;
         }
+
+        var subtotal = this.state.subtotal;
+        if (this.state.promoapplied.promotiontype == 'fixed') {
+            subtotal = subtotal - this.state.promoapplied.discount;
+        } else if (this.state.promoapplied.promotiontype == 'percentage') {
+            subtotal = subtotal * ((100 - this.state.promoapplied.discount) / 100);
+        }
+
         axios.post('/customer/api/posts/insertorder',
-            { cid: cid, rname: this.state.rname, cartcost: this.state.subtotal, location: this.state.address, deliverycost: this.state.deliveryCost })
+            { cid: cid, rname: this.state.rname, cartcost: subtotal, location: this.state.address, deliverycost: this.state.delieryCost - ((this.state.isPointsUsed) ? 0 : this.state.deliveryCost), points: (this.state.isPointsUsed) ? 0 : this.state.points })
             .then(
                 (res) => {
-                    console.log(res);
                     if (res.data == 'MinOrder Failed') {
                         alert("Min order not hit, please order more :)")
+                        return;
                     } else {
                         let orid = res.data[0].insertandscheduleorder;
                         this.state.cartItems.map((item) =>
                             axios.post('/customer/api/posts/insertorderitem',
                                 { orid: orid, fname: item.fname, quantity: item.qty })
-                                .then()
+                                .then((res) => { if (res.data == 'soldout') alert(item.fname + " is sold out."); })
                                 .catch(err => console.log(err)
                                 ));
+                        if (this.state.isPointsUsed) this.setState({ points: 0 })
                         alert("Order sucessfully placed, you can check the status of your order the history tab");
                     }
                 })
@@ -152,7 +195,25 @@ class CartTab extends Component {
     }
 
     render() {
-        console.log(this.state);
+        var displayPromoTotal = "";
+        if (this.state.promoapplied == "") {
+            displayPromoTotal = '$' + (this.state.subtotal + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
+        } else if (this.state.promoapplied.promotiontype == 'fixed') {
+            displayPromoTotal = '$' + (this.state.subtotal + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' - $' + this.state.promoapplied.discount + ' = $' + Math.max(0, (this.state.deliveryCost + this.state.subtotal - (this.state.isPointsUsed ? this.state.points : 0) - this.state.promoapplied.discount));
+        } else {
+            displayPromoTotal = '$' + (this.state.subtotal) + ' x ' + (100 - this.state.promoapplied.discount) / 100 + ' + $' + (this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' = $' + ((this.state.promoapplied.discount / 100) * (this.state.subtotal) + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
+        }
+
+        let restaurantPromo = this.state.promos.map((item, i) =>
+            <Modal trigger={<Button size='mini' color={(item.selected) ? 'blue' : ''}  >{item.promoname}</Button>}>
+                <Modal.Header>{item.promoname}</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        <p>{item.promotiondescript}</p>
+                        <Button name={i} color='blue' onClick={this.handleSelectPromo}>Select Promotion</Button>
+                    </Modal.Description>
+                </Modal.Content>
+            </Modal>)
         let addresshistorybtn = this.state.addresshistory.map((item) => (
             <Button name={item} size='mini' onClick={this.handleUpdateAddress}>{item}</Button>
         ))
@@ -166,6 +227,9 @@ class CartTab extends Component {
                     </Item.Content>
                 </Item>
             </Item.Group>
+
+        let deliveryFee = (this.state.isPointsUsed) ? <text style={{ float: 'right' }}>${this.state.deliveryCost} - ${this.state.points} = ${this.state.deliveryCost - this.state.points}</text>
+            : <text style={{ float: 'right' }}>${this.state.deliveryCost}</text>
         return (
             <>
                 <Grid padded>
@@ -182,9 +246,11 @@ class CartTab extends Component {
                                         <input style={{ margin: '5px 0px' }} name='address' value={this.state.address} type='text' onChange={this.handleChange} placeholder='Address' />
                                     </Form.Field>
                                     <Form.Field>
-                                        <label>Promo Code</label>
-                                        <input name='promoCode' onChange={this.handleChange} placeholder='$$' />
+                                        <label>Available Promotions</label>
+                                        {restaurantPromo}
                                     </Form.Field>
+                                    <Header as='h5'>You have {this.state.points} points left, would you like to use it to offset your delivery cost?</Header>
+                                    <Checkbox onChange={this.handleSelectUsePts} toggle label='Use points' />
                                 </Segment>
                                 <Button fluid color='blue' onClick={this.handleGetPrice} type='submit'>Get Price</Button>
                                 <Segment>
@@ -194,12 +260,12 @@ class CartTab extends Component {
                                     </Segment>
                                     <Segment basic>
                                         <text>Delivery:</text>
-                                        <text style={{ float: 'right' }}>${this.state.deliveryCost}</text>
+                                        {deliveryFee}
                                     </Segment>
 
                                     <Segment basic>
                                         <text>Total:</text>
-                                        <text style={{ float: 'right' }}>${this.state.deliveryCost + this.state.subtotal}</text>
+                                        <text style={{ float: 'right' }}> {displayPromoTotal} </text>
                                     </Segment>
 
                                     {/* promo code? */}

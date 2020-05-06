@@ -30,3 +30,4 @@ drop table if exists Managers cascade;
 drop type o_status;
 drop type d_status;
 drop type e_category;
+drop type p_type;

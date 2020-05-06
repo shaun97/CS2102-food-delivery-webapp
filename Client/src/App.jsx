@@ -1,15 +1,15 @@
 //Basic React Imports
-import React, { Component } from 'react';
-import './css/App.css';
+import React, { Component } from "react";
+import "./css/App.css";
 
 //Own Import
-import LoginPage from './components/views/Login/LoginPage';
-import StaffView from './components/views/StaffView/StaffView';
-import RiderView from './components/views/RiderView/RiderView.jsx';
-import CustomerView from './components/views/CustomerView/CustomerView';
-import FDSManagerView from './components/views/FDSManagerView/FDSManagerView';
+import LoginPage from "./components/views/Login/LoginPage";
+import StaffView from "./components/views/StaffView/StaffView";
+import RiderView from "./components/views/RiderView/RiderView.jsx";
+import CustomerView from "./components/views/CustomerView/CustomerView";
+import FDSManagerView from "./components/views/FDSManagerView/FDSManagerView";
 import { Route, Switch } from "react-router-dom";
-import { LoginContext } from './components/LoginContext';
+import { LoginContext } from "./components/LoginContext";
 
 class App extends Component {
   constructor() {
@@ -20,7 +20,7 @@ class App extends Component {
       if (user != null) {
         this.setState((state) => ({
           isLoggedIn: true,
-          user: user
+          user: user,
         }));
       } else {
         alert("Password or username is wrong!");
@@ -29,12 +29,12 @@ class App extends Component {
     this.signOut = () => {
       this.setState(() => ({
         isLoggedIn: false,
-        user: {}
+        user: {},
       }));
-    }
+    };
     this.state = {
       isLoggedIn: false,
-      user: {id:1},
+      user: { id: 1 },
       signIn: this.signIn,
       signOut: this.signOut,
     };

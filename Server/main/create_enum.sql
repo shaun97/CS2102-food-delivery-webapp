@@ -1,16 +1,19 @@
-CREATE TYPE o_status AS ENUM (
+CREATE TYPE o_status AS ENUM
+(
     'Ongoing', 
     'Completed'
 );
 
-CREATE TYPE d_status AS ENUM (
+CREATE TYPE d_status AS ENUM
+(
     'Rider is departing for restaurant.',
     'Rider has arrived at restaurant.',
     'Rider is departing from restaurant.',
     'Rider has delivered your order.'
 );
 
-CREATE TYPE e_category AS ENUM (
+CREATE TYPE e_category AS ENUM
+(
     'Western', 
     'Chinese',
     'Malay',
@@ -20,3 +23,8 @@ CREATE TYPE e_category AS ENUM (
 	'Thai'
 );
 
+CREATE TYPE p_type AS ENUM
+(
+    'fixed',
+    'percentage'
+);

@@ -7,7 +7,8 @@ CREATE TABLE Users
 	date_signup DATE DEFAULT CURRENT_DATE
 );
 
-CREATE TABLE Managers (
+CREATE TABLE Managers
+(
 	mid integer primary key,
 	foreign key (mid) references Users(id)
 	on delete cascade
@@ -17,7 +18,7 @@ CREATE TABLE Managers (
 CREATE TABLE Customers
 (
 	cid integer,
-	points integer default 0,
+	points integer,
 	creditCard integer,
 	primary key (cid),
 	foreign key (cid) references Users(id)
@@ -27,7 +28,7 @@ CREATE TABLE Customers
 CREATE TABLE Riders
 (
 	rid integer,
-	totalOrders integer default 0,
+	totalOrders integer,
 	-- trigger case fulltime reset to 0 every end of month, PT end week
 	primary key (rid),
 	foreign key (rid) references Users(id)
@@ -65,7 +66,7 @@ CREATE TABLE Deliver
 	rid integer,
 	fee integer,
 	--based on time criteria
-	dstatus d_status DEFAULT 'Rider is departing for restaurant',
+	dstatus d_status DEFAULT 'Rider is departing for restaurant.',
 	--use trigger function to update status based on deliveryTime
 	primary key (orid),
 	foreign key (orid) references Orders(orid) on delete cascade,
@@ -91,9 +92,10 @@ CREATE TABLE Sells
 	rname varchar not null,
 	fname varchar unique not null,
 	sold integer default 0,
+	fdescript varchar(255),
 	--trigger based on time reset daily
 	flimit integer,
-	avail bool,
+	avail bool default true,
 	--use trigger here based on limit-sold
 	category e_category not null,
 	price integer,
@@ -189,7 +191,6 @@ CREATE TABLE MWS
 	whichMonth integer,
 	startDay text,
 	--mon
-	startDate DATE not null,
 	Day1Shift integer references templateShift (shift) not null,
 	--which shift
 	Day2Shift integer references templateShift (shift) not null,
@@ -197,12 +198,13 @@ CREATE TABLE MWS
 	Day4Shift integer references templateShift (shift) not null,
 	Day5Shift integer references templateShift (shift) not null,
 	foreign key (rid) references Riders on delete cascade,
-	primary key (rid, startDate)
+	primary key (rid, whichMonth)
 );
 
 CREATE TABLE Salary
 (
 	rid integer primary key,
+	whichMonth integer,
 	deliveryFees integer,--counted weekly for PT and monthly for FT
 	basePay integer,
 	foreign key (rid) references Riders on delete cascade
@@ -211,6 +213,10 @@ CREATE TABLE Salary
 CREATE TABLE allPromotions
 (
 	pid SERIAL UNIQUE primary key,
+	promotiondescript varchar(255),
+	promoname varchar(30),
+	promotiontype p_type not null,
+	discount integer,
 	startD DATE,
 	endD DATE
 );
@@ -219,11 +225,11 @@ CREATE TABLE RPromotions
 (
 	--restaurants may offer promotional prices for menu items
 	pid integer primary key,
-	discount integer,
+	--	promotiontype varchar(30), -- 2 types? fixed discount / percentage
 	rname varchar(30),
 	fname varchar(30),
-	startD DATE,
-	endD DATE,
+	-- screw fname? overall promo?
+
 	foreign key (pid) references allPromotions on delete cascade,
 	foreign key (rname) references Restaurants on delete cascade,
 	foreign key (fname) references Sells (fname) on delete cascade
@@ -232,9 +238,7 @@ CREATE TABLE RPromotions
 CREATE TABLE FDPromotions
 (
 	pid integer primary key,
-	discount integer,
-	startD DATE,
-	endD DATE,
+	--	promotiontype varchar(30), -- 2 types? fixed discount 
 	foreign key (pid) references allPromotions on delete cascade
 );
 

@@ -8,8 +8,9 @@ class FoodCategoryBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem: 'Chinese',
+            activeItem: this.props.activeCategory,
         }
+        console.log(this.props);
         this.handleItemClick = this.handleItemClick.bind(this);
     }
 
