@@ -119,9 +119,10 @@ function RiderTable(props) {
                 <Table.Cell>{item.salary}</Table.Cell>
             </Table.Row>
         );
+    const riderType = (props.riderType === "FT") ? "Full-time Riders" : "Part-time Riders";
     return (
         <Grid.Column>
-            <Header size='large'>{props.riderType}</Header>
+            <Header size='large'>{riderType}</Header>
             <Segment.Group>
                 <Segment size='big' textAlign='left'>
                 <Dropdown
