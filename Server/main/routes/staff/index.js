@@ -33,7 +33,6 @@ staff.get("/api/get/getRestaurantFood", (req, res, next) => {
 });
 
 staff.post("/api/posts/addNewFood", (req, res, next) => {
-  console.log(req.body);
   const rname = req.body.rname;
   const fname = req.body.fname;
   const flimit = req.body.flimit;
@@ -48,7 +47,6 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
     [rname, fname, flimit, category, price, fdescript],
     (q_err, q_res) => {
       if (q_res != undefined) {
-        console.log(q_res);
         res.json(q_res.rows);
       } else {
         res.json('nok');
@@ -61,31 +59,83 @@ staff.get("/api/get/getTotalOrders", (req, res, next) => {
   const monthSelected = req.query.monthSelected;
   const rname = req.query.rname;
   pool.query(
-    `SELECT orid, cartCost, fee
-    FROM Orders join Deliver USING (orid)
-    WHERE date_part('month', deliveredtime)=$1, rname=$2`,
-    // `SELECT orid, cartCost, fee
-    //           FROM Orders join Deliver USING (orid)
-    //           WHERE date_part('month', deliveredtime) = $1, rname = $2`,
+    `WITH ROrders as
+      (SELECT orid, cartCost
+        FROM Orders
+        WHERE rname=$2),
+      RDeliver as
+      (SELECT orid, fee, deliveredtime
+        FROM Deliver d JOIN DeliveryTime dt 
+        USING (orid))
+
+      SELECT COUNT(orid) 
+      FROM ROrders RO JOIN RDeliver RD
+      USING (orid)
+      WHERE date_part('month', deliveredtime) = $1`,
     [monthSelected, rname],
     (q_err, q_res) => {
-      console.log(q_err);
-      //res.json(q_res.rows);
+      res.json(q_res.rows);
     }
   );
 });
 
+staff.get("/api/get/getTotalRevenue", (req, res, next) => {
+  const monthSelected = req.query.monthSelected;
+  const rname = req.query.rname;
+  pool.query(
+    `WITH ROrders as
+      (SELECT orid, SUM(cartCost) as totalCost
+        FROM Orders
+        WHERE rname=$2
+        GROUP BY orid),
+      RDeliver as
+      (SELECT orid, deliveredtime
+        FROM Deliver d join DeliveryTime dt 
+        USING (orid))
+
+      SELECT 
+      CASE 
+        WHEN SUM(totalCost) IS NULL THEN 0
+        ELSE SUM(totalCost) 
+      END as totalCost
+      FROM ROrders RO join RDeliver RD
+      USING (orid)
+      WHERE date_part('month', deliveredtime) = $1`,
+    [monthSelected, rname],
+    (q_err, q_res) => {
+      res.json(q_res.rows);
+    }
+  );
+});
 staff.get("/api/get/getTop5Orders", (req, res, next) => {
   const monthSelected = req.query.monthSelected;
   const rname = req.query.rname;
 
   pool.query(
-    `SELECT orid, cartCost, fee
-              FROM Orders join Deliver USING (orid)
-              WHERE date_part('month', deliveredtime) = $1, rname = $2`,
+    `WITH 
+    RLimit as
+    (SELECT fname, flimit
+      FROM Sells
+      WHERE rname=$2),
+    RDeliver as
+    (SELECT orid, deliveredtime
+      FROM Deliver join DeliveryTime
+      USING (orid)),
+    RSoldItems as
+    (SELECT orid, fname, quantity, deliveredtime
+      FROM OrderItems join RDeliver
+      USING (orid))
+      
+    SELECT fname, SUM(quantity) as amount
+    FROM RLimit join RSoldItems
+    USING (fname)
+    WHERE date_part('month', deliveredtime)=$1
+    GROUP BY fname
+    ORDER BY amount desc
+    limit 5`,
     [monthSelected, rname],
     (q_err, q_res) => {
-      res.json(q_res.rows);
+     res.json(q_res.rows);
     }
   );
 });
