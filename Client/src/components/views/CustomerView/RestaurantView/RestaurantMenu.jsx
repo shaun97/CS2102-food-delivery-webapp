@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Grid, Item, Header, Rating, Divider, Segment } from 'semantic-ui-react';
+import { Grid, Item, Header, Rating, Segment } from 'semantic-ui-react';
 import FoodCategoryBar from './FoodCategoryBar';
 import MenuItem from './MenuItem';
 
@@ -33,7 +33,7 @@ class RestaurantMenu extends Component {
     }
 
     render() {
-        const reviewsToShow = (this.state.reviews.length == 0) ? <Header>There are no reviews yet!</Header>
+        const reviewsToShow = (this.state.reviews.length === 0) ? <Header>There are no reviews yet!</Header>
             : this.state.reviews.map((item) =>
             <Grid.Column width={16}>
                     <Segment>

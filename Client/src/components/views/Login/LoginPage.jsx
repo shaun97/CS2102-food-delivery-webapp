@@ -1,7 +1,7 @@
 //Basic React Imports
 import React, { Component } from 'react';
 //Semantic
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 //Own Stuff
 import SelectView from './SelectView';
@@ -23,7 +23,7 @@ class LoginPage extends Component {
 
   changeView(loginStageSelect, userTypeSelect) {
     this.setState({
-      userType: (userTypeSelect != undefined) ? userTypeSelect : this.state.userType,
+      userType: (userTypeSelect !== undefined) ? userTypeSelect : this.state.userType,
       loginStage: loginStageSelect
     });
   }
@@ -35,9 +35,9 @@ class LoginPage extends Component {
   
   render() {
     let view;
-    if (this.state.loginStage == 'viewSelect') {
+    if (this.state.loginStage === 'viewSelect') {
       view = <SelectView viewSelector={this.changeView} />;
-    } else if (this.state.loginStage == 'viewLogin') {
+    } else if (this.state.loginStage === 'viewLogin') {
       view = <Login viewSelector={this.changeView} userType={this.state.userType} />;
     } else {
       view = <SignUp viewSelector={this.changeView} userType={this.state.userType} />;

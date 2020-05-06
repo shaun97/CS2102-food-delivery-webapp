@@ -42,14 +42,14 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
   const avail = true;
   const category = req.body.category;
   const price = req.body.price;
+  const fdescript = req.body.fdescript;
   pool.query(
-    `INSERT INTO Sells(rname, fname, sold, flimit, avail, category, price)
-              VALUES($1, $2, $3, $4, $5, $6, $7)
+    `INSERT INTO Sells(rname, fname, sold, flimit, avail, category, price, fdescript)
+              VALUES($1, $2, $3, $4, $5, $6, $7, $8)
               ON CONFLICT (fname) DO UPDATE
-              SET fname=$2, sold=$3, flimit=$4, avail=$5, category=$6, price=$7`,
-    [rname, fname, sold, flimit, avail, category, price],
+              SET fname=$2, sold=$3, flimit=$4, avail=$5, category=$6, price=$7, fdescript=$8`,
+    [rname, fname, sold, flimit, avail, category, price, fdescript],
     (q_err, q_res) => {
-      console.log(q_err);
       res.json(q_res.rows);
     }
   );
@@ -58,7 +58,6 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
 staff.get("/api/get/getTotalOrders", (req, res, next) => {
   const monthSelected = req.query.monthSelected;
   const rname = req.query.rname;
-  console.log(rname);
   pool.query(
     `SELECT orid, cartCost, fee
     FROM Orders join Deliver USING (orid)

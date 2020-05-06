@@ -13,7 +13,6 @@ import {
 } from "semantic-ui-react";
 
 import AddFood from "./AddFood";
-import SearchBar from "./SearchBar";
 
 class UpdateMenuTab extends Component {
   constructor(props) {
@@ -57,8 +56,6 @@ class UpdateMenuTab extends Component {
   // }
 
   render() {
-    console.log(this.state.rname);
-
     return (
       <Segment placeholder>
         <Grid columns={2} stackable textAlign="center">
@@ -79,6 +76,7 @@ class UpdateMenuTab extends Component {
               <Search
                 placeholder="Search foods..."
                 fluid
+                menu={this.state.menu}
                 //results={this.handleOnInputChange}
                 //resultRenderer={}
               />

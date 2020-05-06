@@ -23,6 +23,7 @@ class AddFood extends Component {
       avail: "",
       category: "",
       price: "",
+      fdescript: ""
     };
 
     console.log(this.state.rname);
@@ -44,7 +45,6 @@ class AddFood extends Component {
   }
 
   handleSubmitClick() {
-    console.log(this.state.rname);
     const newFood = {
       rname: this.state.rname,
       fname: this.state.fname,
@@ -53,8 +53,8 @@ class AddFood extends Component {
       avail: true,
       category: this.state.category,
       price: this.state.price,
+      fdescript: this.state.fdescript
     };
-    console.log(this.state.rname);
 
     axios
       .post("staff/api/posts/addNewFood", newFood)
@@ -72,6 +72,15 @@ class AddFood extends Component {
           placeholder="Food"
           required={true}
           name="fname"
+          onChange={this.handleChange}
+        />
+         <Form.Input
+          fluid
+          icon="food"
+          iconPosition="left"
+          placeholder="Food Description"
+          required={true}
+          name="fdescript"
           onChange={this.handleChange}
         />
         <Form.Input

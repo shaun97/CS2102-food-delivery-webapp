@@ -10,15 +10,17 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initState,
+      isLoading: false,
+      results: [],
+      value: "",
     };
   }
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value });
     let initialState = initState;
-
-    source = this.props.food.map((item) => {
+    console.log(this.props.menu);
+    source = this.props.menu.map((item) => {
       return {
         rname: item.title,
         fname: item.name,
