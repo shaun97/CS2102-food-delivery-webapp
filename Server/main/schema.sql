@@ -163,10 +163,7 @@ CREATE TABLE PTRiders
 CREATE TABLE WWS
 (
 	rid integer,
-	wDay text,
-	--mon/tues/wed/thur
-	whichMonth integer,
-	Week integer,
+	wDate DATE,
 	startT TIME,
 	endT TIME,
 	foreign key (rid) references Riders(rid)
@@ -189,7 +186,7 @@ CREATE TABLE MWS
 	--Will update schedule based on the shift 
 	rid integer,
 	whichMonth integer,
-	startDay text,
+	startDay DATE,
 	--mon
 	Day1Shift integer references templateShift (shift) not null,
 	--which shift

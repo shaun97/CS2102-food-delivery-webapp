@@ -183,22 +183,18 @@ rider.post('/api/posts/deliveryStatus', (req, res, next) => {
   const status = req.body.status;
   console.log(status);
   let dstatus = '';
-  let deliveryTimeText = "";
   let message = "";
   switch (status)  {
     case 0:
       dstatus = 'Rider has arrived at restaurant.'
-      deliveryTimeText = `UPDATE deliverytime SET arriveforr =  date_trunc('second', NOW()) WHERE orid = $1`
       message = "Not completed"
       break;
     case 1:
       dstatus = 'Rider is departing from restaurant.'
-      deliveryTimeText = `UPDATE deliverytime SET departfromr =  date_trunc('second', NOW()) WHERE orid = $1`
       message = "Not completed"
       break;
     case 2:
       dstatus = 'Rider has delivered your order.'
-      deliveryTimeText = `UPDATE deliverytime SET deliveredtime =  date_trunc('second', NOW()) WHERE orid = $1`
       message = "Completed"
       break;
   }
@@ -209,7 +205,6 @@ rider.post('/api/posts/deliveryStatus', (req, res, next) => {
       await client.query(`UPDATE deliver
       SET dstatus = $1
       WHERE orid = $2`, [ dstatus, req.body.orid])
-      await client.query(deliveryTimeText, [req.body.orid])
       await client.query('COMMIT').then(res.send({ message: message}))
     } catch (e) {
       await client.query('ROLLBACK').then(res.send({ message: "Failure"}))
@@ -219,4 +214,6 @@ rider.post('/api/posts/deliveryStatus', (req, res, next) => {
     }
   })().catch(e => console.error(e.stack));
 })
+
+
 module.exports = rider;
