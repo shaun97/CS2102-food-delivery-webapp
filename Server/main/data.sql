@@ -24,7 +24,9 @@ VALUES
     ('Caleb Brooks','iaculis@Donecfelisorci.com','JLT05ILN4MB', '2020-05-01'),
     ('Mark Perez','nibh.enim.gravida@velarcu.ca','NQR04WUD1HJ', '2020-05-01'),
     ('Jade Myers','velit@mollis.edu','HNQ80CSD7GZ', '2020-05-01'),
-    ('Jin Wen', 'jinwenntay@gmail.com', 'abcde', '2020-01-01');
+    ('Jin Wen', 'jinwenntay@gmail.com', 'abcde', '2020-01-01'),
+    ('Jin Wen Tay', 'jinwen.tay@u.nus.edu', 'abcde', '2020-05-06'),
+    ('Speedy Rider', 'speedyzoom@gmail.com', 'abcde', '2020-05-06');
 
 INSERT INTO Managers
     (mid)
@@ -41,7 +43,8 @@ VALUES
     (12, 1, 352205),
     (13, 1, 310605),
     (14, 2, 489005),
-    (15, 3, 235601);
+    (15, 3, 235601),
+    (23, 0, 123456);
 
 -- 2 riders: 2,3,16,17,18
 INSERT INTO Riders
@@ -51,7 +54,8 @@ VALUES
     (3, 3),
     (16, 4),
     (17, 3),
-    (18, 5);
+    (18, 5),
+    (24, 0);
 
 INSERT INTO Restaurants
     (minOrder, rname, descript)

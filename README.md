@@ -1,70 +1,48 @@
+# MoodPanda
 
+CS2102 AY2019/2020, Semester 2 Database Project
+
+## Introduction
+
+This is a simulated web-based database application for a food delivery service.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-## Available Scripts
+## Setup and Usage
 
-In the project directory, you can run:
+### Requirements
 
-### `yarn start`
+Ensure that you have the following installed before running the application:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [NodeJs](https://nodejs.org/en/download/)
+- [PostgreSQL](https://www.postgresql.org/download/)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Set up local database
 
-### `yarn test`
+1. Create a local database `moodpandadb` by typing `create database moodpandadb;` in your psql terminal. Type `\c moodpandadb` to connect to the database. Alternatively, you can use pgadmin.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Start backend
 
-### `yarn build`
+1. Open terminal in the **Server** folder and type the command `npm run builddb` to build the database and load data for the application.
+2. Type `npm run devstart` to start the backend application on your local host.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Start frontend
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+1. Open terminal in the **Client** folder and type the command `yarn build` to build the application for production to the `build` folder.
+2. Type the command `yarn start` to run the frontend application on your local host **localhost:3000**.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application should be running in your browser now and an alert box should popup to notify that you are connected.
+<br />
+Refer to the image below for what your browser should look like.
 
-### `yarn eject`
+![Screenshot](img/chrome_54tfZ9gSjO.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Usage
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Open [http://localhost:3000](http://localhost:3000) to view the web application in the browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Team
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
->>>>>>> Initialize project using Create React App
+- [Lim Jiayi Tamelly](https://github.com/termehlee)
+- [Tay Jin Wen](https://github.com/jinwentay)
+- [Teo Wei Jie Shaun](https://github.com/shaun97)
+- [Weng Kexin](https://github.com/Weng-Kexin)
