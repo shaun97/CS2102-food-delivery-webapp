@@ -37,11 +37,10 @@ BEGIN
     VALUES
         (id, rname, cartcost, location)
     RETURNING orid INTO newOrid;
-UPDATE Customers C SET points = newPoints + 1 WHERE c.cid = id;
 
 INSERT INTO Deliver(orid, fee) VALUES (newOrid, deliveryFee);
 
-return newOrid;
+RETURN newOrid;
 END
 $$ language plpgsql;
 
