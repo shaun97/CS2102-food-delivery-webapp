@@ -23,7 +23,6 @@ class RestaurantsTab extends Component {
 
     componentDidMount() {
         axios.get('/restaurant/api/get/restaurantsfromdb').then(res => {
-            console.log(res.data)
             this.setState({ restaurants: res.data })
             this.setState({
                 isLoading: false,
@@ -38,7 +37,7 @@ class RestaurantsTab extends Component {
     }
 
     render() {
-        let view = (this.state.activeRestaurant == '') ?
+        let view = (this.state.activeRestaurant === '') ?
             <>
                 <SearchBar handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></SearchBar>
                 <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>

@@ -24,7 +24,7 @@ restaurant.get('/api/get/restaurantsfromdb', (req, res, next) => {
 
 restaurant.get('/api/get/restaurantmenu', (req, res, next) => {
         const rname = req.query.rname;
-        pool.query(`SELECT fname, price, category, rname, avail, s.fdescript
+        pool.query(`SELECT fname, price, category, rname, avail, s.fdescript, flimit
                 FROM Restaurants join Sells s using (rname)
                 WHERE rname=$1`, [rname],
                 (q_err, q_res) => {

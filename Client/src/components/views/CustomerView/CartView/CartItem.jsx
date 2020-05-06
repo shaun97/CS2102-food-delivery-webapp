@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Item, Header, Icon, Form } from 'semantic-ui-react'
+import React from 'react';
+import { Item, Icon, Form } from 'semantic-ui-react'
 
 //move button???
 
 function CartItem(props) {
-    const menuItemsItems = (props.menuItems.length == 0) ? '' :
+    const menuItemsItems = (props.menuItems.length === 0) ? '' :
         props.menuItems.map((item) =>
             <Item key={item.fname}>
                 <Item.Content>
