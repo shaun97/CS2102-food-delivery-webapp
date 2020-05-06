@@ -34,6 +34,7 @@ class Summary extends Component {
     }
 
     componentDidMount() {
+        console.log("Summary Mounted");
         axios.get('/manager/api/get/getMonthTotalOrders', { params: { monthSelected: this.state.monthIndex+1 } }).then(res => {
             this.setState({ totalOrders: res.data.length })
             this.setState({ orderDetails: res.data })
@@ -64,6 +65,7 @@ class Summary extends Component {
 
         axios.get('/manager/api/get/getDeliveryCountByArea').then(res => {
             this.setState({ deliveryInfo: res.data })
+            console.log("Delivery info\n", res.data);
         }).catch(err => console.log(err))
     }
 
@@ -114,8 +116,7 @@ class Summary extends Component {
     }
 
     render() {
-        let loadScreen = (this.state.isLoading) ? <Loader active inline='centered' />
-            : ''
+        console.log("Delivery Info\n", this.state.deliveryInfo);
         return(
             <Grid columns={2} divided>
                 <Grid.Row stretched>
@@ -155,14 +156,14 @@ class Summary extends Component {
                 </Grid.Column>
                 <Grid.Column>
                     <Segment.Group>
-                        <Segment textAlign='left' size='big'>Number of orders within the past hour</Segment>
+                        <Segment textAlign='left' size='big'>Number of orders being delivered within the past hour</Segment>
                         <Segment.Group>
                         <DeliveryTable deliveryInfo={this.state.deliveryInfo}></DeliveryTable>
                     </Segment.Group>
                     </Segment.Group>   
                 </Grid.Column>
                 </Grid.Row>
-                {loadScreen}
+                {/* {loadScreen} */}
             </Grid>
         )
     }

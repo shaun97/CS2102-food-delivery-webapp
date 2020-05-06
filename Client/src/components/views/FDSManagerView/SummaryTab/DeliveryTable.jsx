@@ -2,6 +2,7 @@ import React from 'react'
 import { Table } from 'semantic-ui-react'
 
 function DeliveryTable(props) { 
+  console.log(props);
   const delivery = (props.deliveryInfo.length == 0) ? 
       <Table.Row>
         <Table.Cell>-</Table.Cell>

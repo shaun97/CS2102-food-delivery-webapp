@@ -19,7 +19,7 @@ VALUES
     ('Ulric Casey','Nam@temporestac.com','UHY04ZIA0BL', '2020-03-01'),
     ('Julie Ballard','fringilla@eumetus.org','BKJ77ION4WC', '2020-03-01'),
     ('Fiona Cooley','hendrerit.Donec@metuseuerat.co.uk','TDM29COZ8CX', '2020-03-01'),
-    ('Ashton Carter','mollis.vitae@ac.net','LAS40RWN5UJ', '2020-04-01'),
+    ('Ashton Carter','mollis.vitae@ac.net','LAS40RWN5UJ', '2020-03-05'),
     ('Levi Barber','massa.non@Curabiturdictum.edu','ATO66CZL6EN', '2020-04-01'),
     ('Caleb Brooks','iaculis@Donecfelisorci.com','JLT05ILN4MB', '2020-05-01'),
     ('Mark Perez','nibh.enim.gravida@velarcu.ca','NQR04WUD1HJ', '2020-05-01'),
@@ -195,18 +195,21 @@ VALUES
 INSERT INTO FTRiders
     (rid)
 VALUES
-    (3);
+    (3),
+    (16),
+    (18);
 
 INSERT INTO PTRiders
     (rid)
 VALUES
-    (default);
+    (2),
+    (17);
 
 INSERT INTO WWS
-    (rid, wDay, whichMonth, Week, startT, endT)
+    (rid, wDate, startT, endT)
 VALUES
-    (2, 'Fri', 3, 3, '10:00:00', '13:00:00'),
-    (17, 'Fri', 3, 3, '16:00:00', '19:00:00');
+    (2, '2020-03-20', '10:00:00', '13:00:00'),
+    (17, '2020-03-20', '16:00:00', '19:00:00');
 
 INSERT INTO templateShift
     (Shift, Start1, End1, Start2, End2)
@@ -219,12 +222,12 @@ VALUES
 INSERT INTO MWS
     (rid, whichMonth, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift)
 VALUES
-    (3, 3, 'Thursday', 1, 1, 2, 3, 1),
-    (16, 3, 'Monday', 1, 1, 1, 1, 1 ),
-    --(17, 4, 'Wednesday', '2020-04-01', 1, 1, 1, 1, 1),
-    (18, 4, 'Wednesday', 2, 2, 2, 2, 2),
-    (3, 4, 'Thursday', 3, 3, 3, 3, 3),
-    (16, 4, 'Friday', 4, 4, 4, 4, 4)
+    (3, 3, '2020-03-05', 1, 1, 2, 3, 1),
+    (16, 3, '2020-03-02', 1, 1, 1, 1, 1 ),
+    (18, 4, '2020-04-02', 2, 2, 2, 2, 2),
+    (3, 4, '2020-04-02', 3, 3, 3, 3, 3),
+    (16, 4, '2020-04-03', 4, 4, 4, 4, 4),
+    (18, 5, '2020-05-06', 4, 4, 4, 4, 4)
     ;
 
 INSERT INTO Salary

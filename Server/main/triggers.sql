@@ -27,6 +27,42 @@ UPDATE OR INSERT
 EXECUTE FUNCTION check_min_order
 ();
 
+--trigger to update delivery time when rider update's status in deliver
+CREATE OR REPLACE FUNCTION update_delivery_time ()
+RETURNS TRIGGER AS $$
+DECLARE
+    deliveryStatus d_status;
+BEGIN
+    SELECT dstatus INTO deliveryStatus
+    FROM deliver
+    WHERE orid = NEW.orid;
+    IF deliveryStatus = 'Rider has arrived at restaurant.' THEN
+        UPDATE deliveryTime
+        SET arriveforr = date_trunc('second', NOW())
+        WHERE orid = NEW.orid;
+    END IF;
+    IF deliveryStatus = 'Rider is departing from restaurant.' THEN
+        UPDATE deliveryTime
+        SET departfromr = date_trunc('second', NOW())
+        WHERE orid = NEW.orid;
+    END IF;
+    IF deliveryStatus = 'Rider has delivered your order.' THEN
+        UPDATE deliveryTime
+        SET deliveredtime = date_trunc('second', NOW())
+        WHERE orid = NEW.orid;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS update_delivery_time_trigger ON deliver;
+CREATE TRIGGER update_delivery_time_trigger
+    AFTER
+    UPDATE ON deliver
+    FOR EACH ROW
+EXECUTE FUNCTION update_delivery_time();
+
+-- trigger to insert order into deliverytime table once it has been placed for delivery   
 CREATE OR REPLACE FUNCTION insert_new_delivery_time
 () RETURNS TRIGGER AS $$
 BEGIN
