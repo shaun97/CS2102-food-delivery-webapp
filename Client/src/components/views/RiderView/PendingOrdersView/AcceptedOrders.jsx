@@ -3,17 +3,38 @@ import React from 'react';
 import { Card, Grid, Button } from 'semantic-ui-react'
 import OrderItems from './OrderItemsDetail'
 import Axios from 'axios';
-function OrderCardsGrid(props) {
-    const order = {
-        orid: props.order.orid,
-        rid: props.rid
+import { useState } from 'react';
+import { useEffect } from 'react';
+function AcceptedOrders(props) {
+    const [ status, setStatus ] = useState(0);
+
+    let buttonText = "";
+    switch (status) {
+        case 0:
+            buttonText = "Arrive at restaurant"
+            break;
+        case 1:
+            buttonText = "Depart from restaurant"
+            break;
+        case 2: 
+            buttonText = "Complete delivery"
+            break;
     }
-    function handleAcceptOrder() {
-        Axios.post('/rider/api/posts/acceptOrder', order)
+
+    function handleChangeStatus() {
+        const info = {
+            status: status,
+            orid: props.order.orid
+        }
+        Axios.post('/rider/api/posts/deliveryStatus', info)
         .then(res => {
-            alert(res.data.message)
-            if (res.data.message === "Order Accepted!") {
-                props.handleActiveOrder()    
+            if (res.data.message !== "Failure") {
+                setStatus(status + 1)
+                if (res.data.message === "Completed") {
+                    props.handleRemoveActive()
+                }
+            } else {
+                window.alert("Status update failed :( Try again!")
             }
         })   
         .catch(err => console.log(err));
@@ -33,8 +54,8 @@ function OrderCardsGrid(props) {
                 </Card.Content>
                 <Card.Content extra>
                     <div className='ui two buttons'>
-                        <Button basic color = 'green' onClick={handleAcceptOrder}>
-                            Accept Delivery
+                        <Button basic color = 'green' onClick={handleChangeStatus}>
+                            {buttonText}
                         </Button>
                     </div>
                 </Card.Content>
@@ -47,4 +68,4 @@ function OrderCardsGrid(props) {
     )
 }
 
-export default OrderCardsGrid;
+export default AcceptedOrders;

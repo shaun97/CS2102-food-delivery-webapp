@@ -31,4 +31,3 @@ drop type if exists o_status;
 drop type if exists d_status;
 drop type if exists e_category;
 drop type if exists p_type;
-
