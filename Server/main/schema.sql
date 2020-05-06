@@ -64,7 +64,7 @@ CREATE TABLE Deliver
 (
 	orid integer unique,
 	rid integer,
-	fee integer,
+	fee integer DEFAULT 5,
 	--based on time criteria
 	dstatus d_status DEFAULT 'Rider is departing for restaurant.',
 	--use trigger function to update status based on deliveryTime
@@ -76,7 +76,7 @@ CREATE TABLE Deliver
 
 CREATE TABLE DeliveryTime
 (
-	orid integer unique,
+	orid integer,
 	departForR timestamp,
 	arriveForR timestamp,
 	departFromR timestamp,
