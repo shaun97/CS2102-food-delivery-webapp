@@ -23,9 +23,8 @@ CREATE TYPE e_category AS ENUM
 	'Thai'
 );
 
-CREATE TYPE promotiontype AS ENUM
+CREATE TYPE p_type AS ENUM
 (
     'fixed',
-    'percentage',
-    'freedelivery'
+    'percentage'
 );

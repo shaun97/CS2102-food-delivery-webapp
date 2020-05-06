@@ -13,9 +13,8 @@ class RestaurantMenu extends Component {
             restaurant: this.props.restaurant,
             menu: [],
             reviews: [],
-            activeCategory: 'Chinese'
+            activeCategory: this.props.restaurant.category,
         }
-
         this.handleChangeActiveCategory = this.handleChangeActiveCategory.bind(this);
     }
 
@@ -75,7 +74,7 @@ class RestaurantMenu extends Component {
                     </Item.Group>
                 </Grid.Row>
                 <Grid.Row>
-                    <FoodCategoryBar handleChangeActiveCategory={this.handleChangeActiveCategory}></FoodCategoryBar>
+                    <FoodCategoryBar activeCategory={this.state.activeCategory} handleChangeActiveCategory={this.handleChangeActiveCategory}></FoodCategoryBar>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column textAlign={'left'}>

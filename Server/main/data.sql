@@ -64,22 +64,22 @@ VALUES
 
 --as of 21 March
 INSERT INTO Sells
-    (rname, fname, sold, flimit, avail, category, price)
+    (rname, fname, sold, flimit, avail, category, price, fdescript)
 VALUES
-    ('Chinese Kitchen', 'Beef Horfun', 2, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Seafood Horfun', 2, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Tomato Noodle Soup', 0, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Fried Rice', 0, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Sweet and Sour Pork Rice', 0, 10, true, 'Chinese', 6),
-    ('Song Feng Chicken', 'Set A Chicken Wing', 0, 20, true, 'Malay', 3),
-    ('Song Feng Chicken', 'Set B Fish', 0, 20, true, 'Malay', 3),
-    ('Song Feng Chicken', 'Set C Vege', 0, 20, true, 'Malay', 3),
-    ('Nippi Place', 'Plain Prata', 0, 5, true, 'Indian', 2),
-    ('Nippi Place', 'Egg Prata', 0, 5, true, 'Indian', 2),
-    ('Nippi Place', 'Banana Prata', 0, 5, true, 'Indian', 2),
-    ('Naknoh Thai', 'Pad Thai', 3, 7, true, 'Thai', 5),
-    ('Naknoh Thai', 'Thai Milk Tea', 3, 3, false, 'Thai', 3),
-    ('Naknoh Thai', 'Basil Pork Rice', 3, 3, false, 'Thai', 5);
+    ('Chinese Kitchen', 'Beef Horfun', 2, 10, true, 'Chinese', 6, 'Horfun with beef fried to perfection'),
+    ('Chinese Kitchen', 'Seafood Horfun', 2, 10, true, 'Chinese', 6, '3 types of fish and squid horfun'),
+    ('Chinese Kitchen', 'Tomato Noodle Soup', 0, 10, true, 'Chinese', 6, 'Tomatoes and QQ noodles'),
+    ('Chinese Kitchen', 'Fried Rice', 0, 10, true, 'Chinese', 6, 'Yangzhou style fried rice with sausage'),
+    ('Chinese Kitchen', 'Sweet and Sour Pork Rice', 0, 10, true, 'Chinese', 6, 'Sweetest and sourest pork around'),
+    ('Song Feng Chicken', 'Set A Chicken Wing', 0, 20, true, 'Malay', 3, 'Value for money, Chicken wing and Egg on the side'),
+    ('Song Feng Chicken', 'Set B Fish', 0, 20, true, 'Malay', 3, 'Fried fish and hashbrowns on the side'),
+    ('Song Feng Chicken', 'Set C Vege', 0, 20, true, 'Malay', 3, 'Vegetarian option'),
+    ('Nippi Place', 'Plain Prata', 0, 5, true, 'Indian', 2, 'Plainest prata around'),
+    ('Nippi Place', 'Egg Prata', 0, 5, true, 'Indian', 2, 'Eggiest prata around'),
+    ('Nippi Place', 'Banana Prata', 0, 5, true, 'Indian', 2, 'Special House Prata on Banana'),
+    ('Naknoh Thai', 'Pad Thai', 3, 7, true, 'Thai', 5, 'Best padthai in Naknoh Thai'),
+    ('Naknoh Thai', 'Thai Milk Tea', 3, 3, false, 'Thai', 3, 'Original Thai Milk Tea'),
+    ('Naknoh Thai', 'Basil Pork Rice', 3, 3, false, 'Thai', 5, 'Freshest Basil with the freshset pork');
 
 INSERT INTO Orders
     (cid, rname, cartCost, location, ostatus)

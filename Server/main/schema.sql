@@ -92,6 +92,7 @@ CREATE TABLE Sells
 	rname varchar not null,
 	fname varchar unique not null,
 	sold integer default 0,
+	fdescript varchar(255),
 	--trigger based on time reset daily
 	flimit integer,
 	avail bool default true,
@@ -214,7 +215,7 @@ CREATE TABLE allPromotions
 	pid SERIAL UNIQUE primary key,
 	promotiondescript varchar(255),
 	promoname varchar(30),
-	promotiontype varchar(30),
+	promotiontype p_type not null,
 	discount integer,
 	startD DATE,
 	endD DATE
@@ -224,9 +225,10 @@ CREATE TABLE RPromotions
 (
 	--restaurants may offer promotional prices for menu items
 	pid integer primary key,
---	promotiontype varchar(30), -- 2 types? fixed discount / percentage
+	--	promotiontype varchar(30), -- 2 types? fixed discount / percentage
 	rname varchar(30),
-	fname varchar(30), -- screw fname? overall promo?
+	fname varchar(30),
+	-- screw fname? overall promo?
 
 	foreign key (pid) references allPromotions on delete cascade,
 	foreign key (rname) references Restaurants on delete cascade,
@@ -236,7 +238,7 @@ CREATE TABLE RPromotions
 CREATE TABLE FDPromotions
 (
 	pid integer primary key,
---	promotiontype varchar(30), -- 2 types? fixed discount 
+	--	promotiontype varchar(30), -- 2 types? fixed discount 
 	foreign key (pid) references allPromotions on delete cascade
 );
 

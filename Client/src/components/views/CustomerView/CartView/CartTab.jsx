@@ -169,7 +169,7 @@ class CartTab extends Component {
         if (this.state.promoapplied.promotiontype == 'fixed') {
             subtotal = subtotal - this.state.promoapplied.discount;
         } else if (this.state.promoapplied.promotiontype == 'percentage') {
-            subtotal = subtotal * (this.state.promoapplied.discount / 100);
+            subtotal = subtotal * ((100 - this.state.promoapplied.discount) / 100);
         }
 
         axios.post('/customer/api/posts/insertorder',
@@ -195,14 +195,13 @@ class CartTab extends Component {
     }
 
     render() {
-        //  ${(this.state.deliveryCost + this.state.subtotal - (this.state.isPointsUsed ? this.state.points : 0))}
         var displayPromoTotal = "";
         if (this.state.promoapplied == "") {
             displayPromoTotal = '$' + (this.state.subtotal + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
         } else if (this.state.promoapplied.promotiontype == 'fixed') {
             displayPromoTotal = '$' + (this.state.subtotal + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' - $' + this.state.promoapplied.discount + ' = $' + Math.max(0, (this.state.deliveryCost + this.state.subtotal - (this.state.isPointsUsed ? this.state.points : 0) - this.state.promoapplied.discount));
         } else {
-            displayPromoTotal = '$' + (this.state.subtotal ) + ' x ' + this.state.promoapplied.discount / 100 + ' + $' + (this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' = $' + ((this.state.promoapplied.discount / 100) * (this.state.subtotal) + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
+            displayPromoTotal = '$' + (this.state.subtotal) + ' x ' + (100 - this.state.promoapplied.discount) / 100 + ' + $' + (this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' = $' + ((this.state.promoapplied.discount / 100) * (this.state.subtotal) + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
         }
 
         let restaurantPromo = this.state.promos.map((item, i) =>
@@ -247,7 +246,7 @@ class CartTab extends Component {
                                         <input style={{ margin: '5px 0px' }} name='address' value={this.state.address} type='text' onChange={this.handleChange} placeholder='Address' />
                                     </Form.Field>
                                     <Form.Field>
-                                    <label>Available Promotions</label>
+                                        <label>Available Promotions</label>
                                         {restaurantPromo}
                                     </Form.Field>
                                     <Header as='h5'>You have {this.state.points} points left, would you like to use it to offset your delivery cost?</Header>
