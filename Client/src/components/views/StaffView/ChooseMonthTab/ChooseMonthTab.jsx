@@ -1,16 +1,17 @@
 //Basic React Imports
 import React, { Component } from "react";
 
-import { Tab, Menu, List } from "semantic-ui-react";
+import { Card, Feed, Header, Menu } from "semantic-ui-react";
 
-var d = new Date();
 
 class ChooseMonthTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
       menu: [],
-      // activeItem: d.getMonth(),
+      totalOrders: 0,
+      totalRevenue: 0,
+      top5Orders: [],
       activeItem: "May",
     };
   }
@@ -23,7 +24,7 @@ class ChooseMonthTab extends Component {
     return (
       <div>
         <h1>Choose a month to view summary:</h1>
-        <Menu pointing vertical>
+        <Menu center pointing fluid secondary widths={12}>
           <Menu.Item
             name="Jan"
             active={activeItem === "Jan"}
@@ -85,6 +86,90 @@ class ChooseMonthTab extends Component {
             onClick={this.handleItemClick}
           />
         </Menu>
+
+        <Card.Group>
+        <Card>
+          <Card.Content>
+            <Card.Header>
+              Total Number of Completed Orders This Month
+            </Card.Header>
+          </Card.Content>
+          <Card.Content>
+            <Feed>
+              <Feed.Event>
+                <Feed.Content>
+                  <Header size="huge" textAlign="center">
+                    {this.state.totalOrders}
+                  </Header>
+                </Feed.Content>
+              </Feed.Event>
+            </Feed>
+          </Card.Content>
+        </Card>
+
+        <Card>
+          <Card.Content>
+            <Card.Header>
+              Total Revenue of Completed Orders This Month (exc. delivery fees)
+            </Card.Header>
+          </Card.Content>
+          <Card.Content>
+            <Feed>
+              <Feed.Event>
+                <Feed.Content>
+                  <Header size="huge" textAlign="center">
+                    ${this.state.totalRevenue}
+                  </Header>
+                </Feed.Content>
+              </Feed.Event>
+            </Feed>
+          </Card.Content>
+        </Card>
+
+        <Card>
+          <Card.Content>
+            <Card.Header>Top 5 Food Items This Month</Card.Header>
+          </Card.Content>
+          <Card.Content>
+            <Feed>
+              <Feed.Event>
+                <Feed.Content>
+                  <Feed.Date content="1st" />
+                  <Feed.Summary>Yoghurt | *num of orders* </Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
+
+              <Feed.Event>
+                <Feed.Content>
+                  <Feed.Date content="2nd" />
+                  <Feed.Summary>Omlette | *num of orders*</Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
+
+              <Feed.Event>
+                <Feed.Content>
+                  <Feed.Date content="3rd" />
+                  <Feed.Summary>Macdonner | *num of orders* </Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
+
+              <Feed.Event>
+                <Feed.Content>
+                  <Feed.Date content="4th" />
+                  <Feed.Summary>Hannok | *num of orders* </Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
+
+              <Feed.Event>
+                <Feed.Content>
+                  <Feed.Date content="5th" />
+                  <Feed.Summary>GFC | *num of orders* </Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
+            </Feed>
+          </Card.Content>
+        </Card>
+      </Card.Group>
       </div>
     );
   }

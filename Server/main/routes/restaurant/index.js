@@ -28,7 +28,6 @@ restaurant.get('/api/get/restaurantmenu', (req, res, next) => {
                 FROM Restaurants join Sells s using (rname)
                 WHERE rname=$1`, [rname],
                 (q_err, q_res) => {
-                        console.log(q_res.rows);
                         res.json(q_res.rows);
                 })
 })
