@@ -1,5 +1,6 @@
 //Basic React Imports
 import React, { Component } from "react";
+import axios from "axios";
 
 import {
   Button,
@@ -8,7 +9,6 @@ import {
   Grid,
   Header,
   Icon,
-  Search,
   Modal,
 } from "semantic-ui-react";
 
@@ -22,43 +22,53 @@ class UpdateMenuTab extends Component {
       rname: this.props.rname,
       query: "",
       menu: [],
-      isLoading: false,
+      activeFood: {
+        fname: "",
+        sold: "",
+        flimit: "",
+        avail: "",
+        category: "",
+        price: "",
+        fdescript: ""
+      },
+      open: false
     };
-    console.log(this.props);
     this.changeActiveFood = this.changeActiveFood.bind(this);
     // this.handleAdd = this.handleAdd.bind(this);
   }
 
-  changeActiveRestaurant(restaurant) {
-    this.setState({
-      activeRestaurant: restaurant,
-    });
+  componentDidMount() {
+    axios.get("/restaurant/api/get/restaurantmenu", {
+      params: { rname: this.state.rname },
+    }).then((res) => this.setState({ menu: res.data }))
+      .catch((err) => console.log(err));
   }
 
   changeActiveFood(food) {
     this.setState({
       activeFood: food,
+      open: true
     });
   }
 
-  handleOnInputChange = (event) => {
-    const query = event.target.value;
-    if (!query) {
-      this.setState({ query, menu: {}, message: "" });
-    } else {
-      this.setState({ query, loading: true, message: "" }, () => {
-        this.fetchSearchResults(1, query);
-      });
-    }
-  };
+  handleOpen = () => {
+    this.setState({
+      open: true,
+      activeFood: {
+        fname: "",
+        sold: "",
+        flimit: "",
+        avail: "",
+        category: "",
+        price: "",
+        fdescript: ""
+      },
+    });
+  }
 
-  // handleAdd = () {
-  //   this.props.viewSelector("add");
-  // }
+  handleClose = () => this.setState({ open: false })
 
   render() {
-    console.log(this.state.rname);
-
     return (
       <Segment placeholder>
         <Grid columns={2} stackable textAlign="center">
@@ -71,17 +81,10 @@ class UpdateMenuTab extends Component {
                 Search food to edit
               </Header>
 
-              {/* <SearchBar
+              <SearchBar
                 handleChangeActive={this.changeActiveFood}
-                food={this.state.food}
-              ></SearchBar> */}
-
-              <Search
-                placeholder="Search foods..."
-                fluid
-                //results={this.handleOnInputChange}
-                //resultRenderer={}
-              />
+                menu={this.state.menu}
+              ></SearchBar>
             </Grid.Column>
 
             <Grid.Column>
@@ -89,9 +92,9 @@ class UpdateMenuTab extends Component {
                 <Icon name="food" />
                 Add New Food
               </Header>
-              <Modal trigger={<Button primary>Add</Button>} closeIcon>
+              <Modal onClose={this.handleClose} open={this.state.open} trigger={<Button onClick={this.handleOpen} primary>Add</Button>} closeIcon>
                 <Modal.Content>
-                  <AddFood rname={this.state.rname}></AddFood>
+                  <AddFood food={this.state.activeFood} rname={this.state.rname}></AddFood>
                 </Modal.Content>
               </Modal>
             </Grid.Column>

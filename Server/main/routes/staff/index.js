@@ -13,7 +13,6 @@ staff.get("/api/get/getRestaurant", (req, res, next) => {
               WHERE stid = $1`,
     [stid],
     (q_err, q_res) => {
-      console.log(q_res.rows);
       res.json(q_res.rows);
     }
   );
@@ -37,20 +36,23 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
   console.log(req.body);
   const rname = req.body.rname;
   const fname = req.body.fname;
-  const sold = 0;
   const flimit = req.body.flimit;
-  const avail = true;
   const category = req.body.category;
   const price = req.body.price;
+  const fdescript = req.body.fdescript;
   pool.query(
-    `INSERT INTO Sells(rname, fname, sold, flimit, avail, category, price)
-              VALUES($1, $2, $3, $4, $5, $6, $7)
+    `INSERT INTO Sells(rname, fname, flimit, category, price, fdescript)
+              VALUES($1, $2, $3, $4, $5, $6)
               ON CONFLICT (fname) DO UPDATE
-              SET fname=$2, sold=$3, flimit=$4, avail=$5, category=$6, price=$7`,
-    [rname, fname, sold, flimit, avail, category, price],
+              SET fname=$2, flimit=$3, category=$4, price=$5, fdescript=$6`,
+    [rname, fname, flimit, category, price, fdescript],
     (q_err, q_res) => {
-      console.log(q_err);
-      res.json(q_res.rows);
+      if (q_res != undefined) {
+        console.log(q_res);
+        res.json(q_res.rows);
+      } else {
+        res.json('nok');
+      }
     }
   );
 });
@@ -58,7 +60,6 @@ staff.post("/api/posts/addNewFood", (req, res, next) => {
 staff.get("/api/get/getTotalOrders", (req, res, next) => {
   const monthSelected = req.query.monthSelected;
   const rname = req.query.rname;
-  console.log(rname);
   pool.query(
     `SELECT orid, cartCost, fee
     FROM Orders join Deliver USING (orid)

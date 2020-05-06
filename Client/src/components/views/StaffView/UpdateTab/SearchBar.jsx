@@ -4,26 +4,25 @@ import _ from "lodash";
 
 var source;
 
-const initState = { isLoading: false, results: [], value: "" };
-
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initState,
+      isLoading: false,
+      results: [],
+      value: "",
     };
   }
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value });
-    let initialState = initState;
+    let initialState = { isLoading: false, results: [], value: "" };
 
-    source = this.props.food.map((item) => {
+    source = this.props.menu.map((item) => {
       return {
-        rname: item.title,
-        fname: item.name,
-        category: item.category,
-        price: item.price,
+        title: item.fname,
+        description: item.fdescript,
+        price: item.price.toString()
       };
     });
 
@@ -39,17 +38,9 @@ class SearchBar extends Component {
   };
 
   handleResultSelect = (e, { result }) => {
-    alert("You have selected smth");
 
-    let food = {
-      rname: result.title,
-      fname: result.name,
-      //   sold: result.qty,
-      //   flimit: result.amt,
-      category: result.category,
-      price: result.price,
-    };
-    this.props.handleChangeActive(food);
+    let food = this.props.menu.filter(food => food.fname === result.title);
+    this.props.handleChangeActive(food[0]);
   };
 
   render() {
