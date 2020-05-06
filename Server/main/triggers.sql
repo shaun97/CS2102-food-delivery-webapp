@@ -74,7 +74,6 @@ CREATE OR REPLACE FUNCTION check_food_qty
 () RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.sold > NEW.flimit THEN
-
     -- Supposed to delete order that do not have any orderitems(when all sold out) .. shoul use transactions? to run all tog but i cant pass an array in, idk how
         -- IF !(SELECT 1 FROM Orders NATURAL JOIN orderitems WHERE NEW.orid = orid) THEN
         --     DELETE FROM Orders WHERE NEW.orid = orid;
@@ -84,6 +83,9 @@ BEGIN
     IF NEW.sold = NEW.flimit THEN 
         RAISE NOTICE USING MESSAGE = NEW;
         NEW.avail = FALSE;
+    END IF;
+    IF NEW.sold < NEW.flimit THEN 
+        NEW.avail = TRUE;
     END IF;
     RETURN NEW;
 END;
