@@ -34,7 +34,7 @@ The application should be running in your browser now and an alert box should po
 <br />
 Refer to the image below for what your browser should look like.
 
-![Screenshot](img\chrome_54tfZ9gSjO.png)
+![Screenshot](img/chrome_54tfZ9gSjO.png)
 
 ### Usage
 
