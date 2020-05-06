@@ -17,13 +17,7 @@ class AddFood extends Component {
     super(props);
     this.state = {
       rname: this.props.rname,
-      fname: "",
-      sold: "",
-      flimit: "",
-      avail: "",
-      category: "",
-      price: "",
-      fdescript: ""
+      food: this.props.food
     };
 
     console.log(this.state.rname);
@@ -47,13 +41,13 @@ class AddFood extends Component {
   handleSubmitClick() {
     const newFood = {
       rname: this.state.rname,
-      fname: this.state.fname,
-      sold: 0,
-      flimit: this.state.flimit,
-      avail: true,
-      category: this.state.category,
-      price: this.state.price,
-      fdescript: this.state.fdescript
+      fname: this.state.food.fname,
+      sold: 0, // check logic for this
+      flimit: this.state.food.flimit,
+      avail: true, // check logic for this
+      category: this.state.food.category,
+      price: this.state.food.price,
+      fdescript: this.state.food.fdescript
     };
 
     axios
@@ -63,6 +57,7 @@ class AddFood extends Component {
   }
 
   render() {
+    console.log(this.state.food);
     return (
       <Form>
         <Form.Input
@@ -71,7 +66,8 @@ class AddFood extends Component {
           iconPosition="left"
           placeholder="Food"
           required={true}
-          name="fname"
+          name="food.fname"
+          value={this.state.food.fname}
           onChange={this.handleChange}
         />
          <Form.Input
@@ -80,7 +76,8 @@ class AddFood extends Component {
           iconPosition="left"
           placeholder="Food Description"
           required={true}
-          name="fdescript"
+          name="food.fdescript"
+          value={this.state.food.fdescript}
           onChange={this.handleChange}
         />
         <Form.Input
@@ -89,7 +86,8 @@ class AddFood extends Component {
           iconPosition="left"
           placeholder="Quantity"
           required={true}
-          name="flimit"
+          name="food.flimit"
+          value={this.state.food.flimit}
           onChange={this.handleChange}
         />
         <Form.Dropdown
@@ -98,9 +96,9 @@ class AddFood extends Component {
           required={true}
           control={Select}
           options={categoryOptions}
-          name="category"
+          name="food.category"
+          value={(this.state.selectedCategory) ? this.state.selectedCategory : this.state.food.category}
           onChange={this.handleDropdown}
-          value={this.state.selectedCategory}
         />
         <Form.Input
           fluid
@@ -108,16 +106,16 @@ class AddFood extends Component {
           iconPosition="left"
           placeholder="Price"
           required={true}
-          name="price"
+          name="food.price"
+          value={this.state.food.price}
           onChange={this.handleChange}
         />
         <Button
           color="blue"
           fluid
           size="large"
-          onClick={this.handleSubmitClick}
-        >
-          Add Food
+          onClick={this.handleSubmitClick}>
+            {(this.props.food.fname) ? "Update Food" : "Add Food"}
         </Button>
       </Form>
     );
