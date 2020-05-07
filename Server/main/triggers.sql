@@ -21,8 +21,8 @@ BEGIN
         SELECT 0 INTO valid;
     END IF;
 
-    IF NEW.email !~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'
-      THEN
+    IF NEW.email !~ '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*
+      @[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$' THEN
         RAISE EXCEPTION 'Invalid email';
         SELECT 0 INTO valid;
     END IF;
@@ -126,6 +126,7 @@ CREATE TRIGGER insert_new_delivery_time_trigger
     FOR EACH ROW
 EXECUTE FUNCTION insert_new_delivery_time
 ();
+
 -- Trigger to update quantity in sells
 CREATE OR REPLACE FUNCTION update_food_qty
 () RETURNS TRIGGER AS $$
@@ -149,9 +150,12 @@ EXECUTE FUNCTION update_food_qty
 ();
 
 -- Trigger to check food quantity in sells
-CREATE OR REPLACE FUNCTION check_food_qty
-() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION check_food_qty() RETURNS TRIGGER AS $$
 BEGIN
+    IF NEW.last_updated < CURRENT_DATE THEN 
+        NEW.sold = 0;
+        NEW.last_updated = CURRENT_DATE;
+    END IF;
     IF NEW.sold > NEW.flimit THEN
         RAISE EXCEPTION 'Food limit hit';
     END IF;
@@ -166,15 +170,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS check_food_qty_trigger
-ON Sells;
+DROP TRIGGER IF EXISTS check_food_qty_triggerv ON Sells;
 CREATE TRIGGER check_food_qty_trigger
-    BEFORE
-UPDATE OR INSERT
-    ON Sells
-    FOR EACH ROW
-EXECUTE FUNCTION check_food_qty
-();
+BEFORE UPDATE OR INSERT
+ON Sells FOR EACH ROW
+EXECUTE FUNCTION check_food_qty();
 
 -- Trigger to update customer points after order completed
 CREATE OR REPLACE FUNCTION update_customer_points() RETURNS TRIGGER
@@ -275,3 +275,36 @@ CREATE TRIGGER check_promo_start_end_trigger
     ON allpromotions
     FOR EACH ROW
     EXECUTE PROCEDURE check_promo_start_end();
+
+-- Trigger to check if that week he worked less than 10 or more than 40 
+-- Trigger to check if there are any clashes in the schedule as well
+CREATE OR REPLACE FUNCTION check_rider_schedule() returns TRIGGER
+    AS $$
+DECLARE 
+    weekHours INTEGER;
+BEGIN
+    weekHours = 0;
+    SELECT SUM(DATE_PART('hour', endt - startt)) INTO weekHours
+    FROM wws 
+    WHERE EXTRACT(week from CURRENT_DATE) = EXTRACT(week from wdate)
+    AND NEW.rid = wws.rid;
+    
+   IF weekHours < 10 THEN
+        RAISE exception 'You are working too little';
+    END IF;
+    IF weekHours > 48 THEN 
+        RAISE exception 'You are working too much';
+    END IF;
+
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS check_rider_schedule_trigger ON wws;
+CREATE TRIGGER check_rider_schedule_trigger 
+    AFTER UPDATE OR INSERT
+    ON wws
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_rider_schedule();
+
+

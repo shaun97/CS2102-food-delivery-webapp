@@ -89,6 +89,7 @@ CREATE TABLE Sells
 	avail bool default true,
 	category e_category not null,
 	price integer,
+	last_updated DATE DEFAULT CURRENT_DATE,
 	primary key (rname, fname),
 	foreign key (rname) references Restaurants (rname)
 );

@@ -26,7 +26,7 @@ class UpdatePromoTab extends Component {
                 promoname: "",
                 promotiontype: "",
                 discount: "",
-                pid: 1,
+                pid: 0,
                 promotiondescript: "",
                 startd: "",
                 endd: ""
