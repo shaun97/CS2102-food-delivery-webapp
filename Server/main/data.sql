@@ -98,10 +98,15 @@ VALUES
     ('Song Feng Chicken', 'Set A Chicken Wing', 0, 20, true, 'Malay', 3, 'Value for money, Chicken wing and Egg on the side'),
     ('Song Feng Chicken', 'Set B Fish', 0, 20, true, 'Malay', 3, 'Fried fish and hashbrowns on the side'),
     ('Song Feng Chicken', 'Set C Vege', 0, 20, true, 'Malay', 3, 'Vegetarian option'),
+    ('Song Feng Chicken', 'Set D Mixed', 0, 20, true, 'Malay', 6, 'A bit of everything'),
 
     ('Nippi Place', 'Plain Prata', 0, 5, true, 'Indian', 2, 'Plainest prata around'),
     ('Nippi Place', 'Egg Prata', 0, 5, true, 'Indian', 2, 'Eggiest prata around'),
     ('Nippi Place', 'Banana Prata', 0, 5, true, 'Indian', 2, 'Special House Prata on Banana'),
+    ('Nippi Place', 'Prata Bomb', 0, 5, true, 'Indian', 2, 'This prata is the bomb'),
+    ('Nippi Place', 'Teh Halia', 1, 5, true, 'Indian', 1, 'Special House Teh Halia'),
+    ('Nippi Place', 'Teh Chino', 0, 5, true, 'Indian', 1, 'Special House Teh Chino'),
+    ('Nippi Place', 'Roti John', 0, 5, true, 'Indian', 4, 'Signature dish by Chef John'),
 
     ('Naknoh Thai', 'Pad Thai', 3, 7, true, 'Thai', 5, 'Best padthai in Naknoh Thai'),
     ('Naknoh Thai', 'Thai Milk Tea', 3, 3, false, 'Thai', 3, 'Original Thai Milk Tea'),
@@ -149,7 +154,8 @@ VALUES
     --21 onwards
     (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
     (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
-    (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed')
+    (4, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
+    (15, 'Chinese Kitchen', 24, 'Clementi', 'Completed')
 
 ;
 
@@ -177,8 +183,12 @@ VALUES
     (19, 16, 5, 'Rider has delivered your order.'),
     (20, 16, 5, 'Rider has delivered your order.'),
     (21, 3, 5, 'Rider has delivered your order.'),
-    (22, 3, 5, 'Rider has delivered your order.'),
-    (23, 3, 5, 'Rider has delivered your order.')
+    (22, 2, 5, 'Rider has delivered your order.'),
+    (23, 3, 5, 'Rider has delivered your order.'),
+
+    (24, 17, 5, 'Rider has delivered your order.')
+
+
 
 ;
 
@@ -207,7 +217,8 @@ VALUES
     (20, '2020-05-03 10:23:54', '2020-05-03 10:30:03', '2020-05-03 10:32:50', '2020-05-03 10:40:24'),
     (21, '2020-05-03 10:23:54', '2020-05-03 10:30:03', '2020-05-03 10:32:50', '2020-05-03 10:40:24'),
     (22, '2020-05-11 19:25:54', '2020-05-11 19:31:03', '2020-05-11 19:36:50', '2020-05-11 19:46:24'),
-    (23, '2020-05-04 18:23:54', '2020-05-04 18:30:03', '2020-05-04 18:32:50', '2020-05-04 18:40:24')
+    (23, '2020-05-04 18:23:54', '2020-05-04 18:30:03', '2020-05-04 18:32:50', '2020-05-04 18:40:24'),
+    (24, '2020-05-07 18:25:54', '2020-05-07 18:31:03', '2020-05-07 18:36:50', '2020-05-07 18:46:24')
 
 
 
@@ -266,12 +277,15 @@ VALUES
     (19, 'Egg Prata', 15),
     (20, 'Salted Egg Rice', 3),
     (20, 'Century Egg Porridge', 2),
-
     (21, 'Banana Prata', 4),
     (22, 'Egg Prata', 2),
     (22, 'Banana Prata', 2),
-    (23, 'Plain Prata', 4)
+    (23, 'Plain Prata', 4),
 
+    (24, 'Salted Egg Rice', 1),
+    (24, 'Century Egg Porridge', 1),
+    (24, 'Sweet and Sour Pork Rice', 1),
+    (24, 'Tomato Noodle Soup', 1)
 ;
 
 -- 5 Staffs: 5,8,9,10,11, 29
@@ -301,7 +315,8 @@ VALUES
     (17, 'Wow the food is amazing', 5),
     (18, 'I feel like a king now', 5),
     (19, 'I love egg prata', 4),
-    (22, 'The prata is bomb', 5);
+    (22, 'The prata is bomb', 5),
+    (24, 'Fried rice a bit dry', 3);
 
 INSERT INTO FTRiders
     (rid)
@@ -321,15 +336,24 @@ VALUES
 INSERT INTO WWS
     (rid, wDate, startT, endT)
 VALUES
+    (2, '2020-02-20', '10:00:00', '13:00:00'),
+    (2, '2020-03-10', '16:00:00', '19:00:00'),
     (2, '2020-03-20', '10:00:00', '13:00:00'),
     (2, '2020-04-20', '10:00:00', '13:00:00'),
     (2, '2020-05-01', '10:00:00', '13:00:00'),
+    (2, '2020-05-15', '10:00:00', '13:00:00'),
     (2, '2020-05-20', '10:00:00', '13:00:00'),
+
     (17, '2020-03-20', '16:00:00', '19:00:00'),
     (17, '2020-05-20', '16:00:00', '19:00:00'),
     (17, '2020-04-20', '16:00:00', '19:00:00'),
+    (17, '2020-05-11', '10:00:00', '13:00:00'),
+
     (27, '2020-03-20', '10:00:00', '13:00:00'),
     (27, '2020-04-20', '10:00:00', '13:00:00'),
+    (27, '2020-05-05', '10:00:00', '13:00:00'),
+    (27, '2020-05-11', '10:00:00', '13:00:00'),
+    (27, '2020-04-23', '10:00:00', '13:00:00'),
     (27, '2020-05-02', '16:00:00', '19:00:00');
 
 INSERT INTO templateShift
@@ -346,7 +370,6 @@ VALUES
     (3, 3, '2020-03-05', 1, 1, 2, 3, 1),
     (3, 4, '2020-04-02', 3, 3, 3, 3, 3),
     (3, 5, '2020-05-02', 3, 3, 3, 3, 3),
-
     (16, 3, '2020-03-02', 1, 1, 1, 1, 1 ),
     (16, 4, '2020-04-03', 4, 4, 4, 4, 4),
     (16, 5, '2020-05-02', 1, 1, 1, 1, 1 ),
@@ -359,25 +382,39 @@ VALUES
 INSERT INTO Salary
     (rid, whichMonth, deliveryFees, basePay)
 VALUES
+    (2, 2, 9, 60),
     (2, 3, 9, 60),
+    (2, 4, 9, 60),
+    (2, 5, 9, 60),
     (3, 3, 9, 300),
+    (3, 4, 9, 300),
+    (3, 5, 9, 300),
+    (16, 3, 9, 300),
     (16, 4, 9, 300),
+    (16, 5, 9, 300),
     (17, 3, 3, 100),
-    (18, 3, 6, 100),
+    (18, 4, 6, 100),
+    (18, 5, 6, 100),
+    (27, 3, 15, 200),
+    (27, 4, 15, 200),
     (27, 5, 15, 200),
-    (28, 5, 20, 300);
+    (28, 3, 20, 300),
+    (28, 4, 20, 300);
 
 INSERT INTO allPromotions
     (promotiondescript, promoname, promotiontype, discount,startD, endD)
 VALUES
     ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 , '2020-03-23', '2020-05-26'),
     ('May the discounts be with you! Enjoy 50% off your cart items on MoodPanda! #StayHomeStaySafe', 'May the fourth', 'percentage', 50, '2020-03-23', '2020-05-24'),
-    ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24');
+    ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24'),
+    ('Here is a promo code to tide you through this rough period, enjoy $5 off!', 'Promo for the King', 'fixed', 5, '2020-05-01', '2020-05-20')
+;
 
 INSERT INTO RPromotions
     (pid, rname)
 VALUES
-    (3, 'Chinese Kitchen');
+    (3, 'Chinese Kitchen'),
+    (4, 'King Fried Chicken');
 
 INSERT INTO FDPromotions
     (pid)
