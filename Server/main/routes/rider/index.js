@@ -101,11 +101,12 @@ rider.get('/api/get/getRiderStatus', (req, res, next) => {
 
 rider.get('/api/get/getPastMonthSchedule', (req, res, next) => {
   const cid = req.query.cid;
-  pool.query(`SELECT to_char(to_timestamp (whichMonth::text, 'MM'), 'Month') AS month, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift
+  pool.query(`SELECT to_char(to_timestamp (whichMonth::text, 'MM'), 'Month') AS month, to_char(startDay, 'DD-MM-YYYY''), Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift
               FROM MWS
               WHERE rid = $1
               ORDER BY whichMonth`, [cid],
     (q_err, q_res) => {
+      console.log(q_res);
       res.json(q_res.rows);
     })
 })

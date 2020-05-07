@@ -67,18 +67,21 @@ if (req.query.riderType === "FT") {
     queryText = `SELECT name, count(*) AS numOrders from deliver JOIN deliverytime USING (orid) 
     JOIN users ON (rid = id) JOIN FTRiders F ON (F.rid=id)
     GROUP BY name, date_part('month', deliveredtime)
-    HAVING date_part('month', deliveredtime) = $1;`
+    HAVING date_part('month', deliveredtime) = $1
+    ORDER BY name`
 } else {
     queryText = `SELECT name, count(*) AS numOrders from deliver JOIN deliverytime USING (orid) 
     JOIN users ON (rid = id) JOIN PTRiders P ON (P.rid=id)
     GROUP BY name, date_part('month', deliveredtime)
-    HAVING date_part('month', deliveredtime) = $1;`
+    HAVING date_part('month', deliveredtime) = $1
+    ORDER BY name`
 }
 pool.query(queryText, [month],
     (q_err, q_res) => {
         if (q_err) {
             return res.status(404).send({ message: "Rider's total orders delivered could not be found."});
         }
+        console.log(q_res.rows)
         res.json(q_res.rows);
     })
 })
@@ -90,7 +93,8 @@ manager.get('/api/get/getHoursWorked', (req, res, next) => {
         queryText = `SELECT name, (count(*) * 40 * 4) AS Hour
         FROM mws JOIN users ON (rid=id)
         GROUP BY rid, name, whichMonth
-        HAVING whichMonth = $1`
+        HAVING whichMonth = $1
+        ORDER BY name `
     } else {
         queryText = `SELECT name, CASE
         WHEN (sum(DATE_PART('hour',(endT-startT)))) > 0 THEN (sum(DATE_PART('hour',(endT-startT))))
@@ -98,7 +102,8 @@ manager.get('/api/get/getHoursWorked', (req, res, next) => {
         END AS Hour
         FROM wws JOIN users ON (rid=id)
         GROUP BY rid, name, date_part('month', wDate)
-        HAVING date_part('month', wDate) = $1`
+        HAVING date_part('month', wDate) = $1
+        ORDER BY name`
     }
       pool.query(queryText, [month],
                   
@@ -113,12 +118,13 @@ manager.get('/api/get/getDeliveryFees', (req, res, next) => {
     let queryText = "";
     if(req.query.riderType === "FT") {
         queryText = `SELECT name, CASE
-        WHEN sum(d.fee) > 0 THEN sum(d.fee)
+        WHEN sum(fee) > 0 THEN sum(fee)
         ELSE 0
         END AS fee
-        FROM Deliver d JOIN DeliveryTime dt USING (orid) JOIN FTRiders F ON (F.rid = d.rid) JOIN users ON (d.rid = id)
-        GROUP BY d.rid, name, date_part('month', deliveredTime)
-        HAVING date_part('month',deliveredTime) = $1`
+        FROM Deliver JOIN DeliveryTime USING (orid) JOIN FTRiders F USING (rid) JOIN users ON (rid = id)
+        GROUP BY rid, name, date_part('month', deliveredTime)
+        HAVING date_part('month',deliveredTime) = $1
+        ORDER BY name`
     } else {
         queryText = `SELECT name, CASE
         WHEN sum(d.fee) > 0 THEN sum(d.fee)
@@ -126,7 +132,8 @@ manager.get('/api/get/getDeliveryFees', (req, res, next) => {
         END AS fee
         FROM Deliver d JOIN DeliveryTime dt USING (orid) JOIN PTRiders P ON (P.rid = d.rid) JOIN users ON (d.rid = id)
         GROUP BY d.rid, name, date_part('month', deliveredTime)
-        HAVING date_part('month',deliveredTime) = $1`
+        HAVING date_part('month',deliveredTime) = $1
+        ORDER BY name`
     }
     pool.query(queryText, [month],
     (q_err, q_res) => {

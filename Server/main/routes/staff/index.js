@@ -135,9 +135,76 @@ staff.get("/api/get/getTop5Orders", (req, res, next) => {
     limit 5`,
     [monthSelected, rname],
     (q_err, q_res) => {
-     res.json(q_res.rows);
+      res.json(q_res.rows);
     }
   );
 });
+
+staff.get('/api/get/getpromo', (req, res, next) => {
+  const rname = req.query.rname;
+  pool.query(`SELECT promoname, ap.pid, discount, promotiondescript, promotiontype, TO_CHAR(startd, 'DD-MM-YYYY') as startd, TO_CHAR(endd, 'DD-MM-YYYY') as endd
+  FROM allPromotions ap LEFT OUTER JOIN RPromotions rp ON ap.pid = rp.pid
+  WHERE rname=$1`, [rname],
+    (q_err, q_res) => {
+      if (q_res == undefined) {
+        res.json('');
+      } else {
+        res.json(q_res.rows);
+      }
+    })
+});
+
+
+staff.post("/api/posts/addNewPromo", (req, res, next) => {
+  const pid = req.body.pid;
+  const rname = req.body.rname;
+  const promoname = req.body.promoname;
+  const promotiontype = req.body.promotiontype;
+  const discount = req.body.discount;
+  const promotiondescript = req.body.promotiondescript;
+  const startd = req.body.startd;
+  const endd = req.body.endd;
+  console.log(req.body);
+  pool.query(
+    `SELECT insertpromo($1, $2, $3, $4, $5, $6, $7, $8)`,
+    [pid, rname, promoname, promotiontype, discount, promotiondescript, startd, endd],
+    (q_err, q_res) => {
+      if (q_res != undefined) {
+        res.json(q_res.rows);
+      } else {
+        res.json('nok');
+      }
+    }
+  );
+});
+
+staff.get("/api/get/getPromoSummary", (req, res, next) => {
+  const rname = req.query.rname;
+  pool.query(
+    `WITH nooforders as (
+      SELECT orid, rname, deliveredtime
+      FROM orders NATURAL JOIN deliverytime
+  )
+  SELECT (now() BETWEEN startd AND endd) as status, promoname, promotiondescript, DIV(COALESCE((SELECT count(orid) 
+                                                                                  FROM nooforders n
+                                                                                  WHERE (n.deliveredtime BETWEEN ap.startd AND ap.endd) 
+                                                                                  GROUP BY n.rname
+                                                                                  HAVING $1 = n.rname),0),(endd - startd)) as totalorders,
+  TO_CHAR(startd, 'DD-MM-YYYY') || ' - ' || TO_CHAR(endd, 'DD-MM-YYYY') as duration
+  FROM allpromotions ap NATURAL JOIN rpromotions
+  WHERE $1 = rpromotions.rname`,
+    [rname],
+    (q_err, q_res) => {
+      console.log(q_err);
+      if (q_res != undefined) {
+        res.json(q_res.rows);
+      } else {
+        res.json('nok');
+      }
+    }
+  );
+});
+
+
 
 module.exports = staff;

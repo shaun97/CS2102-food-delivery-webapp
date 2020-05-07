@@ -14,25 +14,36 @@ VALUES
     ('Devondra Haresnape', 'dharesnape0@google.it', 'gPA8KFHY0zzC', '2020-01-01'),
     ('Wash Fish', 'wfish1@freewebs.com', 'P5Nt5P', '2020-04-01'),
     ('Bucky Maple', 'bmaple2@hhs.gov', 'duKrn9NB', '2020-04-01'),
-    ('Nerea Rosa','magna@fringillaestMauris.edu','NXN89PWN5IY', '2020-04-01'),
-    ('Dahlia Dodson','In.ornare.sagittis@semper.co.uk','DTC15WZS8SM', '2020-04-01'),
-    ('Ulric Casey','Nam@temporestac.com','UHY04ZIA0BL', '2020-03-01'),
-    ('Julie Ballard','fringilla@eumetus.org','BKJ77ION4WC', '2020-03-01'),
-    ('Fiona Cooley','hendrerit.Donec@metuseuerat.co.uk','TDM29COZ8CX', '2020-03-01'),
-    ('Ashton Carter','mollis.vitae@ac.net','LAS40RWN5UJ', '2020-03-05'),
-    ('Levi Barber','massa.non@Curabiturdictum.edu','ATO66CZL6EN', '2020-04-01'),
-    ('Caleb Brooks','iaculis@Donecfelisorci.com','JLT05ILN4MB', '2020-05-01'),
-    ('Mark Perez','nibh.enim.gravida@velarcu.ca','NQR04WUD1HJ', '2020-05-01'),
-    ('Jade Myers','velit@mollis.edu','HNQ80CSD7GZ', '2020-05-01'),
+    ('Nerea Rosa', 'magna@fringillaestMauris.edu', 'NXN89PWN5IY', '2020-04-01'),
+    ('Dahlia Dodson', 'In.ornare.sagittis@semper.co.uk', 'DTC15WZS8SM', '2020-04-01'),
+    ('Ulric Casey', 'Nam@temporestac.com', 'UHY04ZIA0BL', '2020-03-01'),
+    ('Julie Ballard', 'fringilla@eumetus.org', 'BKJ77ION4WC', '2020-03-01'),
+    ('Fiona Cooley', 'hendrerit.Donec@metuseuerat.co.uk', 'TDM29COZ8CX', '2020-03-01'),
+    ('Ashton Carter', 'mollis.vitae@ac.net', 'LAS40RWN5UJ', '2020-03-05'),
+    ('Levi Barber', 'massa.non@Curabiturdictum.edu', 'ATO66CZL6EN', '2020-04-01'),
+    ('Caleb Brooks', 'iaculis@Donecfelisorci.com', 'JLT05ILN4MB', '2020-05-01'),
+    ('Mark Perez', 'nibh.enim.gravida@velarcu.ca', 'NQR04WUD1HJ', '2020-05-01'),
+    ('Jade Myers', 'velit@mollis.edu', 'HNQ80CSD7GZ', '2020-05-01'),
     ('Jin Wen', 'jinwenntay@gmail.com', 'abcde', '2020-01-01'),
     ('Jin Wen Tay', 'jinwen.tay@u.nus.edu', 'abcde', '2020-05-06'),
-    ('Speedy Rider', 'speedyzoom@gmail.com', 'abcde', '2020-05-06');
+    ('Speedy Rider', 'speedyzoom@gmail.com', 'abcde', '2020-05-06'),
+    ('Tan Ji Gen', 'customertest@gmail.com', 'abcde', '2020-04-07'),
+    ('Manager Test', 'managertest@gmail.com', 'abcde', '2020-05-07'),
+    ('Chew Yixin', 'ptridertest@gmail.com', 'abcde', '2020-01-07'),
+    ('Mary Trout', 'ftridertest@gmail.com', 'abcde', '2020-01-07'),
+    ('Staff Test', 'stafftest@gmail.com', 'abcde', '2020-05-07'),
+    ('Amy Tan', 'callmeamy@gmail.com', 'password', '2020-05-01'),
+    ('Umi San', 'ilovejapan@gmail.com', 'abcde', '2020-01-01')
+
+;
 
 INSERT INTO Managers
     (mid)
 VALUES
-    (22);
--- 4 customers: 1,4,6,7,12,13,14,15
+    (22),
+    (26);
+
+-- 4 customers: 1,4,6,7,12,13,14,15, 25
 INSERT INTO Customers
     (cid, points, creditcard)
 VALUES
@@ -44,7 +55,9 @@ VALUES
     (13, 1, 310605),
     (14, 2, 489005),
     (15, 3, 235601),
-    (23, 0, 123456);
+    (23, 0, 123456),
+    (25, 4, 133557),
+    (30, 0, 221220);
 
 -- 2 riders: 2,3,16,17,18
 INSERT INTO Riders
@@ -55,16 +68,20 @@ VALUES
     (16, 4),
     (17, 3),
     (18, 5),
-    (24, 0);
+    (24, 0),
+    (27, 3),
+    (28, 1);
 
 INSERT INTO Restaurants
-    (minOrder, rname, descript)
+    (minOrder, rname, descript, address)
 VALUES
-    (20, 'Chinese Kitchen', 'Huangyingguangling'),
-    (7, 'Song Feng Chicken', 'Lai Girl what you want'),
-    (15, 'Naknoh Thai', 'sawaddekap'),
-    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA'),
-    (3, 'King Fried Chicken', 'Finger Licking Great');
+    (20, 'Chinese Kitchen', 'Huangyingguangling', 'Changi Village'),
+    (7, 'Song Feng Chicken', 'Lai Girl what you want', 'Jurong East'),
+    (15, 'Naknoh Thai', 'sawaddekap', 'Supper Stretch'),
+    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA', 'Serangoon'),
+    (10, 'Sayonara', 'Irasshaimase!', 'Yishun'),
+
+    (3, 'King Fried Chicken', 'Finger Licking Great', 'Home');
 
 --as of 21 March
 INSERT INTO Sells
@@ -75,15 +92,40 @@ VALUES
     ('Chinese Kitchen', 'Tomato Noodle Soup', 0, 10, true, 'Chinese', 6, 'Tomatoes and QQ noodles'),
     ('Chinese Kitchen', 'Fried Rice', 0, 10, true, 'Chinese', 6, 'Yangzhou style fried rice with sausage'),
     ('Chinese Kitchen', 'Sweet and Sour Pork Rice', 0, 10, true, 'Chinese', 6, 'Sweetest and sourest pork around'),
+    ('Chinese Kitchen', 'Salted Egg Rice', 1, 10, true, 'Chinese', 6, 'Smells like salted eggs'),
+    ('Chinese Kitchen', 'Century Egg Porridge', 3, 10, true, 'Chinese', 6, 'Yummm'),
+
     ('Song Feng Chicken', 'Set A Chicken Wing', 0, 20, true, 'Malay', 3, 'Value for money, Chicken wing and Egg on the side'),
     ('Song Feng Chicken', 'Set B Fish', 0, 20, true, 'Malay', 3, 'Fried fish and hashbrowns on the side'),
     ('Song Feng Chicken', 'Set C Vege', 0, 20, true, 'Malay', 3, 'Vegetarian option'),
+    ('Song Feng Chicken', 'Set D Mixed', 0, 20, true, 'Malay', 6, 'A bit of everything'),
+
     ('Nippi Place', 'Plain Prata', 0, 5, true, 'Indian', 2, 'Plainest prata around'),
     ('Nippi Place', 'Egg Prata', 0, 5, true, 'Indian', 2, 'Eggiest prata around'),
     ('Nippi Place', 'Banana Prata', 0, 5, true, 'Indian', 2, 'Special House Prata on Banana'),
+    ('Nippi Place', 'Prata Bomb', 0, 5, true, 'Indian', 2, 'This prata is the bomb'),
+    ('Nippi Place', 'Teh Halia', 1, 5, true, 'Indian', 1, 'Special House Teh Halia'),
+    ('Nippi Place', 'Teh Chino', 0, 5, true, 'Indian', 1, 'Special House Teh Chino'),
+    ('Nippi Place', 'Roti John', 0, 5, true, 'Indian', 4, 'Signature dish by Chef John'),
+
     ('Naknoh Thai', 'Pad Thai', 3, 7, true, 'Thai', 5, 'Best padthai in Naknoh Thai'),
     ('Naknoh Thai', 'Thai Milk Tea', 3, 3, false, 'Thai', 3, 'Original Thai Milk Tea'),
-    ('Naknoh Thai', 'Basil Pork Rice', 3, 3, false, 'Thai', 5, 'Freshest Basil with the freshset pork');
+    ('Naknoh Thai', 'Green Thai Milk Tea', 3, 3, false, 'Thai', 3, 'Original Thai Milk Tea but Green'),
+    ('Naknoh Thai', 'Mango Sticky Rice', 3, 10, true, 'Thai', 4, 'Desserts is stressed spelled backwards'),
+    ('Naknoh Thai', 'Basil Pork Rice', 3, 3, false, 'Thai', 5, 'Freshest Basil with the freshset pork'),
+
+    ('King Fried Chicken', 'Signature Fried Chicken', 3, 10, true, 'Western', 18, 'Chicken fit for a king'),
+    ('King Fried Chicken', 'Spicy Fried Chicken', 3, 10, true, 'Western', 18, 'Chicken fit for a king that likes spices'),
+    ('King Fried Chicken', 'Oven Roasted Chicken', 3, 10, true, 'Western', 18, 'For when you want to be slightly healthier'),
+    ('King Fried Chicken', 'King Coffee', 3, 10, true, 'Western', 5, 'A King needs his Koffee'),
+    ('King Fried Chicken', 'Kung Pao King Chicken', 3, 10, true, 'Western', 20, 'King chicken chinese style'),
+
+    ('Sayonara', 'Chawamushi', 2, 20, true, 'Japanese', 3, 'Our chawamushi is the best'),
+    ('Sayonara', 'Salmon don', 2, 20, true, 'Japanese', 15, 'Our salmon don is the best'),
+    ('Sayonara', 'Edamame', 2, 20, true, 'Japanese', 3, 'Our edamame is the best'),
+    ('Sayonara', 'Oyako don', 2, 20, true, 'Japanese', 14, 'Our oyako don is the best')
+
+;
 
 INSERT INTO Orders
     (cid, rname, cartCost, location, ostatus)
@@ -99,8 +141,23 @@ VALUES
     (14, 'Song Feng Chicken', 15, 'Chua Chu Kang', 'Completed'),
     (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
     (12, 'Chinese Kitchen', 30, 'Toa Payoh', 'Completed'),
-    (15, 'Nippi Place', 6, 'Ang Mo Kio', 'Completed')
-    ;
+    (15, 'Nippi Place', 6, 'Ang Mo Kio', 'Completed'),
+    (4, 'Chinese Kitchen', 36, 'Kallang', 'Completed'),
+    (12, 'Naknoh Thai', 16, 'Kallang', 'Completed'),
+    (25, 'Nippi Place', 14, 'Kallang', 'Completed'),
+    (4, 'Chinese Kitchen', 36, 'Bukit Panjang', 'Completed'),
+    (13, 'Chinese Kitchen', 30, 'Clementi', 'Completed'),
+    (1, 'King Fried Chicken', 36, 'Jalan Basar', 'Completed'),
+    (25, 'Nippi Place', 30, 'Clementi', 'Completed'),
+    (25, 'Chinese Kitchen', 30, 'Bukit Timah', 'Completed'),
+
+    --21 onwards
+    (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
+    (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
+    (4, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
+    (15, 'Chinese Kitchen', 24, 'Clementi', 'Completed')
+
+;
 
 INSERT INTO Deliver
     (orid, rid, fee, dstatus)
@@ -116,8 +173,23 @@ VALUES
     (9, 18, 5, 'Rider has delivered your order.'),
     (10, 18, 5, 'Rider has delivered your order.'),
     (11, 16, 5, 'Rider has delivered your order.'),
-    (12, 16, 5, 'Rider has delivered your order.')
-    ;
+    (12, 16, 5, 'Rider has delivered your order.'),
+    (13, 27, 5, 'Rider has delivered your order.'),
+    (14, 28, 5, 'Rider has delivered your order.'),
+    (15, 27, 5, 'Rider has delivered your order.'),
+    (16, 3, 5, 'Rider has delivered your order.'),
+    (17, 27, 5, 'Rider has delivered your order.'),
+    (18, 18, 5, 'Rider has delivered your order.'),
+    (19, 16, 5, 'Rider has delivered your order.'),
+    (20, 16, 5, 'Rider has delivered your order.'),
+    (21, 3, 5, 'Rider has delivered your order.'),
+    (22, 2, 5, 'Rider has delivered your order.'),
+    (23, 3, 5, 'Rider has delivered your order.'),
+    (24, 17, 5, 'Rider has delivered your order.')
+
+
+
+;
 
 INSERT INTO DeliveryTime
     (orid, departForR, arriveForR, departFromR, deliveredTime)
@@ -128,12 +200,25 @@ VALUES
     (4, '2020-03-21 12:24:54', '2020-03-21 12:32:03', '2020-03-21 12:34:50', '2020-03-21 12:43:24'),
     (5, '2020-03-21 19:25:54', '2020-03-21 19:31:03', '2020-03-21 19:36:50', '2020-03-21 19:46:24'),
     (6, '2020-04-01 19:20:54', '2020-04-01 19:31:03', '2020-04-01 19:36:50', '2020-04-01 19:46:24'),
-    (7, '2020-04-15 10:23:54', '2020-04-20 10:30:03', '2020-04-20 10:32:50', '2020-04-20 10:40:24'),
+    (7, '2020-04-15 10:23:54', '2020-04-15 10:30:03', '2020-04-15 10:32:50', '2020-04-15 10:40:24'),
     (8, '2020-04-20 13:13:54', '2020-04-20 13:20:03', '2020-04-20 13:22:50', '2020-04-20 13:30:24'),
     (9, '2020-04-20 18:23:54', '2020-04-20 18:30:03', '2020-04-20 18:32:50', '2020-04-20 18:40:24'),
     (10, '2020-04-21 12:24:54', '2020-04-21 12:32:03', '2020-04-21 12:34:50', '2020-04-21 12:43:24'),
-    (11, '2020-04-25 19:25:54', '2020-04-21 19:31:03', '2020-04-21 19:36:50', '2020-04-21 19:46:24'),
-    (12, '2020-04-28 19:20:54', '2020-04-01 19:31:03', '2020-04-01 19:36:50', '2020-04-01 19:46:24');
+    (11, '2020-04-25 19:25:54', '2020-04-25 19:31:03', '2020-04-25 19:36:50', '2020-04-25 19:46:24'),
+    (12, '2020-04-28 19:20:54', '2020-04-28 19:31:03', '2020-04-28 19:36:50', '2020-04-28 19:46:24'),
+    (13, '2020-05-01 19:10:54', '2020-05-01 19:20:54', '2020-05-01 19:30:54', '2020-05-01 19:32:54'),
+    (14, '2020-05-02 19:20:54', '2020-05-02 19:31:03', '2020-05-02 19:36:50', '2020-05-02 19:46:24'),
+    (15, '2020-05-02 19:20:56', '2020-05-02 19:32:54', '2020-05-02 19:40:54', '2020-05-02 19:52:54'),
+    (16, '2020-05-03 18:23:54', '2020-05-03 18:30:03', '2020-05-03 18:32:50', '2020-05-03 18:40:24'),
+    (17, '2020-05-03 12:24:54', '2020-05-03 12:32:03', '2020-05-03 12:34:50', '2020-05-03 12:43:24'),
+    (18, '2020-05-03 19:25:54', '2020-05-03 19:31:03', '2020-05-03 19:36:50', '2020-05-03 19:46:24'),
+    (19, '2020-05-03 13:20:54', '2020-05-03 13:31:03', '2020-05-03 13:36:50', '2020-05-03 13:46:24'),
+    (20, '2020-05-03 10:23:54', '2020-05-03 10:30:03', '2020-05-03 10:32:50', '2020-05-03 10:40:24'),
+    (21, '2020-05-03 10:23:54', '2020-05-03 10:30:03', '2020-05-03 10:32:50', '2020-05-03 10:40:24'),
+    (22, '2020-05-04 19:25:54', '2020-05-04 19:31:03', '2020-05-04 19:36:50', '2020-05-04 19:46:24'),
+    (23, '2020-05-04 18:23:54', '2020-05-04 18:30:03', '2020-05-04 18:32:50', '2020-05-04 18:40:24'),
+    (24, '2020-05-07 18:25:54', '2020-05-07 18:31:03', '2020-05-07 18:36:50', '2020-05-07 18:46:24')
+;
 
 INSERT INTO OrderItems
     (orid, fname, quantity)
@@ -163,25 +248,53 @@ VALUES
     (11, 'Tomato Noodle Soup', 5),
     (12, 'Banana Prata', 1),
     (12, 'Plain Prata', 1),
-    (12, 'Egg Prata', 1)
-    ;
+    (12, 'Egg Prata', 1),
+    (13, 'Beef Horfun', 1),
+    (13, 'Seafood Horfun', 2),
+    (13, 'Fried Rice', 1),
+    (13, 'Salted Egg Rice', 2),
+    (14, 'Pad Thai', 1),
+    (14, 'Basil Pork Rice', 1),
+    (14, 'Thai Milk Tea', 1),
+    (14, 'Green Thai Milk Tea', 1),
+    (15, 'Plain Prata', 4),
+    (15, 'Egg Prata', 2),
+    (15, 'Banana Prata', 1),
+    (16, 'Beef Horfun', 1),
+    (16, 'Seafood Horfun', 2),
+    (16, 'Fried Rice', 1),
+    (16, 'Salted Egg Rice', 2),
+    (17, 'Beef Horfun', 1),
+    (17, 'Seafood Horfun', 2),
+    (17, 'Fried Rice', 1),
+    (17, 'Tomato Noodle Soup', 1),
+    (18, 'Signature Fried Chicken', 1),
+    (18, 'Spicy Fried Chicken', 1),
+    (19, 'Egg Prata', 15),
+    (20, 'Salted Egg Rice', 3),
+    (20, 'Century Egg Porridge', 2),
+    (21, 'Banana Prata', 4),
+    (22, 'Egg Prata', 2),
+    (22, 'Banana Prata', 2),
+    (23, 'Plain Prata', 4),
 
---INSERT INTO OrdersDeliveredBy (orid, rid, deliveredTime) VALUES
---(1, 2, '2020-03-20 10:40:24'),
---(2, 3, '2020-03-20 13:30:24'),
---(3, 2, '2020-03-20 18:40:24'),
---(4, 3, '2020-03-21 12:43:24'),
---(5, 3, '2020-03-21 19:46:24');
+    (24, 'Salted Egg Rice', 1),
+    (24, 'Century Egg Porridge', 1),
+    (24, 'Sweet and Sour Pork Rice', 1),
+    (24, 'Tomato Noodle Soup', 1)
+;
 
--- 5 Staffs: 5,8,9,10,11
+-- 5 Staffs: 5,8,9,10,11, 29
 INSERT INTO Staffs
     (rname, stid)
 VALUES
-    ('Chinese Kitchen', 5),
+    ('Naknoh Thai', 5),
     ('Song Feng Chicken', 8),
     ('Nippi Place', 9),
     ('Chinese Kitchen', 10),
-    ('Naknoh Thai', 11);
+    ('King Fried Chicken', 11),
+    ('Chinese Kitchen', 29),
+    ('Sayonara', 31);
 
 INSERT INTO Reviews
     (orid, foodReview, deliveryRating)
@@ -190,26 +303,55 @@ VALUES
     (2, 'Not bad', 5),
     (3, 'Horrible, I found a strand of hair', 4),
     (4, 'Food reminds me of home', 5),
-    (5, 'Food was too bland', 3);
+    (5, 'Food was too bland', 3),
+    (13, 'Yumz I love the food here!!', 5),
+    (14, 'Tastes like hometown food, khob khun ka', 5),
+    (15, 'The food is bad and expensive', 2),
+    (16, 'Food is ok', 3),
+    (17, 'Wow the food is amazing', 5),
+    (18, 'I feel like a king now', 5),
+    (19, 'I love egg prata', 4),
+    (22, 'The prata is bomb', 5),
+    (24, 'Fried rice a bit dry', 3);
 
 INSERT INTO FTRiders
     (rid)
 VALUES
     (3),
     (16),
-    (18);
+    (18),
+    (28),
+    (24);
 
 INSERT INTO PTRiders
     (rid)
 VALUES
     (2),
-    (17);
+    (17),
+    (27);
 
 INSERT INTO WWS
     (rid, wDate, startT, endT)
 VALUES
+    (2, '2020-02-20', '10:00:00', '13:00:00'),
+    (2, '2020-03-10', '16:00:00', '19:00:00'),
     (2, '2020-03-20', '10:00:00', '13:00:00'),
-    (17, '2020-03-20', '16:00:00', '19:00:00');
+    (2, '2020-04-20', '10:00:00', '13:00:00'),
+    (2, '2020-05-01', '10:00:00', '13:00:00'),
+    (2, '2020-05-15', '10:00:00', '13:00:00'),
+    (2, '2020-05-20', '10:00:00', '13:00:00'),
+
+    (17, '2020-03-20', '16:00:00', '19:00:00'),
+    (17, '2020-05-20', '16:00:00', '19:00:00'),
+    (17, '2020-04-20', '16:00:00', '19:00:00'),
+    (17, '2020-05-11', '10:00:00', '13:00:00'),
+
+    (27, '2020-03-20', '10:00:00', '13:00:00'),
+    (27, '2020-04-20', '10:00:00', '13:00:00'),
+    (27, '2020-05-05', '10:00:00', '13:00:00'),
+    (27, '2020-05-11', '10:00:00', '13:00:00'),
+    (27, '2020-04-23', '10:00:00', '13:00:00'),
+    (27, '2020-05-02', '16:00:00', '19:00:00');
 
 INSERT INTO templateShift
     (Shift, Start1, End1, Start2, End2)
@@ -223,33 +365,54 @@ INSERT INTO MWS
     (rid, whichMonth, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift)
 VALUES
     (3, 3, '2020-03-05', 1, 1, 2, 3, 1),
-    (16, 3, '2020-03-02', 1, 1, 1, 1, 1 ),
-    (18, 4, '2020-04-02', 2, 2, 2, 2, 2),
     (3, 4, '2020-04-02', 3, 3, 3, 3, 3),
+    (3, 5, '2020-05-02', 3, 3, 3, 3, 3),
+    (16, 3, '2020-03-02', 1, 1, 1, 1, 1 ),
     (16, 4, '2020-04-03', 4, 4, 4, 4, 4),
-    (18, 5, '2020-05-06', 4, 4, 4, 4, 4)
-    ;
+    (16, 5, '2020-05-02', 1, 1, 1, 1, 1 ),
+    (18, 4, '2020-04-02', 2, 2, 2, 2, 2),
+    (18, 5, '2020-05-06', 2, 4, 4, 4, 4),
+    (28, 3, '2020-03-01', 4, 4, 4, 4, 4),
+    (28, 4, '2020-04-01', 1, 4, 2, 4, 4),
+    (28, 5, '2020-05-01', 1, 4, 2, 4, 4)
+;
 
 INSERT INTO Salary
     (rid, whichMonth, deliveryFees, basePay)
 VALUES
+    (2, 2, 9, 60),
     (2, 3, 9, 60),
+    (2, 4, 9, 60),
+    (2, 5, 9, 60),
     (3, 3, 9, 300),
+    (3, 4, 9, 300),
+    (3, 5, 9, 300),
+    (16, 3, 9, 300),
     (16, 4, 9, 300),
+    (16, 5, 9, 300),
     (17, 3, 3, 100),
-    (18, 3, 6, 100);
+    (18, 4, 6, 100),
+    (18, 5, 6, 100),
+    (27, 3, 15, 200),
+    (27, 4, 15, 200),
+    (27, 5, 15, 200),
+    (28, 3, 20, 300),
+    (28, 4, 20, 300);
 
 INSERT INTO allPromotions
     (promotiondescript, promoname, promotiontype, discount,startD, endD)
 VALUES
-    ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 ,'2020-03-23', '2020-05-26'),
+    ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 , '2020-03-23', '2020-05-26'),
     ('May the discounts be with you! Enjoy 50% off your cart items on MoodPanda! #StayHomeStaySafe', 'May the fourth', 'percentage', 50, '2020-03-23', '2020-05-24'),
-    ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24');
+    ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24'),
+    ('Here is a promo code to tide you through this rough period, enjoy $5 off!', 'Promo for the King', 'fixed', 5, '2020-05-01', '2020-05-20')
+;
 
 INSERT INTO RPromotions
     (pid, rname)
 VALUES
-    (3, 'Chinese Kitchen');
+    (3, 'Chinese Kitchen'),
+    (4, 'King Fried Chicken');
 
 INSERT INTO FDPromotions
     (pid)

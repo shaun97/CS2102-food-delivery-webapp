@@ -38,6 +38,7 @@ CREATE TABLE Restaurants
 	minOrder integer,
 	rname varchar(255) unique not null,
 	descript varchar(255),
+	address varchar(255),
 	primary key (rname)
 );
 
@@ -171,16 +172,17 @@ CREATE TABLE MWS
 
 CREATE TABLE Salary
 (
-	rid integer primary key,
+	rid integer,
 	whichMonth integer,
 	deliveryFees integer,--counted weekly for PT and monthly for FT
 	basePay integer,
+	primary key (rid, whichMonth),
 	foreign key (rid) references Riders on delete cascade
 );
 
 CREATE TABLE allPromotions
 (
-	pid SERIAL UNIQUE primary key,
+	pid SERIAL UNIQUE PRIMARY KEY,
 	promotiondescript varchar(255),
 	promoname varchar(30),
 	promotiontype p_type not null,
@@ -191,12 +193,15 @@ CREATE TABLE allPromotions
 
 CREATE TABLE RPromotions
 (
-	pid integer primary key,
+	pid integer primary key deferrable initially deferred,
 	rname varchar(30),
-	fname varchar(30),
-	foreign key (pid) references allPromotions on delete cascade,
-	foreign key (rname) references Restaurants on delete cascade,
-	foreign key (fname) references Sells (fname) on delete cascade
+
+	foreign key
+	(pid) references allPromotions on
+	delete cascade,
+	foreign key (rname)
+	references Restaurants on
+	delete cascade
 );
 
 CREATE TABLE FDPromotions
