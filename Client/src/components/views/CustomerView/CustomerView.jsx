@@ -70,7 +70,6 @@ class CustomerView extends Component {
         tab = <HistoryView></HistoryView>;
         break;
     }
-   // console.log("Props passed: ", this.context.signOut);
     return (
       <div>
         <TopHeader signOut={this.context.signOut} user="Customer" />

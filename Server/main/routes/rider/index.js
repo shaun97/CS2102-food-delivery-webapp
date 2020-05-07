@@ -158,7 +158,6 @@ rider.post('/api/posts/acceptOrder', (req, res, next) => {
     const client = await pool.connect();
     try {
       await client.query('BEGIN')
-      // await client.query('SET CONSTRAINTS UNIQUE DEFERRED')
       await client.query(`UPDATE orders
       SET ostatus = 'Completed'
       WHERE orid = $1`, [orid])

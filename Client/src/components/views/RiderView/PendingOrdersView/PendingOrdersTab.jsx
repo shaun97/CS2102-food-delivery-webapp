@@ -1,6 +1,6 @@
 //Basic React Imports
 import React, { Component } from "react";
-import { Button, Divider, List, Loader, Grid, Segment, Header } from "semantic-ui-react";
+import { Loader, Grid, Header } from "semantic-ui-react";
 
 import OrderCardsGrid from './OrderCardsGrid';
 

@@ -133,43 +133,5 @@ manager.get('/api/get/getDeliveryFees', (req, res, next) => {
         console.log("Delivery Fees\n", q_res.rows);
         res.json(q_res.rows); 
     })
-}) 
-// manager.get('/api/get/totalHoursWorked', async (req, res) => {
-//     const client = await pool.connect();
-//     const month = req.query.monthSelected;
-//     let data = [];
-//     try {
-//         const queryFirst3Days = `WITH shifthour AS (
-//             SELECT shift, DATE_PART('hour', (end1-start1) + (end2-start2)) AS hour
-//             FROM templateshift
-//             )
-//             SELECT name, S.hour + S2.hour + S3.hour AS totalHours
-//             FROM mws JOIN users ON (rid = id) 
-//             JOIN shifthour S ON (day1shift = S.shift) 
-//             JOIN shifthour S2 ON (day2shift = S2.shift) 
-//             JOIN shifthour S3 ON (day3shift = S3.shift)
-//             WHERE whichMonth = $1;`;
-
-//         const queryLast2Days = `WITH shifthour AS (
-//             SELECT shift, DATE_PART('hour', (end1-start1) + (end2-start2)) AS hour
-//             FROM templateshift
-//             )
-//             SELECT name, S4.hour + S5.hour AS totalHours
-//             FROM mws JOIN users ON (rid = id) 
-//             JOIN shifthour S4 ON (day2shift = S4.shift) 
-//             JOIN shifthour S5 ON (day5shift = S5.shift)
-//             WHERE whichMonth = $1;`;
-//         const resp1 = await client.query(queryFirst3Days, [month]);
-//         const resp2 = await client.query(queryLast2Days, [month]);
-//         data.push(resp1.rows);
-//         data.push(resp2.rows);
-//         res.json(data);
-//         console.log(data);
-//     } catch(err) {
-//         res.status(404).send({ message: "Rider's total working hours could not be found."});
-//         console.log(err.stack);
-//         done();
-//     }
-// })
- 
+})  
 module.exports = manager;

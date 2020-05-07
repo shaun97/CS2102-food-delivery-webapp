@@ -1,14 +1,3 @@
--- create or replace function GetCost
--- (promoCode text, totalFoodCost integer, out deliveryCost integer, out subtotal integer) 
--- returns record as $$
-
---     select (deliverFoodCost * discount) as subtotal, case
---         when extract(hour from current_time) >= 20 then 5
---         else 3
---     end as deliveryCost
---     from 
-
-
 --Function to get delivery cost based on the time
 CREATE OR REPLACE FUNCTION getDeliveryCost
 (OUT deliveryCost INTEGER) RETURNS INTEGER

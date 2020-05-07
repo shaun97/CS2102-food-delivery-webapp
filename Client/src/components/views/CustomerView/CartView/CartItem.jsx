@@ -1,8 +1,6 @@
 import React from 'react';
 import { Item, Icon, Form } from 'semantic-ui-react'
 
-//move button???
-
 function CartItem(props) {
     const menuItemsItems = (props.menuItems.length === 0) ? '' :
         props.menuItems.map((item) =>

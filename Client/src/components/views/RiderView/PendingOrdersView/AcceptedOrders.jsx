@@ -4,7 +4,6 @@ import { Card, Grid, Button } from 'semantic-ui-react'
 import OrderItems from './OrderItemsDetail'
 import Axios from 'axios';
 import { useState } from 'react';
-import { useEffect } from 'react';
 function AcceptedOrders(props) {
     const [ status, setStatus ] = useState(0);
 
