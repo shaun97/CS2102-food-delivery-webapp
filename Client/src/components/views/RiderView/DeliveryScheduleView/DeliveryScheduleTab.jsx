@@ -52,6 +52,7 @@ class DeliveryScheduleTab extends Component {
       day3: 0,
       day4: 0,
       day5: 0,
+      testDate: d.toDateString(),
 
       /**PART TIMERS**/
       weekShift: [],
@@ -73,6 +74,7 @@ class DeliveryScheduleTab extends Component {
 
   componentDidMount() {
     let cid = this.context.user.id;
+    console.log(this.state.testDate);
 
     //Determine rider's status (PT or FT)
     axios.get('/rider/api/get/getRiderStatus', { params: { cid: cid } }).then(res => {
@@ -229,22 +231,54 @@ class DeliveryScheduleTab extends Component {
   addTimings(shift) {
     try {
       let tempShift = this.state.addShift;
-      tempShift.push(shift);
-      this.setState({addShift:tempShift});
+      let repeat = false;
+      for (let i = 0; i < tempShift.length; i++) {
+        if (tempShift[i].day === shift.day) {
+          tempShift[i] = shift;
+          repeat = true;
+        }
+      }
+
+      if (!repeat) {
+        tempShift.push(shift);
+      }
+      console.log(tempShift);
+      this.setState({ addShift: tempShift });
     } catch (err) {
       console.log(err);
     }
   }
 
   handleConfirmPTSchedule() {
+    let cid = this.context.user.id;
     let allShifts = this.state.addShift;
-    let checkDays = [];
+    console.log(allShifts);
+    const d = new Date();
     for (let i = 0; i < allShifts.length; i++) {
-      if(checkDays.includes(allShifts[i].date)) {
-        alert("please clear your selection and choose wisely again!")
-        return;
+      for (let j = 0; j < 3; j++) {
+        let currshift;
+        if (j === 0) {
+          console.log(allShifts[i]);
+          currshift = allShifts[i].shift1;
+        } else if (j === 1) {
+          currshift = allShifts[i].shift2;
+        } else {
+          currshift = allShifts[i].shift3;
+        }
+        console.log(j, currshift);
+        if (currshift !== []) {
+          axios.post('/rider/api/posts/insertWWSSchedule',
+            { cid: cid, date: allShifts[i].day, shiftstart: currshift.start, shiftend: currshift.end })
+            .then((res) => {
+              console.log(res)
+            })
+            .catch(err => console.log(err));
+        }
+
       }
+
     }
+
   }
 
   render() {

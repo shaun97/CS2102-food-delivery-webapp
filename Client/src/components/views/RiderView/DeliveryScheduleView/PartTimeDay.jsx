@@ -64,7 +64,7 @@ function PartTimeDay(props) {
             alert('Top shift must end earlier than the start of bottom shift!')
             return false;
         } else {
-            if (shift1.end === undefined || shift1.start === undefined || date === undefined) {
+            if (shift1.end === "" || shift1.start === "" || date === '') {
                 return false;
             }
             return true;
