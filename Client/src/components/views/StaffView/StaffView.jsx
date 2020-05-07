@@ -8,7 +8,10 @@ import UpdateMenuTab from "./UpdateTab/UpdateMenuTab";
 import SummaryTab from "./SummaryTab/SummaryTab";
 import ChooseMonthTab from "./ChooseMonthTab/ChooseMonthTab";
 
+import UpdatePromoTab from "./UpdateTab/UpdatePromoTab";
+
 import { LoginContext } from "../../LoginContext";
+import PromotionSummary from "./UpdateTab/PromotionSummary";
 
 class StaffView extends Component {
   constructor(props) {
@@ -16,8 +19,10 @@ class StaffView extends Component {
     this.state = {
       menu: [
         { name: "Update Menu Info", icon: "edit" },
-        { name: "This Month's Summary", icon: "calendar" },
+        { name: "Update Promo Info", icon: "edit" },
+        { name: "This Month's Summary", icon: "chart line" },
         { name: "View Summary", icon: "calendar alternate" },
+        { name: "View Promo Summary", icon: "calendar" },
       ],
       rname: "",
       food: [],
@@ -43,17 +48,22 @@ class StaffView extends Component {
   }
 
   render() {
-    //console.log(this.state.food);
     let tab;
     switch (this.state.activeTab) {
       case "Update Menu Info":
         tab = <UpdateMenuTab key={this.state.rname} rname={this.state.rname}></UpdateMenuTab>;
+        break;
+      case "Update Promo Info":
+        tab = <UpdatePromoTab key={this.state.rname} rname={this.state.rname}></UpdatePromoTab>;
         break;
       case "This Month's Summary":
         tab = <SummaryTab rname={this.state.rname}></SummaryTab>;
         break;
       case "View Summary":
         tab = <ChooseMonthTab rname={this.state.rname}></ChooseMonthTab>;
+        break;
+      case "View Promo Summary":
+        tab = <PromotionSummary rname={this.state.rname}></PromotionSummary>;
         break;
     }
 

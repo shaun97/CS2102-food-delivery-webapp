@@ -231,7 +231,7 @@ CREATE CONSTRAINT TRIGGER complete_order_check_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE complete_order_check();
 
--- Trigger to enforce that all the food is from the same restaurant 
+-- Trigger to enforce that all the food is from the same restaurant (checks that upon insert of orderitems, fname exist in sells with the orid and)
 CREATE OR REPLACE FUNCTION ensure_single_restaurant() returns TRIGGER
     AS $$
 DECLARE 
@@ -259,3 +259,23 @@ CREATE CONSTRAINT TRIGGER ensure_single_restaurant_trigger
     DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW
     EXECUTE PROCEDURE ensure_single_restaurant();
+
+    
+-- Trigger to check that the promo start date is before the end date 
+CREATE OR REPLACE FUNCTION check_promo_start_end() returns TRIGGER
+    AS $$
+BEGIN
+    IF NEW.startd > NEW.endd THEN
+        RAISE exception 'promo % end date is earlier than the start date', NEW.pid;
+        RETURN NULL;
+    END IF;
+    RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS check_promo_start_end_trigger ON allpromotions;
+CREATE TRIGGER check_promo_start_end_trigger 
+    BEFORE UPDATE OR INSERT
+    ON allpromotions
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_promo_start_end();
