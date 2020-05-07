@@ -19,12 +19,14 @@ VALUES
     ('Ulric Casey','Nam@temporestac.com','UHY04ZIA0BL', '2020-03-01'),
     ('Julie Ballard','fringilla@eumetus.org','BKJ77ION4WC', '2020-03-01'),
     ('Fiona Cooley','hendrerit.Donec@metuseuerat.co.uk','TDM29COZ8CX', '2020-03-01'),
-    ('Ashton Carter','mollis.vitae@ac.net','LAS40RWN5UJ', '2020-04-01'),
+    ('Ashton Carter','mollis.vitae@ac.net','LAS40RWN5UJ', '2020-03-05'),
     ('Levi Barber','massa.non@Curabiturdictum.edu','ATO66CZL6EN', '2020-04-01'),
     ('Caleb Brooks','iaculis@Donecfelisorci.com','JLT05ILN4MB', '2020-05-01'),
     ('Mark Perez','nibh.enim.gravida@velarcu.ca','NQR04WUD1HJ', '2020-05-01'),
     ('Jade Myers','velit@mollis.edu','HNQ80CSD7GZ', '2020-05-01'),
-    ('Jin Wen', 'jinwenntay@gmail.com', 'abcde', '2020-01-01');
+    ('Jin Wen', 'jinwenntay@gmail.com', 'abcde', '2020-01-01'),
+    ('Jin Wen Tay', 'jinwen.tay@u.nus.edu', 'abcde', '2020-05-06'),
+    ('Speedy Rider', 'speedyzoom@gmail.com', 'abcde', '2020-05-06');
 
 INSERT INTO Managers
     (mid)
@@ -41,7 +43,8 @@ VALUES
     (12, 1, 352205),
     (13, 1, 310605),
     (14, 2, 489005),
-    (15, 3, 235601);
+    (15, 3, 235601),
+    (23, 0, 123456);
 
 -- 2 riders: 2,3,16,17,18
 INSERT INTO Riders
@@ -51,7 +54,8 @@ VALUES
     (3, 3),
     (16, 4),
     (17, 3),
-    (18, 5);
+    (18, 5),
+    (24, 0);
 
 INSERT INTO Restaurants
     (minOrder, rname, descript)
@@ -64,22 +68,22 @@ VALUES
 
 --as of 21 March
 INSERT INTO Sells
-    (rname, fname, sold, flimit, avail, category, price)
+    (rname, fname, sold, flimit, avail, category, price, fdescript)
 VALUES
-    ('Chinese Kitchen', 'Beef Horfun', 2, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Seafood Horfun', 2, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Tomato Noodle Soup', 0, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Fried Rice', 0, 10, true, 'Chinese', 6),
-    ('Chinese Kitchen', 'Sweet and Sour Pork Rice', 0, 10, true, 'Chinese', 6),
-    ('Song Feng Chicken', 'Set A Chicken Wing', 0, 20, true, 'Malay', 3),
-    ('Song Feng Chicken', 'Set B Fish', 0, 20, true, 'Malay', 3),
-    ('Song Feng Chicken', 'Set C Vege', 0, 20, true, 'Malay', 3),
-    ('Nippi Place', 'Plain Prata', 0, 5, true, 'Indian', 2),
-    ('Nippi Place', 'Egg Prata', 0, 5, true, 'Indian', 2),
-    ('Nippi Place', 'Banana Prata', 0, 5, true, 'Indian', 2),
-    ('Naknoh Thai', 'Pad Thai', 3, 7, true, 'Thai', 5),
-    ('Naknoh Thai', 'Thai Milk Tea', 3, 3, false, 'Thai', 3),
-    ('Naknoh Thai', 'Basil Pork Rice', 3, 3, false, 'Thai', 5);
+    ('Chinese Kitchen', 'Beef Horfun', 2, 10, true, 'Chinese', 6, 'Horfun with beef fried to perfection'),
+    ('Chinese Kitchen', 'Seafood Horfun', 2, 10, true, 'Chinese', 6, '3 types of fish and squid horfun'),
+    ('Chinese Kitchen', 'Tomato Noodle Soup', 0, 10, true, 'Chinese', 6, 'Tomatoes and QQ noodles'),
+    ('Chinese Kitchen', 'Fried Rice', 0, 10, true, 'Chinese', 6, 'Yangzhou style fried rice with sausage'),
+    ('Chinese Kitchen', 'Sweet and Sour Pork Rice', 0, 10, true, 'Chinese', 6, 'Sweetest and sourest pork around'),
+    ('Song Feng Chicken', 'Set A Chicken Wing', 0, 20, true, 'Malay', 3, 'Value for money, Chicken wing and Egg on the side'),
+    ('Song Feng Chicken', 'Set B Fish', 0, 20, true, 'Malay', 3, 'Fried fish and hashbrowns on the side'),
+    ('Song Feng Chicken', 'Set C Vege', 0, 20, true, 'Malay', 3, 'Vegetarian option'),
+    ('Nippi Place', 'Plain Prata', 0, 5, true, 'Indian', 2, 'Plainest prata around'),
+    ('Nippi Place', 'Egg Prata', 0, 5, true, 'Indian', 2, 'Eggiest prata around'),
+    ('Nippi Place', 'Banana Prata', 0, 5, true, 'Indian', 2, 'Special House Prata on Banana'),
+    ('Naknoh Thai', 'Pad Thai', 3, 7, true, 'Thai', 5, 'Best padthai in Naknoh Thai'),
+    ('Naknoh Thai', 'Thai Milk Tea', 3, 3, false, 'Thai', 3, 'Original Thai Milk Tea'),
+    ('Naknoh Thai', 'Basil Pork Rice', 3, 3, false, 'Thai', 5, 'Freshest Basil with the freshset pork');
 
 INSERT INTO Orders
     (cid, rname, cartCost, location, ostatus)
@@ -191,12 +195,15 @@ VALUES
 INSERT INTO FTRiders
     (rid)
 VALUES
-    (3);
+    (3),
+    (16),
+    (18);
 
 INSERT INTO PTRiders
     (rid)
 VALUES
-    (2);
+    (2),
+    (17);
 
 INSERT INTO WWS
     (rid, wDate, startT, endT)
@@ -219,12 +226,12 @@ VALUES
 INSERT INTO MWS
     (rid, whichMonth, startDay, Day1Shift, Day2Shift, Day3Shift, Day4Shift, Day5Shift)
 VALUES
-    (3, 3, 'Thursday', 1, 1, 2, 3, 1),
-    (16, 3, 'Monday', 1, 1, 1, 1, 1 ),
-    --(17, 4, 'Wednesday', '2020-04-01', 1, 1, 1, 1, 1),
-    (18, 4, 'Wednesday', 2, 2, 2, 2, 2),
-    (3, 4, 'Thursday', 3, 3, 3, 3, 3),
-    (16, 4, 'Friday', 4, 4, 4, 4, 4)
+    (3, 3, '2020-03-05', 1, 1, 2, 3, 1),
+    (16, 3, '2020-03-02', 1, 1, 1, 1, 1 ),
+    (18, 4, '2020-04-02', 2, 2, 2, 2, 2),
+    (3, 4, '2020-04-02', 3, 3, 3, 3, 3),
+    (16, 4, '2020-04-03', 4, 4, 4, 4, 4),
+    (18, 5, '2020-05-06', 4, 4, 4, 4, 4)
     ;
 
 INSERT INTO Salary

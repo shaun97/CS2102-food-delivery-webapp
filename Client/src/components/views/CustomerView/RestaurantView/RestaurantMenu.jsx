@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Grid, Item, Header, Rating, Divider, Segment } from 'semantic-ui-react';
+import { Grid, Item, Header, Rating, Segment } from 'semantic-ui-react';
 import FoodCategoryBar from './FoodCategoryBar';
 import MenuItem from './MenuItem';
 
@@ -13,9 +13,8 @@ class RestaurantMenu extends Component {
             restaurant: this.props.restaurant,
             menu: [],
             reviews: [],
-            activeCategory: 'Chinese'
+            activeCategory: this.props.restaurant.category,
         }
-
         this.handleChangeActiveCategory = this.handleChangeActiveCategory.bind(this);
     }
 
@@ -34,7 +33,7 @@ class RestaurantMenu extends Component {
     }
 
     render() {
-        const reviewsToShow = (this.state.reviews.length == 0) ? <Header>There are no reviews yet!</Header>
+        const reviewsToShow = (this.state.reviews.length === 0) ? <Header>There are no reviews yet!</Header>
             : this.state.reviews.map((item) =>
             <Grid.Column width={16}>
                     <Segment>
@@ -75,7 +74,7 @@ class RestaurantMenu extends Component {
                     </Item.Group>
                 </Grid.Row>
                 <Grid.Row>
-                    <FoodCategoryBar handleChangeActiveCategory={this.handleChangeActiveCategory}></FoodCategoryBar>
+                    <FoodCategoryBar activeCategory={this.state.activeCategory} handleChangeActiveCategory={this.handleChangeActiveCategory}></FoodCategoryBar>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column textAlign={'left'}>

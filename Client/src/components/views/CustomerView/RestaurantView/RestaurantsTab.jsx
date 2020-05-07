@@ -37,7 +37,7 @@ class RestaurantsTab extends Component {
     }
 
     render() {
-        let view = (this.state.activeRestaurant == '') ?
+        let view = (this.state.activeRestaurant === '') ?
             <>
                 <SearchBar handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></SearchBar>
                 <RestaurantCardsGrid handleChangeActive={this.changeActiveRestaurant} restaurants={this.state.restaurants}></RestaurantCardsGrid>

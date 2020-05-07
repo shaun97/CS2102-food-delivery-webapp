@@ -27,26 +27,60 @@ UPDATE OR INSERT
 EXECUTE FUNCTION check_min_order
 ();
 
--- --Trigger to add all the respective delivery times for the delivery
--- CREATE OR REPLACE FUNCTION update_delivery_time
--- () RETURNS TRIGGER AS $$
--- BEGIN
---     INSERT INTO DeliveryTime(orid, departForR, arriveForR, departFromR, deliveredTime) 
---     VALUES (NEW.orid, NOW(), NOW() + interval '30  minutes', NOW() + interval '60  minutes', NOW() + interval '90  minutes');
---     RETURN NULL;
--- END;
--- $$ LANGUAGE plpgsql;
+--trigger to update delivery time when rider update's status in deliver
+CREATE OR REPLACE FUNCTION update_delivery_time ()
+RETURNS TRIGGER AS $$
+DECLARE
+    deliveryStatus d_status;
+BEGIN
+    SELECT dstatus INTO deliveryStatus
+    FROM deliver
+    WHERE orid = NEW.orid;
+    IF deliveryStatus = 'Rider has arrived at restaurant.' THEN
+        UPDATE deliveryTime
+        SET arriveforr = date_trunc('second', NOW())
+        WHERE orid = NEW.orid;
+    END IF;
+    IF deliveryStatus = 'Rider is departing from restaurant.' THEN
+        UPDATE deliveryTime
+        SET departfromr = date_trunc('second', NOW())
+        WHERE orid = NEW.orid;
+    END IF;
+    IF deliveryStatus = 'Rider has delivered your order.' THEN
+        UPDATE deliveryTime
+        SET deliveredtime = date_trunc('second', NOW())
+        WHERE orid = NEW.orid;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
--- DROP TRIGGER IF EXISTS update_delivery_time_trigger
--- ON Deliver;
--- CREATE TRIGGER update_delivery_time_trigger
---     AFTER
--- UPDATE OR INSERT
---     ON Deliver
---     FOR EACH ROW
--- EXECUTE FUNCTION update_delivery_time
--- ();
+DROP TRIGGER IF EXISTS update_delivery_time_trigger ON deliver;
+CREATE TRIGGER update_delivery_time_trigger
+    AFTER
+    UPDATE ON deliver
+    FOR EACH ROW
+EXECUTE FUNCTION update_delivery_time();
 
+-- trigger to insert order into deliverytime table once it has been placed for delivery   
+CREATE OR REPLACE FUNCTION insert_new_delivery_time
+() RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO DeliveryTime(orid)
+    VALUES (NEW.orid);
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS insert_new_delivery_time_trigger
+ON deliver;
+CREATE TRIGGER insert_new_delivery_time_trigger
+    AFTER
+    INSERT
+    ON deliver
+    FOR EACH ROW
+EXECUTE FUNCTION insert_new_delivery_time
+();
 -- Trigger to update quantity in sells
 CREATE OR REPLACE FUNCTION update_food_qty
 () RETURNS TRIGGER AS $$
@@ -74,14 +108,18 @@ CREATE OR REPLACE FUNCTION check_food_qty
 () RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.sold > NEW.flimit THEN
-        IF !(SELECT 1 FROM Orders NATURAL JOIN orderitems WHERE NEW.orid = orid) THEN
-            DELETE FROM Orders WHERE NEW.orid = orid;
-        END IF;
+    -- Supposed to delete order that do not have any orderitems(when all sold out) .. shoul use transactions? to run all tog but i cant pass an array in, idk how
+        -- IF !(SELECT 1 FROM Orders NATURAL JOIN orderitems WHERE NEW.orid = orid) THEN
+        --     DELETE FROM Orders WHERE NEW.orid = orid;
+        -- END IF;
         RAISE EXCEPTION 'Food limit hit';
     END IF;
     IF NEW.sold = NEW.flimit THEN 
         RAISE NOTICE USING MESSAGE = NEW;
         NEW.avail = FALSE;
+    END IF;
+    IF NEW.sold < NEW.flimit THEN 
+        NEW.avail = TRUE;
     END IF;
     RETURN NEW;
 END;
@@ -97,4 +135,82 @@ UPDATE OR INSERT
 EXECUTE FUNCTION check_food_qty
 ();
 
+-- Trigger to update customer points after order completed
+CREATE OR REPLACE FUNCTION update_customer_points() RETURNS TRIGGER
+    AS $$
+BEGIN
+    UPDATE customers c 
+    SET points = points + 1
+    WHERE c.cid =  NEW.cid;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS update_customer_points_trigger ON orders CASCADE;
+CREATE TRIGGER update_customer_points_trigger 
+    AFTER UPDATE OF ostatus
+    ON orders
+    FOR EACH ROW
+    WHEN (NEW.ostatus = 'Completed')
+    EXECUTE PROCEDURE update_customer_points();
+
+-- Trigger to ensure that order is not completed before rider is assigned or deliver is not included
+CREATE OR REPLACE FUNCTION complete_order_check() returns TRIGGER
+    AS $$
+DECLARE 
+    violating_orid INTEGER;
+BEGIN
+    SELECT o.orid INTO violating_orid
+        FROM orders o
+        WHERE o.ostatus = 'Completed'
+        AND (NOT EXISTS(
+            SELECT 1
+            FROM deliver d
+            WHERE d.orid = o.orid
+        ) OR EXISTS (
+            SELECT 1
+            FROM deliver d1
+            WHERE d1.orid = o.orid AND d1.rid IS NULL
+        ));
+    IF violating_orid IS NOT NULL THEN 
+        RAISE exception 'order % cannot be completed without rider or a deliver', violating_orid;
+    END IF;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS complete_order_check_trigger ON orders;
+CREATE CONSTRAINT TRIGGER complete_order_check_trigger 
+    AFTER INSERT OR UPDATE ON orders
+    DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW
+    EXECUTE PROCEDURE complete_order_check();
+
+-- Trigger to enforce that all the food is from the same restaurant 
+CREATE OR REPLACE FUNCTION ensure_single_restaurant() returns TRIGGER
+    AS $$
+DECLARE 
+    violating_orid INTEGER;
+BEGIN
+    SELECT o.orid into violating_orid
+    FROM orderitems NATURAL JOIN orders o
+    WHERE NOT EXISTS ( 
+        SELECT 1
+        FROM orderitems oi1 NATURAL JOIN orders o1 INNER JOIN sells s ON o1.rname=s.rname
+        WHERE NEW.fname = s.fname 
+        AND o.orid = o1.orid
+    ) AND o.orid = NEW.orid;
+
+    IF violating_orid IS NOT NULL THEN 
+        RAISE exception 'order % contains food not found in this restaurant', violating_orid;
+    END IF;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS ensure_single_restaurant_trigger ON orders;
+CREATE CONSTRAINT TRIGGER ensure_single_restaurant_trigger 
+    AFTER INSERT ON orderitems
+    DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW
+    EXECUTE PROCEDURE ensure_single_restaurant();

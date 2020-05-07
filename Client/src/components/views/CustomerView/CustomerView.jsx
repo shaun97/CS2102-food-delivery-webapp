@@ -46,7 +46,7 @@ class CustomerView extends Component {
   }
 
   handleAddToCart(food) {
-    if (this.state.cartItems.some(obj => obj.rname != food.rname)) {
+    if (this.state.cartItems.some(obj => obj.rname !== food.rname)) {
       alert("Sorry, we don't support orders from multiple restaurants, please clear the cart if you wish to proceed"); //
       return;
     }

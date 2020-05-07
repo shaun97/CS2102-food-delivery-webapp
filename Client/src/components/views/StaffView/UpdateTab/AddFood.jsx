@@ -17,19 +17,16 @@ class AddFood extends Component {
     super(props);
     this.state = {
       rname: this.props.rname,
-      fname: "",
-      sold: "",
-      flimit: "",
-      avail: "",
-      category: "",
-      price: "",
+      fname: this.props.food.fname,
+      flimit: this.props.food.flimit,
+      category: this.props.food.category,
+      price: this.props.food.price,
+      fdescript: this.props.food.fdescript
     };
-
-    console.log(this.state.rname);
-
     this.handleSubmitClick = this.handleSubmitClick.bind(this);
 
     this.handleChange = (event) => {
+      console.log(event.target.name);
       const { name, value } = event.target;
       this.setState({
         [name]: value,
@@ -44,22 +41,24 @@ class AddFood extends Component {
   }
 
   handleSubmitClick() {
-    console.log(this.state.rname);
     const newFood = {
       rname: this.state.rname,
       fname: this.state.fname,
-      sold: 0,
       flimit: this.state.flimit,
-      avail: true,
       category: this.state.category,
       price: this.state.price,
-    };
-    console.log(this.state.rname);
-
+      fdescript: this.state.fdescript
+    }
     axios
       .post("staff/api/posts/addNewFood", newFood)
-      .then((res) => alert("New Food Added")) //can put trigger if got fname conflict
-      .catch((err) => alert("Please fill in the form with the correct inputs"));
+      .then((res) => {
+        console.log(res);
+        if (res.data != 'nok') { 
+          alert((this.props.food.fname) ? "Food Updated" : "New Food Added"); 
+        } else {
+          alert("Please fill in the inputs correctly!");
+        } 
+      });
   }
 
   render() {
@@ -72,6 +71,17 @@ class AddFood extends Component {
           placeholder="Food"
           required={true}
           name="fname"
+          value={this.state.fname}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          icon="food"
+          iconPosition="left"
+          placeholder="Food Description"
+          required={true}
+          name="fdescript"
+          value={this.state.fdescript}
           onChange={this.handleChange}
         />
         <Form.Input
@@ -81,6 +91,7 @@ class AddFood extends Component {
           placeholder="Quantity"
           required={true}
           name="flimit"
+          value={this.state.flimit}
           onChange={this.handleChange}
         />
         <Form.Dropdown
@@ -90,8 +101,8 @@ class AddFood extends Component {
           control={Select}
           options={categoryOptions}
           name="category"
+          value={(this.state.selectedCategory) ? this.state.selectedCategory : this.state.category}
           onChange={this.handleDropdown}
-          value={this.state.selectedCategory}
         />
         <Form.Input
           fluid
@@ -100,15 +111,15 @@ class AddFood extends Component {
           placeholder="Price"
           required={true}
           name="price"
+          value={this.state.price}
           onChange={this.handleChange}
         />
         <Button
           color="blue"
           fluid
           size="large"
-          onClick={this.handleSubmitClick}
-        >
-          Add Food
+          onClick={this.handleSubmitClick}>
+          {(this.props.food.fname) ? "Update Food" : "Add Food"}
         </Button>
       </Form>
     );

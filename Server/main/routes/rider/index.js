@@ -6,8 +6,10 @@ const pool = require('../../db');
 */
 
 rider.get('/api/get/ordersfromdb', (req, res, next) => {
-    pool.query(`SELECT * FROM Orders`,
+    pool.query(`SELECT * FROM Orders
+                WHERE ostatus = 'Ongoing';`,
     (q_err, q_res) => {
+      console.log(q_res.rows);
       res.json(q_res.rows); 
     })
 })
@@ -139,6 +141,92 @@ rider.get('/api/get/getPastWeekSchedule', (req, res, next) => {
     })
 })
 
+
+
+rider.get('/api/get/orderItems', (req, res, next) => {
+  const orid = req.query.orid;
+  pool.query(`SELECT fname, quantity
+  FROM orderItems 
+  WHERE orid=$1`, [orid],
+  (q_err, q_res) => {
+    res.json(q_res.rows);
+  })
+})
+
+rider.get('/api/get/activeOrders', (req, res, next) => {
+  const rid = req.query.rid;
+  pool.query(`SELECT O.orid, rname, location, dstatus
+  FROM orders O JOIN deliver USING (orid)
+  WHERE dstatus <> 'Rider has delivered your order.'
+  AND rid = $1`, [rid],
+  (q_err, q_res) => {
+    res.json(q_res.rows);
+  })
+})
+rider.post('/api/posts/acceptOrder', (req, res, next) => {
+  const rid = req.body.rid;
+  const orid = req.body.orid;
+  console.log(orid);
+  (async () => {
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN')
+      // await client.query('SET CONSTRAINTS UNIQUE DEFERRED')
+      await client.query(`UPDATE orders
+      SET ostatus = 'Completed'
+      WHERE orid = $1`, [orid])
+      const deliverValues = [rid, orid];
+      await client.query(`UPDATE deliver
+      SET rid = $1
+      WHERE orid = $2`, deliverValues)
+      await client.query(`UPDATE deliveryTime
+      SET departforr = date_trunc('second', NOW())
+      WHERE orid = $1`, [orid])
+      await client.query('COMMIT').then(res.send({ message: "Order Accepted!" }))
+    } catch (e) {
+      await client.query('ROLLBACK').then(res.send({ message: "Order has been taken by another rider"}))
+      throw e
+    } finally {
+      client.release();
+    }
+  })().catch(e => console.error(e.stack));
+})
+
+rider.post('/api/posts/deliveryStatus', (req, res, next) => {
+  const status = req.body.status;
+  console.log(status);
+  let dstatus = '';
+  let message = "";
+  switch (status)  {
+    case 0:
+      dstatus = 'Rider has arrived at restaurant.'
+      message = "Not completed"
+      break;
+    case 1:
+      dstatus = 'Rider is departing from restaurant.'
+      message = "Not completed"
+      break;
+    case 2:
+      dstatus = 'Rider has delivered your order.'
+      message = "Completed"
+      break;
+  }
+  (async () => {
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN')
+      await client.query(`UPDATE deliver
+      SET dstatus = $1
+      WHERE orid = $2`, [ dstatus, req.body.orid])
+      await client.query('COMMIT').then(res.send({ message: message}))
+    } catch (e) {
+      await client.query('ROLLBACK').then(res.send({ message: "Failure"}))
+      throw e
+    } finally {
+      client.release();
+    }
+  })().catch(e => console.error(e.stack));
+})
 
 
 module.exports = rider;

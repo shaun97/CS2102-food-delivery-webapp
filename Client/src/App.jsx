@@ -16,12 +16,15 @@ class App extends Component {
     super();
 
     this.signIn = (user) => {
-      console.log(user);
       if (user != null) {
-        this.setState((state) => ({
+        this.setState(() => ({
           isLoggedIn: true,
           user: user,
         }));
+        localStorage.setItem('isLoggedIn', this.state.isLoggedIn);
+        localStorage.setItem('id', this.state.user.id);
+        localStorage.setItem('email', this.state.user.email);
+        localStorage.setItem('name', this.state.user.name);
       } else {
         alert("Password or username is wrong!");
       }
@@ -29,18 +32,31 @@ class App extends Component {
     this.signOut = () => {
       this.setState(() => ({
         isLoggedIn: false,
-        user: {},
+        user: {
+          id: 0,
+          email: '',
+          name: ''
+        },
       }));
+      localStorage.setItem('isLoggedIn', this.state.isLoggedIn);
+      localStorage.setItem('id', this.state.user.id);
+      localStorage.setItem('email', this.state.user.email);
+      localStorage.setItem('name', this.state.user.name);
     };
     this.state = {
-      isLoggedIn: false,
-      user: { id: 5 },
+      isLoggedIn: localStorage.getItem('isLoggedIn'),
+      user: { 
+        id: localStorage.getItem('id'),
+        email: localStorage.getItem('email'),
+        name: localStorage.getItem('name')
+      },
       signIn: this.signIn,
       signOut: this.signOut,
     };
   }
 
   render() {
+console.log(this.state);
     return (
       <div className="App">
         <LoginContext.Provider value={this.state}>

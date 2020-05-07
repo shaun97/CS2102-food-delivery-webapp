@@ -7,7 +7,16 @@ const pool = require('../../db');
 */
 
 restaurant.get('/api/get/restaurantsfromdb', (req, res, next) => {
-        pool.query(`SELECT * FROM Restaurants`,
+        pool.query(`
+        WITH maincategory as (
+                SELECT rname, category
+                FROM Sells s
+                GROUP BY (rname, category)
+                HAVING COUNT(category) >= ANY (SELECT COUNT(category) 
+                                                FROM Sells s1
+                                                WHERE s1.rname = s.rname)
+        )
+        SELECT * FROM Restaurants NATURAL JOIN maincategory`,
                 (q_err, q_res) => {
                         res.json(q_res.rows);
                 })
@@ -15,8 +24,8 @@ restaurant.get('/api/get/restaurantsfromdb', (req, res, next) => {
 
 restaurant.get('/api/get/restaurantmenu', (req, res, next) => {
         const rname = req.query.rname;
-        pool.query(`SELECT fname, price, category, rname 
-                FROM Restaurants join Sells using (rname)
+        pool.query(`SELECT fname, price, category, rname, avail, s.fdescript, flimit
+                FROM Restaurants join Sells s using (rname)
                 WHERE rname=$1`, [rname],
                 (q_err, q_res) => {
                         res.json(q_res.rows);
@@ -25,16 +34,14 @@ restaurant.get('/api/get/restaurantmenu', (req, res, next) => {
 
 restaurant.get('/api/get/gettherestaurantfromdb', (req, res, next) => {
         const rname = req.query.rname;
-        pool.query(`SELECT descript, minorder
-                FROM Restaurants
+        pool.query(` SELECT descript, minorder
+                FROM Restaurants 
                 WHERE rname=$1`, [rname],
                 (q_err, q_res) => {
                         res.json(q_res.rows);
                 })
 
 })
-
-
 
 restaurant.get('/api/get/getrestreviews', (req, res, next) => {
         const rname = req.query.rname;

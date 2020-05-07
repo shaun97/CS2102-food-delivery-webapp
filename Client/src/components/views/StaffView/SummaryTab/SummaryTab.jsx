@@ -5,62 +5,61 @@ import { Card, Feed, Header } from "semantic-ui-react";
 
 import axios from "axios";
 
+var now = new Date(Date.now());
+
 class SummaryTab extends Component {
   constructor(props) {
     super(props);
-    var d = new Date();
     this.state = {
       rname: this.props.rname,
-
-      // menu: []
-      month: d.getMonth(),
-      totalOrders: "0",
-      totalCost: "0",
+      monthSelected: now.getMonth() + 1,
+      totalOrders: 0,
+      totalRevenue: 0,
       top5Orders: [],
-      // topOrder: "",
-      // secOrder: "",
-      // thirdOrder: "",
-      // fourthOrder: "",
-      // fifthOrder: "",
     };
   }
 
   componentDidMount() {
-    console.log(this.state.rname);
-    axios
-      .get("/staff/api/get/getTotalOrders", {
-        params: {
-          monthSelected: 4,
-          rname: this.state.rname,
-          //monthSelected: this.state.month + 1,
-        },
-      })
-      .then((res) => {
-        this.setState({ totalOrders: res.data.length });
-        this.setState({ orderDetails: res.data });
-        this.setState({
-          isLoading: false,
-        });
-        //calculate total sales **need to remove the delivery charges
-        let orders = this.state.orderDetails.map((item) => {
-          return {
-            orid: item.orid,
-            cost: item.cartcost,
-            fee: item.fee,
-          };
-        });
-        let sum = 0;
-        for (let i = 0; i < orders.length; i++) {
-          sum += orders[i].cost;
-          sum -= orders[i].fee; //need to remove deliveryfees
-        }
-        this.setState({ totalCost: sum });
-      })
-      .catch((err) => console.log(err));
-    console.log(this.state.totalCost);
+    axios.get("/staff/api/get/getTotalOrders", { //query to get total order for this month
+      params: {
+        rname: this.state.rname,
+        monthSelected: this.state.monthSelected
+      },
+    }).then((res) => {
+      this.setState({ totalOrders: res.data[0].count })
+    }).catch((err) => console.log(err));
+
+    axios.get("/staff/api/get/getTotalRevenue", { //query to get total revenue for this month
+      params: {
+        rname: this.state.rname,
+        monthSelected: this.state.monthSelected
+      },
+    }).then((res) => {
+      this.setState({ totalRevenue: res.data[0].totalcost })
+    }).catch((err) => console.log(err));
+
+    axios.get("/staff/api/get/getTop5Orders", { //query to top 5 orders
+      params: {
+        rname: this.state.rname,
+        monthSelected: this.state.monthSelected
+      },
+    }).then((res) => {
+      this.setState({ top5Orders: res.data })
+    }).catch((err) => console.log(err));
+
   }
 
   render() {
+    let top5Orders = (this.state.top5Orders.length === 0) ? <Header>There are no orders placed yet for this month</Header>
+      : this.state.top5Orders.map((item, i) =>
+        <Feed.Event>
+          <Feed.Content>
+            <Feed.Date content={i + 1} />
+            <Feed.Summary>{item.fname} | {item.amount} </Feed.Summary>
+          </Feed.Content>
+        </Feed.Event>
+      )
+
     return (
       <Card.Group>
         <Card>
@@ -85,7 +84,7 @@ class SummaryTab extends Component {
         <Card>
           <Card.Content>
             <Card.Header>
-              Total Cost of Completed Orders This Month (exc. delivery fees)
+              Total Revenue from Orders This Month (exc. delivery fees)
             </Card.Header>
           </Card.Content>
           <Card.Content>
@@ -93,7 +92,7 @@ class SummaryTab extends Component {
               <Feed.Event>
                 <Feed.Content>
                   <Header size="huge" textAlign="center">
-                    ${this.state.totalCost}
+                    ${this.state.totalRevenue}
                   </Header>
                 </Feed.Content>
               </Feed.Event>
@@ -107,40 +106,7 @@ class SummaryTab extends Component {
           </Card.Content>
           <Card.Content>
             <Feed>
-              <Feed.Event>
-                <Feed.Content>
-                  <Feed.Date content="1st" />
-                  <Feed.Summary>Yoghurt | *num of orders* </Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-
-              <Feed.Event>
-                <Feed.Content>
-                  <Feed.Date content="2nd" />
-                  <Feed.Summary>Omlette | *num of orders*</Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-
-              <Feed.Event>
-                <Feed.Content>
-                  <Feed.Date content="3rd" />
-                  <Feed.Summary>Macdonner | *num of orders* </Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-
-              <Feed.Event>
-                <Feed.Content>
-                  <Feed.Date content="4th" />
-                  <Feed.Summary>Hannok | *num of orders* </Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-
-              <Feed.Event>
-                <Feed.Content>
-                  <Feed.Date content="5th" />
-                  <Feed.Summary>GFC | *num of orders* </Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
+              {top5Orders}
             </Feed>
           </Card.Content>
         </Card>

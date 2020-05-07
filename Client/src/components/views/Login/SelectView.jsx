@@ -1,6 +1,6 @@
 //Basic React Imports
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 //Semantic
 import { Button, Header, Segment, Popup } from "semantic-ui-react";

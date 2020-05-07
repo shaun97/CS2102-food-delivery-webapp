@@ -15,7 +15,7 @@ class CartTab extends Component {
             address: '',
             subtotal: 0,
             deliveryCost: 0,
-            rname: (this.props.cartItems.length == 0) ? '' : this.props.cartItems[0].rname,
+            rname: (this.props.cartItems.length === 0) ? '' : this.props.cartItems[0].rname,
             descript: '',
             minOrder: 0,
             addresshistory: [],
@@ -57,7 +57,7 @@ class CartTab extends Component {
             }
         });
         this.handleUpdateCC();
-        if (this.state.cartItems.length == 0) return;
+        if (this.state.cartItems.length === 0) return;
         axios.get('/restaurant/api/get/gettherestaurantfromdb', { params: { rname: this.state.rname } }).then(res => {
             this.setState({
                 minOrder: res.data[0].minorder,
@@ -112,7 +112,7 @@ class CartTab extends Component {
     }
 
     handleGetPrice() {
-        if (this.state.address == '') {
+        if (this.state.address === '') {
             alert("Please input an address");
             return;
         }
@@ -160,23 +160,23 @@ class CartTab extends Component {
 
     handleSubmitOrder() {
         let cid = this.context.user.id;
-        if (this.state.deliveryCost == 0) {
+        if (this.state.deliveryCost === 0) {
             alert('Please click get price first!');
             return;
         }
 
         var subtotal = this.state.subtotal;
-        if (this.state.promoapplied.promotiontype == 'fixed') {
+        if (this.state.promoapplied.promotiontype === 'fixed') {
             subtotal = subtotal - this.state.promoapplied.discount;
-        } else if (this.state.promoapplied.promotiontype == 'percentage') {
-            subtotal = subtotal * (this.state.promoapplied.discount / 100);
+        } else if (this.state.promoapplied.promotiontype === 'percentage') {
+            subtotal = subtotal * ((100 - this.state.promoapplied.discount) / 100);
         }
 
         axios.post('/customer/api/posts/insertorder',
             { cid: cid, rname: this.state.rname, cartcost: subtotal, location: this.state.address, deliverycost: this.state.delieryCost - ((this.state.isPointsUsed) ? 0 : this.state.deliveryCost), points: (this.state.isPointsUsed) ? 0 : this.state.points })
             .then(
                 (res) => {
-                    if (res.data == 'MinOrder Failed') {
+                    if (res.data === 'MinOrder Failed') {
                         alert("Min order not hit, please order more :)")
                         return;
                     } else {
@@ -195,14 +195,13 @@ class CartTab extends Component {
     }
 
     render() {
-        //  ${(this.state.deliveryCost + this.state.subtotal - (this.state.isPointsUsed ? this.state.points : 0))}
         var displayPromoTotal = "";
-        if (this.state.promoapplied == "") {
+        if (this.state.promoapplied === "") {
             displayPromoTotal = '$' + (this.state.subtotal + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
-        } else if (this.state.promoapplied.promotiontype == 'fixed') {
+        } else if (this.state.promoapplied.promotiontype === 'fixed') {
             displayPromoTotal = '$' + (this.state.subtotal + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' - $' + this.state.promoapplied.discount + ' = $' + Math.max(0, (this.state.deliveryCost + this.state.subtotal - (this.state.isPointsUsed ? this.state.points : 0) - this.state.promoapplied.discount));
         } else {
-            displayPromoTotal = '$' + (this.state.subtotal ) + ' x ' + this.state.promoapplied.discount / 100 + ' + $' + (this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' = $' + ((this.state.promoapplied.discount / 100) * (this.state.subtotal) + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
+            displayPromoTotal = '$' + (this.state.subtotal) + ' x ' + (100 - this.state.promoapplied.discount) / 100 + ' + $' + (this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0)) + ' = $' + ((this.state.promoapplied.discount / 100) * (this.state.subtotal) + this.state.deliveryCost - (this.state.isPointsUsed ? this.state.points : 0));
         }
 
         let restaurantPromo = this.state.promos.map((item, i) =>
@@ -218,7 +217,7 @@ class CartTab extends Component {
         let addresshistorybtn = this.state.addresshistory.map((item) => (
             <Button name={item} size='mini' onClick={this.handleUpdateAddress}>{item}</Button>
         ))
-        let header = (this.state.cartItems.length == 0) ? <Header>There is nothing in your cart!</Header> :
+        let header = (this.state.cartItems.length === 0) ? <Header>There is nothing in your cart!</Header> :
             <Item.Group>
                 <Item >
                     <Item.Content verticalAlign='middle'>
@@ -247,7 +246,7 @@ class CartTab extends Component {
                                         <input style={{ margin: '5px 0px' }} name='address' value={this.state.address} type='text' onChange={this.handleChange} placeholder='Address' />
                                     </Form.Field>
                                     <Form.Field>
-                                    <label>Available Promotions</label>
+                                        <label>Available Promotions</label>
                                         {restaurantPromo}
                                     </Form.Field>
                                     <Header as='h5'>You have {this.state.points} points left, would you like to use it to offset your delivery cost?</Header>

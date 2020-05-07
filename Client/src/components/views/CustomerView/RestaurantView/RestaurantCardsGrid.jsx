@@ -1,5 +1,5 @@
 //Basic React Imports
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, Grid } from 'semantic-ui-react'
 
 function RestaurantCardsGrid(props) {
