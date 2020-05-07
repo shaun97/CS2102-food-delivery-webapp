@@ -277,7 +277,6 @@ VALUES
     (22, 'Egg Prata', 2),
     (22, 'Banana Prata', 2),
     (23, 'Plain Prata', 4),
-
     (24, 'Salted Egg Rice', 1),
     (24, 'Century Egg Porridge', 1),
     (24, 'Sweet and Sour Pork Rice', 1),
