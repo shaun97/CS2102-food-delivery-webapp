@@ -196,13 +196,17 @@ VALUES
 INSERT INTO PTRiders
     (rid)
 VALUES
-    (default);
+    (2);
 
 INSERT INTO WWS
-    (rid, wDay, whichMonth, Week, startT, endT)
+    (rid, wDate, startT, endT)
 VALUES
-    (2, 'Fri', 3, 3, '10:00:00', '13:00:00'),
-    (17, 'Fri', 3, 3, '16:00:00', '19:00:00');
+    (2, '2020-03-20', '10:00:00', '13:00:00'),
+    (2, '2020-03-21', '10:00:00', '14:00:00'),
+    (2, '2020-03-22', '13:00:00', '15:00:00'),
+    (2, '2020-03-22', '16:00:00', '19:00:00'),
+    (2, '2020-03-19', '10:00:00', '13:00:00'),
+    (17, '2020-03-20', '16:00:00', '19:00:00');
 
 INSERT INTO templateShift
     (Shift, Start1, End1, Start2, End2)

@@ -162,10 +162,7 @@ CREATE TABLE PTRiders
 CREATE TABLE WWS
 (
 	rid integer,
-	wDay text,
-	--mon/tues/wed/thur
-	whichMonth integer,
-	Week integer,
+	wDate DATE,
 	startT TIME,
 	endT TIME,
 	foreign key (rid) references Riders(rid)
