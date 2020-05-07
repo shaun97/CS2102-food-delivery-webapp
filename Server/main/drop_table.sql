@@ -27,7 +27,7 @@ drop table if exists FDPromotions cascade;
 
 drop table if exists Managers cascade;
 
-drop type if exists o_status;
-drop type if exists d_status;
-drop type if exists e_category;
-drop type if exists p_type;
+drop type if exists o_status cascade;
+drop type if exists d_status cascade;
+drop type if exists e_category cascade;
+drop type if exists p_type cascade;

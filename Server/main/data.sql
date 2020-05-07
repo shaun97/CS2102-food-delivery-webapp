@@ -58,13 +58,13 @@ VALUES
     (24, 0);
 
 INSERT INTO Restaurants
-    (minOrder, rname, descript)
+    (minOrder, rname, descript, address)
 VALUES
-    (20, 'Chinese Kitchen', 'Huangyingguangling'),
-    (7, 'Song Feng Chicken', 'Lai Girl what you want'),
-    (15, 'Naknoh Thai', 'sawaddekap'),
-    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA'),
-    (3, 'King Fried Chicken', 'Finger Licking Great');
+    (20, 'Chinese Kitchen', 'Huangyingguangling', 'Changi Village'),
+    (7, 'Song Feng Chicken', 'Lai Girl what you want', 'Jurong East'),
+    (15, 'Naknoh Thai', 'sawaddekap', 'Supper Stretch'),
+    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA', 'Serangoon'),
+    (3, 'King Fried Chicken', 'Finger Licking Great', 'Home');
 
 --as of 21 March
 INSERT INTO Sells
@@ -242,7 +242,7 @@ VALUES
 INSERT INTO allPromotions
     (promotiondescript, promoname, promotiontype, discount,startD, endD)
 VALUES
-    ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 ,'2020-03-23', '2020-05-26'),
+    ('Stas home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 ,'2020-03-23', '2020-05-26'),
     ('May the discounts be with you! Enjoy 50% off your cart items on MoodPanda! #StayHomeStaySafe', 'May the fourth', 'percentage', 50, '2020-03-23', '2020-05-24'),
     ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24');
 
