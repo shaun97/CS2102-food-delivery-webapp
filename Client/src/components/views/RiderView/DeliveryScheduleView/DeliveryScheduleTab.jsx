@@ -242,7 +242,6 @@ class DeliveryScheduleTab extends Component {
       if (!repeat) {
         tempShift.push(shift);
       }
-      console.log(tempShift);
       this.setState({ addShift: tempShift });
     } catch (err) {
       console.log(err);
@@ -258,19 +257,19 @@ class DeliveryScheduleTab extends Component {
       for (let j = 0; j < 3; j++) {
         let currshift;
         if (j === 0) {
-          console.log(allShifts[i]);
           currshift = allShifts[i].shift1;
         } else if (j === 1) {
           currshift = allShifts[i].shift2;
         } else {
           currshift = allShifts[i].shift3;
         }
-        console.log(j, currshift);
         if (currshift !== []) {
           axios.post('/rider/api/posts/insertWWSSchedule',
             { cid: cid, date: allShifts[i].day, shiftstart: currshift.start, shiftend: currshift.end })
             .then((res) => {
-              console.log(res)
+              //alert(res.data);
+              // console.log('test');
+              // console.log(res);
             })
             .catch(err => console.log(err));
         }

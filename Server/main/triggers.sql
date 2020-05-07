@@ -283,11 +283,12 @@ CREATE OR REPLACE FUNCTION check_rider_schedule() returns TRIGGER
 DECLARE 
     weekHours INTEGER;
 BEGIN
+    weekHours = 0;
     SELECT SUM(DATE_PART('hour', endt - startt)) INTO weekHours
     FROM wws 
-    WHERE DATE_TRUNC('week', CURRENT_DATE) = DATE_TRUNC('week',wws.date)
+    WHERE EXTRACT(week from CURRENT_DATE) = EXTRACT(week from wdate)
     AND NEW.rid = wws.rid;
-   
+    
    IF weekHours < 10 THEN
         RAISE exception 'You are working too little';
     END IF;
@@ -305,3 +306,5 @@ CREATE TRIGGER check_rider_schedule_trigger
     ON wws
     FOR EACH ROW
     EXECUTE PROCEDURE check_rider_schedule();
+
+

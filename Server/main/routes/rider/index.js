@@ -235,10 +235,14 @@ rider.post('/api/posts/insertWWSSchedule', (req, res, next) => {
   const shiftEnd = req.body.shiftend;
   if (shiftStart > 0 && shiftEnd > 0) {
     pool.query(`INSERT INTO WWS(rid, wDate, startT, endT)
-    VALUES($1,(CURRENT_DATE + INTERVAL '1 day' * $2),(TIME ’10:00:00’ + ($3-1) * INTERVAL ‘1 hour’),(TIME ’10:00:00’ + ($4-1) * INTERVAL ‘1 hour’))`,
+    VALUES($1,(CURRENT_DATE + INTERVAL '1 day' * $2),(TIME '10:00:00' + ($3-1) * INTERVAL '1 hour'),(TIME '10:00:00' + ($4-1) * INTERVAL '1 hour'))`,
       [rid, day, shiftStart, shiftEnd],
       (q_err, q_res) => {
-        res.json(q_res);
+        if(q_res == undefined) {
+          res.json(q_err.message);
+        } else {
+          res.json("Congrats, success");
+        }
       })
   }
 
