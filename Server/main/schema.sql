@@ -202,10 +202,11 @@ CREATE TABLE MWS
 
 CREATE TABLE Salary
 (
-	rid integer primary key,
+	rid integer,
 	whichMonth integer,
 	deliveryFees integer,--counted weekly for PT and monthly for FT
 	basePay integer,
+	primary key (rid, whichMonth),
 	foreign key (rid) references Riders on delete cascade
 );
 
@@ -223,20 +224,26 @@ CREATE TABLE allPromotions
 CREATE TABLE RPromotions
 (
 	--restaurants may offer promotional prices for menu items
-	pid integer primary key deferrable initially deferred,
+	pid integer primary key deferrable initially
+	deferred,
 	--	promotiontype varchar(30), -- 2 types? fixed discount / percentage
-	rname varchar(30),
+	rname varchar
+	(30),
 
-	foreign key (pid) references allPromotions on delete cascade,
-	foreign key (rname) references Restaurants on delete cascade
+	foreign key
+	(pid) references allPromotions on
+	delete cascade,
+	foreign key (rname)
+	references Restaurants on
+	delete cascade
 );
 
-CREATE TABLE FDPromotions
-(
-	pid integer primary key,
-	--	promotiontype varchar(30), -- 2 types? fixed discount 
-	foreign key (pid) references allPromotions on delete cascade
-);
+	CREATE TABLE FDPromotions
+	(
+		pid integer primary key,
+		--	promotiontype varchar(30), -- 2 types? fixed discount 
+		foreign key (pid) references allPromotions on delete cascade
+	);
 
 -- insert test data into users
 

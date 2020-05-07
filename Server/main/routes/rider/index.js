@@ -48,7 +48,7 @@ rider.get('/api/get/getHoursWorked', (req, res, next) => {
                     END AS Hour
                   from WWS
                   WHERE rid = $1
-                  AND whichMonth = $2)
+                  AND CAST(to_char(wDate, 'MM') as int) = $2)
                 SELECT CASE
                   WHEN f.hour > p.hour THEN f.hour
                   ELSE p.hour
@@ -70,7 +70,7 @@ rider.get('/api/get/getDeliveryFees', (req, res, next) => {
                       ELSE 0
                       END AS fee,
                       CASE 
-                      WHEN EXISTS (SELECT 1
+                      WHEN EXISTS (SELECT 
                                     FROM FTRiders m
                                     WHERE m.rid = $1) THEN 1
                       ELSE 0
@@ -128,6 +128,19 @@ rider.post('/api/posts/insertMWSSchedule', (req,res,next) => {
         console.log(q_res.rows)
   })
 })
+
+rider.get('/api/get/getPastWeekSchedule', (req, res, next) => {
+  const cid = req.query.cid;
+  pool.query(`SELECT to_char(wDate,'Month') AS month, to_char(wDate, 'W') as week, to_char(wDate,'Day') as day, string_agg(to_char(startT, 'FMHH12pm'), ' / ') startT, string_agg(to_char(endT, 'FMHH12pm'),' / ') endT
+              FROM WWS
+              WHERE rid = $1
+              GROUP BY (wDate)
+              ORDER BY (wDATE) `, [cid],
+    (q_err, q_res) => {
+      res.json(q_res.rows);
+    })
+})
+
 
 
 rider.get('/api/get/orderItems', (req, res, next) => {
@@ -213,6 +226,22 @@ rider.post('/api/posts/deliveryStatus', (req, res, next) => {
       client.release();
     }
   })().catch(e => console.error(e.stack));
+})
+
+rider.post('/api/posts/insertWWSSchedule', (req, res, next) => {
+  const rid = req.body.cid;
+  const day = req.body.date;
+  const shiftStart = req.body.shiftstart;
+  const shiftEnd = req.body.shiftend;
+  if (shiftStart > 0 && shiftEnd > 0) {
+    pool.query(`INSERT INTO WWS(rid, wDate, startT, endT)
+    VALUES($1,(CURRENT_DATE + INTERVAL '1 day' * $2),(TIME ’10:00:00’ + ($3-1) * INTERVAL ‘1 hour’),(TIME ’10:00:00’ + ($4-1) * INTERVAL ‘1 hour’))`,
+      [rid, day, shiftStart, shiftEnd],
+      (q_err, q_res) => {
+        res.json(q_res);
+      })
+  }
+
 })
 
 
