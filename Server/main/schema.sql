@@ -42,6 +42,7 @@ CREATE TABLE Restaurants
 	-- use trigger to check in order??
 	rname varchar(255) unique not null,
 	descript varchar(255),
+	address varchar(255),
 	primary key (rname)
 );
 
@@ -209,7 +210,7 @@ CREATE TABLE Salary
 
 CREATE TABLE allPromotions
 (
-	pid SERIAL UNIQUE primary key,
+	pid SERIAL UNIQUE PRIMARY KEY,
 	promotiondescript varchar(255),
 	promoname varchar(30),
 	promotiontype p_type not null,
@@ -221,15 +222,12 @@ CREATE TABLE allPromotions
 CREATE TABLE RPromotions
 (
 	--restaurants may offer promotional prices for menu items
-	pid integer primary key,
+	pid integer primary key deferrable initially deferred,
 	--	promotiontype varchar(30), -- 2 types? fixed discount / percentage
 	rname varchar(30),
-	fname varchar(30),
-	-- screw fname? overall promo?
 
 	foreign key (pid) references allPromotions on delete cascade,
-	foreign key (rname) references Restaurants on delete cascade,
-	foreign key (fname) references Sells (fname) on delete cascade
+	foreign key (rname) references Restaurants on delete cascade
 );
 
 CREATE TABLE FDPromotions

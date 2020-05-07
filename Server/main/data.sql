@@ -73,14 +73,15 @@ VALUES
     (28, 1);
 
 INSERT INTO Restaurants
-    (minOrder, rname, descript)
+    (minOrder, rname, descript, address)
 VALUES
-    (20, 'Chinese Kitchen', 'Huangyingguangling'),
-    (7, 'Song Feng Chicken', 'Lai Girl what you want'),
-    (15, 'Naknoh Thai', 'sawaddekap'),
-    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA'),
-    (10, 'Sayonara', 'Irasshaimase!'),
-    (18, 'King Fried Chicken', 'Finger Licking Great');
+    (20, 'Chinese Kitchen', 'Huangyingguangling', 'Changi Village'),
+    (7, 'Song Feng Chicken', 'Lai Girl what you want', 'Jurong East'),
+    (15, 'Naknoh Thai', 'sawaddekap', 'Supper Stretch'),
+    (5, 'Nippi Place', 'ONE PLAIN PRATAAAA', 'Serangoon'),
+    (10, 'Sayonara', 'Irasshaimase!', 'Yishun'),
+
+    (3, 'King Fried Chicken', 'Finger Licking Great', 'Home');
 
 --as of 21 March
 INSERT INTO Sells
