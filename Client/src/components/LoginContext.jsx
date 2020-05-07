@@ -5,6 +5,6 @@ import React from "react";
 
 export const LoginContext = React.createContext({
   isLoggedIn: false,
-  user: {id:1},
+  user: {},
   signIn: () => {}
 });
