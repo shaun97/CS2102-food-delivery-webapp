@@ -21,8 +21,8 @@ BEGIN
         SELECT 0 INTO valid;
     END IF;
 
-    IF NEW.email !~ '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*
-      @[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$' THEN
+    IF NEW.email !~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'
+      THEN
         RAISE EXCEPTION 'Invalid email';
         SELECT 0 INTO valid;
     END IF;
