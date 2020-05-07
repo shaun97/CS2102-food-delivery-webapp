@@ -26,7 +26,7 @@ router.get("/hello", (req, res) => {
 /*
   USER PROFILE SECTION
 */
-
+//User signup
 router.post("/api/posts/userprofiletodb", (req, pres, next) => {
   const values = [req.body.password, req.body.email, req.body.name];
   let queryText1 = "";
@@ -77,9 +77,19 @@ router.post("/api/posts/userprofiletodb", (req, pres, next) => {
       }
       await client.query("COMMIT").then(pres.send({ message: message }));
     } catch (e) {
+      console.log("Error Type", e);
+      let errorMessage = e.message;
+      if (e.message === 'Empty field detected') {
+        errorMessage = "Please fill up all fields.";
+      } else if (e.message === 'Attempted SQL Injection detected') {
+        errorMessage = "Stop trying to hack my system!!!";
+      } else if (e.code === 'Invalid email') {
+        errorMessage = "Invalid email format. Please try again.";
+      }
+        
       await client
         .query("ROLLBACK")
-        .then(pres.send({ message: "Signup failed :(" }));
+        .then(pres.send({ message: errorMessage }));
       throw e;
     } finally {
       client.release();
@@ -87,6 +97,7 @@ router.post("/api/posts/userprofiletodb", (req, pres, next) => {
   })().catch((e) => console.error(e.stack));
 });
 
+//User Login
 router.get("/api/get/userprofilefromdb", (req, res, next) => {
   let queryText = "";
   switch (req.query.userType) {

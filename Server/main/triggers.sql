@@ -1,3 +1,48 @@
+--Trigger to validate signup name,password,email
+CREATE OR REPLACE FUNCTION check_signup_inputs ()
+RETURNS TRIGGER AS $$
+DECLARE 
+    valid INT;
+    Nname TEXT;
+    Npassword TEXT;
+    Nemail TEXT;
+BEGIN
+    SELECT 1 INTO valid;
+    IF NEW.name='' OR NEW.email='' OR NEW.password='' THEN 
+        RAISE EXCEPTION 'Empty field detected';
+        SELECT 0 INTO valid;
+    END IF;
+
+    SELECT regexp_matches(NEW.name, ';--') INTO Nname;
+    SELECT regexp_matches(NEW.password, ';--') INTO Npassword;
+    SELECT regexp_matches(NEW.email, ';--') INTO Nemail;
+    IF Nname IS NOT NULL OR Npassword IS NOT NULL OR Nemail IS NOT NULL THEN
+        RAISE EXCEPTION 'Attempted SQL Injection detected';
+        SELECT 0 INTO valid;
+    END IF;
+
+    IF NEW.email !~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'
+      THEN
+        RAISE EXCEPTION 'Invalid email';
+        SELECT 0 INTO valid;
+    END IF;
+
+    IF valid = 1 THEN  
+        NEW.name = btrim(regexp_replace(NEW.name, '\s+', ' ', 'g'));
+        NEW.email = btrim(regexp_replace(NEW.name, '\s+', ' ', 'g'));
+        RETURN NEW;
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS check_signup_inputs_trigger ON Users;
+CREATE TRIGGER check_signup_inputs_trigger 
+    BEFORE INSERT
+    ON Users
+    FOR EACH ROW
+    EXECUTE FUNCTION check_signup_inputs();
+
 --Trigger to check the min order and return and exception if not hit
 CREATE OR REPLACE FUNCTION check_min_order
 () RETURNS TRIGGER AS $$
@@ -186,7 +231,7 @@ CREATE CONSTRAINT TRIGGER complete_order_check_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE complete_order_check();
 
--- Trigger to enforce that all the food is from the same restaurant 
+-- Trigger to enforce that all the food is from the same restaurant (checks that upon insert of orderitems, fname exist in sells with the orid and)
 CREATE OR REPLACE FUNCTION ensure_single_restaurant() returns TRIGGER
     AS $$
 DECLARE 
@@ -214,3 +259,23 @@ CREATE CONSTRAINT TRIGGER ensure_single_restaurant_trigger
     DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW
     EXECUTE PROCEDURE ensure_single_restaurant();
+
+    
+-- Trigger to check that the promo start date is before the end date 
+CREATE OR REPLACE FUNCTION check_promo_start_end() returns TRIGGER
+    AS $$
+BEGIN
+    IF NEW.startd > NEW.endd THEN
+        RAISE exception 'promo % end date is earlier than the start date', NEW.pid;
+        RETURN NULL;
+    END IF;
+    RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS check_promo_start_end_trigger ON allpromotions;
+CREATE TRIGGER check_promo_start_end_trigger 
+    BEFORE UPDATE OR INSERT
+    ON allpromotions
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_promo_start_end();
