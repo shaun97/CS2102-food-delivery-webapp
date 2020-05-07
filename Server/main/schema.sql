@@ -13,7 +13,6 @@ CREATE TABLE Managers
 	foreign key (mid) references Users(id)
 	on delete cascade
 );
---INSERT into Users(Customer);
 
 CREATE TABLE Customers
 (
@@ -29,17 +28,14 @@ CREATE TABLE Riders
 (
 	rid integer,
 	totalOrders integer,
-	-- trigger case fulltime reset to 0 every end of month, PT end week
 	primary key (rid),
 	foreign key (rid) references Users(id)
 	on delete cascade
 );
-/*rider availability => create view when needed*/
 
 CREATE TABLE Restaurants
 (
 	minOrder integer,
-	-- use trigger to check in order??
 	rname varchar(255) unique not null,
 	descript varchar(255),
 	address varchar(255),
@@ -52,13 +48,11 @@ CREATE TABLE Orders
 	cid integer,
 	rname varchar(255),
 	cartCost integer,
-	--generate in query
 	location varchar(50),
 	ostatus o_status DEFAULT 'Ongoing',
 	foreign key (rname) references Restaurants(rname)
 	on delete cascade
 );
---check min order from restaurants
 
 
 CREATE TABLE Deliver
@@ -66,14 +60,11 @@ CREATE TABLE Deliver
 	orid integer unique,
 	rid integer,
 	fee integer DEFAULT 5,
-	--based on time criteria
 	dstatus d_status DEFAULT 'Rider is departing for restaurant.',
-	--use trigger function to update status based on deliveryTime
 	primary key (orid),
 	foreign key (orid) references Orders(orid) on delete cascade,
 	foreign key (rid) references Riders(rid) on delete cascade
 );
---transaction with completedOrders by rider on status is complete
 
 CREATE TABLE DeliveryTime
 (
@@ -94,10 +85,8 @@ CREATE TABLE Sells
 	fname varchar unique not null,
 	sold integer default 0,
 	fdescript varchar(255),
-	--trigger based on time reset daily
 	flimit integer,
 	avail bool default true,
-	--use trigger here based on limit-sold
 	category e_category not null,
 	price integer,
 	last_updated DATE DEFAULT CURRENT_DATE,
@@ -107,7 +96,6 @@ CREATE TABLE Sells
 
 CREATE TABLE OrderItems
 (
-	-- for restaurant staffs to refer to 
 	orid integer,
 	fname varchar,
 	quantity integer not null,
@@ -117,16 +105,6 @@ CREATE TABLE OrderItems
 	foreign key (fname) references Sells (fname)
 	on delete cascade
 );
-
---CREATE TABLE OrdersDeliveredBy (
---	orid integer,
---    rid integer,
---    deliveredTime timestamp,
---    primary key (orid),
---    foreign key (orid) references Deliver(orid),
---    foreign key (rid) references Deliver(rid),
---    foreign key (deliveredTime) references DeliveryTime(deliveredTime)
---); --getting updates from deliver and deliverytime
 
 CREATE TABLE Staffs
 (
@@ -151,7 +129,6 @@ CREATE TABLE FTRiders
 	rid integer,
 	foreign key (rid) references Riders(rid) on delete cascade
 );
---for monthly fees, count delivery + fixed monthly pay
 
 CREATE TABLE PTRiders
 (
@@ -159,9 +136,6 @@ CREATE TABLE PTRiders
 	foreign key (rid) references Riders(rid) on delete cascade
 );
 
---standardise the way we count the week and days?
---stores all working times of each rider
---create view (rid, hours, month, day)=>full schedule to check current available riders
 CREATE TABLE WWS
 (
 	rid integer,
@@ -170,7 +144,7 @@ CREATE TABLE WWS
 	endT TIME,
 	foreign key (rid) references Riders(rid)
 	on delete cascade
-);--trigger to check work >= 10hours per week
+);
 
 --just to store the fixed shifts, must make sure shift duration dont exceed 4 hrs
 CREATE TABLE templateShift
@@ -185,13 +159,10 @@ CREATE TABLE templateShift
 
 CREATE TABLE MWS
 (
-	--Will update schedule based on the shift 
 	rid integer,
 	whichMonth integer,
 	startDay DATE,
-	--mon
 	Day1Shift integer references templateShift (shift) not null,
-	--which shift
 	Day2Shift integer references templateShift (shift) not null,
 	Day3Shift integer references templateShift (shift) not null,
 	Day4Shift integer references templateShift (shift) not null,
@@ -223,12 +194,8 @@ CREATE TABLE allPromotions
 
 CREATE TABLE RPromotions
 (
-	--restaurants may offer promotional prices for menu items
-	pid integer primary key deferrable initially
-	deferred,
-	--	promotiontype varchar(30), -- 2 types? fixed discount / percentage
-	rname varchar
-	(30),
+	pid integer primary key deferrable initially deferred,
+	rname varchar(30),
 
 	foreign key
 	(pid) references allPromotions on
@@ -238,12 +205,11 @@ CREATE TABLE RPromotions
 	delete cascade
 );
 
-	CREATE TABLE FDPromotions
-	(
-		pid integer primary key,
-		--	promotiontype varchar(30), -- 2 types? fixed discount 
-		foreign key (pid) references allPromotions on delete cascade
-	);
+CREATE TABLE FDPromotions
+(
+	pid integer primary key,
+	foreign key (pid) references allPromotions on delete cascade
+);
 
--- insert test data into users
+
 

@@ -124,7 +124,6 @@ class SignUp extends Component {
           fluid
           control={Select}
           placeholder="Select Restaurant"
-          /*label='Restaurant'*/
           name="selectedRestaurant"
           options={this.state.restaurants}
           required={true}

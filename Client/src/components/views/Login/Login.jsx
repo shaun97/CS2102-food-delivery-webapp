@@ -14,7 +14,7 @@ import {
 
 import axios from "axios";
 
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import { LoginContext } from "../../LoginContext";
 

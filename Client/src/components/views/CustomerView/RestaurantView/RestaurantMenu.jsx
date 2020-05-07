@@ -65,10 +65,6 @@ class RestaurantMenu extends Component {
                             <Item.Content float='left'>
                                 <Item.Header style={{ fontSize: '50px' }} as='h1'>{this.state.restaurant.rname}</Item.Header>
                                 <Item.Meta style={{ textAlign: 'left' }}>{this.state.restaurant.descript}</Item.Meta>
-                                {/* <Item.Description>
-                                    Open?
-                                </Item.Description>
-                                <Item.Extra>Time?</Item.Extra> */}
                             </Item.Content>
                         </Item>
                     </Item.Group>

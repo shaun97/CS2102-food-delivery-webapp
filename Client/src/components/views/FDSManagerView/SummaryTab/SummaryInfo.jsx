@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Dropdown, Grid, Segment, Statistic } from 'semantic-ui-react'
-import { Loader } from 'semantic-ui-react';
 import axios from 'axios';
 import DeliveryTable from './DeliveryTable';
 
@@ -163,7 +162,6 @@ class Summary extends Component {
                     </Segment.Group>   
                 </Grid.Column>
                 </Grid.Row>
-                {/* {loadScreen} */}
             </Grid>
         )
     }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import axios from 'axios';
 
-import { Header, Form, Grid, Button, Segment, Divider } from 'semantic-ui-react'
+import { Header, Grid, Divider } from 'semantic-ui-react'
 import Orders from './Orders';
 
 import { LoginContext } from '../../../LoginContext';

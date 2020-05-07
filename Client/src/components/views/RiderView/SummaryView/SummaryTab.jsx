@@ -1,7 +1,7 @@
 //Basic React Imports
 import React, { Component } from "react";
 
-import { Dropdown, Button, Divider, List, Table, Segment,Statistic } from "semantic-ui-react";
+import { Dropdown, Segment,Statistic } from "semantic-ui-react";
 import axios from 'axios'
 import { LoginContext } from '../../../LoginContext';
 

@@ -15,7 +15,7 @@ class Orders extends Component {
             cartCost: this.props.order.cartCost,
             location: this.props.order.location,
             deliveredTime: this.props.order.deliveredTime,
-            deliveryCost: this.props.order.deliveryCost, //need to link with the delivery, is the data consistent?
+            deliveryCost: this.props.order.deliveryCost,
             rname: this.props.order.rname,
             d_status: this.props.order.dstatus,
             orderItems: []
