@@ -126,6 +126,7 @@ CREATE TRIGGER insert_new_delivery_time_trigger
     FOR EACH ROW
 EXECUTE FUNCTION insert_new_delivery_time
 ();
+
 -- Trigger to update quantity in sells
 CREATE OR REPLACE FUNCTION update_food_qty
 () RETURNS TRIGGER AS $$
@@ -149,14 +150,12 @@ EXECUTE FUNCTION update_food_qty
 ();
 
 -- Trigger to check food quantity in sells
-CREATE OR REPLACE FUNCTION check_food_qty
-() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION check_food_qty() RETURNS TRIGGER AS $$
 BEGIN
+    IF NEW.last_updated < CURRENT_DATE THEN 
+        NEW.sold = 0;
+    END IF;
     IF NEW.sold > NEW.flimit THEN
-    -- Supposed to delete order that do not have any orderitems(when all sold out) .. shoul use transactions? to run all tog but i cant pass an array in, idk how
-        -- IF !(SELECT 1 FROM Orders NATURAL JOIN orderitems WHERE NEW.orid = orid) THEN
-        --     DELETE FROM Orders WHERE NEW.orid = orid;
-        -- END IF;
         RAISE EXCEPTION 'Food limit hit';
     END IF;
     IF NEW.sold = NEW.flimit THEN 
@@ -170,15 +169,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS check_food_qty_trigger
-ON Sells;
+DROP TRIGGER IF EXISTS check_food_qty_triggerv ON Sells;
 CREATE TRIGGER check_food_qty_trigger
-    BEFORE
-UPDATE OR INSERT
-    ON Sells
-    FOR EACH ROW
-EXECUTE FUNCTION check_food_qty
-();
+BEFORE UPDATE OR INSERT
+ON Sells FOR EACH ROW
+EXECUTE FUNCTION check_food_qty();
 
 -- Trigger to update customer points after order completed
 CREATE OR REPLACE FUNCTION update_customer_points() RETURNS TRIGGER

@@ -100,6 +100,7 @@ CREATE TABLE Sells
 	--use trigger here based on limit-sold
 	category e_category not null,
 	price integer,
+	last_updated DATE DEFAULT CURRENT_DATE,
 	primary key (rname, fname),
 	foreign key (rname) references Restaurants (rname)
 );
