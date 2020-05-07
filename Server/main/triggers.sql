@@ -1,3 +1,48 @@
+--Trigger to validate signup name,password,email
+CREATE OR REPLACE FUNCTION check_signup_inputs ()
+RETURNS TRIGGER AS $$
+DECLARE 
+    valid INT;
+    Nname TEXT;
+    Npassword TEXT;
+    Nemail TEXT;
+BEGIN
+    SELECT 1 INTO valid;
+    IF NEW.name='' OR NEW.email='' OR NEW.password='' THEN 
+        RAISE EXCEPTION 'Empty field detected';
+        SELECT 0 INTO valid;
+    END IF;
+
+    SELECT regexp_matches(NEW.name, ';--') INTO Nname;
+    SELECT regexp_matches(NEW.password, ';--') INTO Npassword;
+    SELECT regexp_matches(NEW.email, ';--') INTO Nemail;
+    IF Nname IS NOT NULL OR Npassword IS NOT NULL OR Nemail IS NOT NULL THEN
+        RAISE EXCEPTION 'Attempted SQL Injection detected';
+        SELECT 0 INTO valid;
+    END IF;
+
+    IF NEW.email !~ '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*
+      @[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$' THEN
+        RAISE EXCEPTION 'Invalid email';
+        SELECT 0 INTO valid;
+    END IF;
+
+    IF valid = 1 THEN  
+        NEW.name = btrim(regexp_replace(NEW.name, '\s+', ' ', 'g'));
+        NEW.email = btrim(regexp_replace(NEW.name, '\s+', ' ', 'g'));
+        RETURN NEW;
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS check_signup_inputs_trigger ON Users;
+CREATE TRIGGER check_signup_inputs_trigger 
+    BEFORE INSERT
+    ON Users
+    FOR EACH ROW
+    EXECUTE FUNCTION check_signup_inputs();
+
 --Trigger to check the min order and return and exception if not hit
 CREATE OR REPLACE FUNCTION check_min_order
 () RETURNS TRIGGER AS $$
