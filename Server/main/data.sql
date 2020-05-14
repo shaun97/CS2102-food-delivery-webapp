@@ -3,9 +3,15 @@
 INSERT INTO Users
     (name, email, password, date_signup)
 VALUES
+<<<<<<< HEAD
     ('Athene Stuffins', 'astuffins0@microsoft.com', 'iCtuba', '2020-02-01'),
     ('Darbee Hadwick', 'PTRider@gmail.com', 'abcde', '2020-02-01'),
     ('Hollyanne Shelton', 'FTRider@gmail.com', 'abcde', '2020-02-01'),
+=======
+    ('Athene Stuffins', 'customer@gmail.com', 'abcde', '2020-02-01'),
+    ('Darbee Hadwick', 'dhadwick1@amazon.de', 'T3BAJF8', '2020-02-01'),
+    ('Hollyanne Shelton', 'hshelton2@behance.net', '2PrXOPzOClr', '2020-02-01'),
+>>>>>>> upstream/master
     ('Angele Oxborough', 'aoxborough3@netlog.com', '66EsfeREPmJk', '2020-02-01'),
     ('Franciskus Moffatt', 'fmoffatt4@sfgate.com', 'kBasfn', '2020-01-01'),
     ('Ruthie Nears', 'rnears5@fc2.com', 'ea7YdlIzyr', '2020-01-01'),
@@ -23,7 +29,7 @@ VALUES
     ('Levi Barber', 'massa.non@Curabiturdictum.edu', 'ATO66CZL6EN', '2020-04-01'),
     ('Caleb Brooks', 'iaculis@Donecfelisorci.com', 'JLT05ILN4MB', '2020-05-01'),
     ('Mark Perez', 'nibh.enim.gravida@velarcu.ca', 'NQR04WUD1HJ', '2020-05-01'),
-    ('Jade Myers', 'velit@mollis.edu', 'HNQ80CSD7GZ', '2020-05-01'),
+    ('Jade Myers', 'velit@mollis.edu', 'abcde', '2020-05-01'),
     ('Jin Wen', 'jinwenntay@gmail.com', 'abcde', '2020-01-01'),
     ('Jin Wen Tay', 'jinwen.tay@u.nus.edu', 'abcde', '2020-05-06'),
     ('Speedy Rider', 'speedyzoom@gmail.com', 'abcde', '2020-05-06'),
@@ -373,7 +379,15 @@ VALUES
     (18, 'I feel like a king now', 5),
     (19, 'I love egg prata', 4),
     (22, 'The prata is bomb', 5),
-    (24, 'Fried rice a bit dry', 3)
+    (23, 'The prata is bombbay', 5),
+    (24, 'Fried rice a bit dry and the tea abit wet. dissapointing', 3),
+    (25, 'The prata is bomber', 5),
+    (26, 'a bit dry', 3),
+    (27, 'The tea is bomb', 5),
+    (28, 'Fried rice a bit oily', 3),
+    (29, 'Very nice', 5),
+    (30, 'This helped me get through this tough period :)', 3),
+    (31, 'Fried rice a bit dry', 3)
 ;
 
 INSERT INTO FTRiders
