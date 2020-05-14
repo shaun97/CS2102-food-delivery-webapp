@@ -3,23 +3,17 @@
 INSERT INTO Users
     (name, email, password, date_signup)
 VALUES
-<<<<<<< HEAD
-    ('Athene Stuffins', 'astuffins0@microsoft.com', 'iCtuba', '2020-02-01'),
-    ('Darbee Hadwick', 'PTRider@gmail.com', 'abcde', '2020-02-01'),
-    ('Hollyanne Shelton', 'FTRider@gmail.com', 'abcde', '2020-02-01'),
-=======
     ('Athene Stuffins', 'customer@gmail.com', 'abcde', '2020-02-01'),
     ('Darbee Hadwick', 'dhadwick1@amazon.de', 'T3BAJF8', '2020-02-01'),
     ('Hollyanne Shelton', 'hshelton2@behance.net', '2PrXOPzOClr', '2020-02-01'),
->>>>>>> upstream/master
     ('Angele Oxborough', 'aoxborough3@netlog.com', '66EsfeREPmJk', '2020-02-01'),
-    ('Franciskus Moffatt', 'fmoffatt4@sfgate.com', 'kBasfn', '2020-01-01'),
+    ('Franciskus Moffatt', 'sawadeekap@gmail.com', 'thaimilktea', '2020-01-01'),
     ('Ruthie Nears', 'rnears5@fc2.com', 'ea7YdlIzyr', '2020-01-01'),
     ('Cart Esp', 'cesp6@wordpress.org', '7eZfcPkBu3T', '2020-01-01'),
-    ('Mar Fincher', 'mfincher7@noaa.gov', '2VSS1NA', '2020-01-01'),
-    ('Devondra Haresnape', 'dharesnape0@google.it', 'gPA8KFHY0zzC', '2020-01-01'),
+    ('Mar Fincher', 'songfeng@songfengco.com', 'asdfg', '2020-01-01'),
+    ('Devondra Haresnape', 'yumyum@google.it', '12345', '2020-01-01'),
     ('Wash Fish', 'wfish1@freewebs.com', 'P5Nt5P', '2020-04-01'),
-    ('Bucky Maple', 'bmaple2@hhs.gov', 'duKrn9NB', '2020-04-01'),
+    ('Bucky Maple', 'kfcftw@hotmail.com', 'P@ssw0rd', '2020-04-01'),
     ('Nerea Rosa', 'magna@fringillaestMauris.edu', 'NXN89PWN5IY', '2020-04-01'),
     ('Dahlia Dodson', 'In.ornare.sagittis@semper.co.uk', 'DTC15WZS8SM', '2020-04-01'),
     ('Ulric Casey', 'Nam@temporestac.com', 'UHY04ZIA0BL', '2020-03-01'),
@@ -218,7 +212,7 @@ VALUES
     (22, 2, 5, 'Rider has delivered your order.'),
     (23, 3, 5, 'Rider has delivered your order.'),
     (24, 17, 5, 'Rider has delivered your order.'),
-    
+
     (25, 27, 5, 'Rider has delivered your order.'),
     (26, 18, 5, 'Rider has delivered your order.'),
     (27, 16, 5, 'Rider has delivered your order.'),
