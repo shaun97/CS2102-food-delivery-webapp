@@ -32,12 +32,14 @@ pool.query(`SELECT orid, location, rid, dstatus, coalesce(deliveredtime, departf
 })
 
 manager.get('/api/get/getDeliveryCountByArea', (req, res, next) => {
-pool.query(`SELECT location, count(*) AS numOrders
-            FROM Orders join Deliver using(orid) JOIN DeliveryTime USING (orid)
-            GROUP BY location, date_part('hour',coalesce(deliveredtime, departfromr, arriveforr, departforr)),
-            date_trunc('day', coalesce(deliveredtime, departfromr, arriveforr, departforr))
-            HAVING date_part('hour', coalesce(deliveredtime, departfromr, arriveforr, departforr)) = date_part('hour', now())
-            AND date_trunc('day', coalesce(deliveredtime, departfromr, arriveforr, departforr)) = date_trunc('day', now())`,
+pool.query(
+    `SELECT location, count(*) AS numOrders
+    FROM Orders JOIN DeliveryTime USING (orid)
+    GROUP BY location, 
+    date_part('hour',COALESCE(deliveredtime, departfromr, arriveforr, departforr)),
+    date_trunc('day', COALESCE(deliveredtime, departfromr, arriveforr, departforr))
+    HAVING date_part('hour', COALESCE(deliveredtime, departfromr, arriveforr, departforr)) = date_part('hour', now())
+    AND date_trunc('day', COALESCE(deliveredtime, departfromr, arriveforr, departforr)) = date_trunc('day', now())`,
     (q_err, q_res) => {
     let rows = [];
     for (let i = 0; i < q_res.rowCount; i++) {
