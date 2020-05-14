@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION getDeliveryCost
 (OUT deliveryCost INTEGER) RETURNS INTEGER
     AS $$
 SELECT CASE
-        WHEN extract(hour from current_time) >= 17 THEN 7
+        WHEN extract(hour from current_time) >= 18 THEN 7
         ELSE 5
     END
 $$ LANGUAGE sql;
