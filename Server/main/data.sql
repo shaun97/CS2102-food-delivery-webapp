@@ -3,9 +3,15 @@
 INSERT INTO Users
     (name, email, password, date_signup)
 VALUES
+<<<<<<< HEAD
+    ('Athene Stuffins', 'astuffins0@microsoft.com', 'iCtuba', '2020-02-01'),
+    ('Darbee Hadwick', 'PTRider@gmail.com', 'abcde', '2020-02-01'),
+    ('Hollyanne Shelton', 'FTRider@gmail.com', 'abcde', '2020-02-01'),
+=======
     ('Athene Stuffins', 'customer@gmail.com', 'abcde', '2020-02-01'),
     ('Darbee Hadwick', 'dhadwick1@amazon.de', 'T3BAJF8', '2020-02-01'),
     ('Hollyanne Shelton', 'hshelton2@behance.net', '2PrXOPzOClr', '2020-02-01'),
+>>>>>>> upstream/master
     ('Angele Oxborough', 'aoxborough3@netlog.com', '66EsfeREPmJk', '2020-02-01'),
     ('Franciskus Moffatt', 'fmoffatt4@sfgate.com', 'kBasfn', '2020-01-01'),
     ('Ruthie Nears', 'rnears5@fc2.com', 'ea7YdlIzyr', '2020-01-01'),

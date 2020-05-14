@@ -276,8 +276,13 @@ CREATE TRIGGER check_promo_start_end_trigger
     FOR EACH ROW
     EXECUTE PROCEDURE check_promo_start_end();
 
+<<<<<<< HEAD
+-- -- Trigger to check if that week he worked less than 10 or more than 40 
+-- -- Trigger to check if there are any clashes in the schedule as well
+=======
 -- Trigger to check if that week he worked less than 10 or more than 40 
 -- Trigger to check if there are any clashes in the schedule as well
+>>>>>>> upstream/master
 -- CREATE OR REPLACE FUNCTION check_rider_schedule() returns TRIGGER
 --     AS $$
 -- DECLARE 
