@@ -161,7 +161,7 @@ CREATE TABLE MWS
 (
 	rid integer,
 	whichMonth integer,
-	startDay DATE,
+	startDay text,
 	Day1Shift integer references templateShift (shift) not null,
 	Day2Shift integer references templateShift (shift) not null,
 	Day3Shift integer references templateShift (shift) not null,
