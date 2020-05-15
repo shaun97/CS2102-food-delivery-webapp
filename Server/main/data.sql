@@ -171,17 +171,17 @@ VALUES
     (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
     (15, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
     (4, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
-    (15, 'Chinese Kitchen', 24, 'Clementi', 'Completed')
+    (15, 'Chinese Kitchen', 24, 'Clementi', 'Completed'),
 
     --25 onwards
-    -- (30, 'Nippi Place', 8, 'Macritche', 'Completed'),
-    -- (30, 'Nippi Place', 8, 'Kallang', 'Completed'),
-    -- (1, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
-    -- (30, 'Chinese Kitchen', 24, 'Clementi', 'Completed')
-    -- (1, 'Sayonara', 9, 'Bishan', 'Completed'),
-    -- (1, 'Sayonara', 20, 'Bukit Panjang', 'Completed'),
-    -- (1, 'Sayonara', 40, 'Loyang', 'Completed'),
-    -- (1, 'King Fried Chicken', 18, 'Clementi', 'Completed')
+    (30, 'Nippi Place', 8, 'Macritche', 'Completed'),
+    (30, 'Nippi Place', 8, 'Kallang', 'Completed'),
+    (1, 'Nippi Place', 8, 'Ang Mo Kio', 'Completed'),
+    (30, 'Chinese Kitchen', 24, 'Clementi', 'Completed'),
+    (1, 'Sayonara', 9, 'Bishan', 'Completed'),
+    (1, 'Sayonara', 20, 'Bukit Panjang', 'Completed'),
+    (1, 'Sayonara', 40, 'Loyang', 'Completed'),
+    (1, 'King Fried Chicken', 18, 'Clementi', 'Completed')
 
 ;
 
@@ -211,16 +211,16 @@ VALUES
     (21, 3, 5, 'Rider has delivered your order.'),
     (22, 2, 5, 'Rider has delivered your order.'),
     (23, 3, 5, 'Rider has delivered your order.'),
-    (24, 17, 5, 'Rider has delivered your order.')
-
-    -- (25, 27, 5, 'Rider has delivered your order.'),
-    -- (26, 18, 5, 'Rider has delivered your order.'),
-    -- (27, 16, 5, 'Rider has delivered your order.'),
-    -- (28, 16, 5, 'Rider has delivered your order.'),
-    -- (29, 3, 5, 'Rider has delivered your order.'),
-    -- (30, 2, 5, 'Rider has delivered your order.'),
-    -- (31, 3, 5, 'Rider has delivered your order.'),
-    -- (32, 17, 5, 'Rider has delivered your order.')
+    (24, 17, 5, 'Rider has delivered your order.'),
+    
+    (25, 27, 5, 'Rider has delivered your order.'),
+    (26, 18, 5, 'Rider has delivered your order.'),
+    (27, 16, 5, 'Rider has delivered your order.'),
+    (28, 16, 5, 'Rider has delivered your order.'),
+    (29, 3, 5, 'Rider has delivered your order.'),
+    (30, 2, 5, 'Rider has delivered your order.'),
+    (31, 3, 5, 'Rider has delivered your order.'),
+    (32, 17, 5, 'Rider has delivered your order.')
 ;
 
 INSERT INTO DeliveryTime
@@ -249,16 +249,16 @@ VALUES
     (21, '2020-05-03 10:23:54', '2020-05-03 10:30:03', '2020-05-03 10:32:50', '2020-05-03 10:40:24'),
     (22, '2020-05-04 19:25:54', '2020-05-04 19:31:03', '2020-05-04 19:36:50', '2020-05-04 19:46:24'),
     (23, '2020-05-04 18:23:54', '2020-05-04 18:30:03', '2020-05-04 18:32:50', '2020-05-04 18:40:24'),
-    (24, '2020-05-07 18:25:54', '2020-05-07 18:31:03', '2020-05-07 18:36:50', '2020-05-07 18:46:24')
+    (24, '2020-05-07 18:25:54', '2020-05-07 18:31:03', '2020-05-07 18:36:50', '2020-05-07 18:46:24'),
 
-    -- (25, '2020-05-03 10:23:54', '2020-05-03 10:30:03', '2020-05-03 10:32:50', '2020-05-03 10:40:24'),
-    -- (26, '2020-05-04 19:25:54', '2020-05-04 19:31:03', '2020-05-04 19:36:50', '2020-05-04 19:46:24'),
-    -- (27, '2020-05-04 18:23:54', '2020-05-04 18:30:03', '2020-05-04 18:32:50', '2020-05-04 18:40:24'),
-    -- (28, '2020-05-07 18:25:54', '2020-05-07 18:31:03', '2020-05-07 18:36:50', '2020-05-07 18:46:24'),
-    -- (29, '2020-05-03 10:23:54', '2020-05-03 10:30:03', '2020-05-03 10:32:50', '2020-05-03 10:40:24'),
-    -- (30, '2020-05-04 19:25:54', '2020-05-04 19:31:03', '2020-05-04 19:36:50', '2020-05-04 19:46:24'),
-    -- (31, '2020-05-04 18:23:54', '2020-05-04 18:30:03', '2020-05-04 18:32:50', '2020-05-04 18:40:24'),
-    -- (32, '2020-05-07 18:25:54', '2020-05-07 18:31:03', '2020-05-07 18:36:50', '2020-05-07 18:46:24'),
+    (25, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (26, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (27, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (28, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (29, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (30, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (31, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (32, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24')
 ;
 
 INSERT INTO OrderItems
@@ -321,22 +321,21 @@ VALUES
     (24, 'Salted Egg Rice', 1),
     (24, 'Century Egg Porridge', 1),
     (24, 'Sweet and Sour Pork Rice', 1),
-    (24, 'Tomato Noodle Soup', 1)
+    (24, 'Tomato Noodle Soup', 1),
 
-    -- (25, 'Plain Prata', 2),
-    -- (25, 'Banana Prata', 2),
-    -- (26, 'Roti John', 2),
-    -- (27, 'Teh Chino', 4),
-    -- (27, 'Roti John', 1)
-    -- (28, 'Beef Horfun', 4),
-    -- (29, 'Chawamushi', 3),
-    -- (30, 'Curry Rice', 1),
-    -- (30, 'Edamame', 2),
-    -- (30, 'Green Tea', 2),
-    -- (31, 'Curry Rice', 3),
-    -- (31, 'Green Tea', 4),
-    -- (32, 'Kimchi Fried Chicken', 1),
-
+    (25, 'Plain Prata', 2),
+    (25, 'Banana Prata', 2),
+    (26, 'Roti John', 2),
+    (27, 'Teh Chino', 4),
+    (27, 'Roti John', 1),
+    (28, 'Beef Horfun', 4),
+    (29, 'Chawamushi', 3),
+    (30, 'Curry Rice', 1),
+    (30, 'Edamame', 2),
+    (30, 'Green Tea', 2),
+    (31, 'Curry Rice', 3),
+    (31, 'Green Tea', 4),
+    (32, 'Kimchi Fried Chicken', 1)
 ;
 
 -- 5 Staffs: 5,8,9,10,11, 29
@@ -470,7 +469,7 @@ VALUES
 INSERT INTO allPromotions
     (promotiondescript, promoname, promotiontype, discount,startD, endD)
 VALUES
-    ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 , '2020-05-23', '2020-05-26'),
+    ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 , '2020-05-3', '2020-05-26'),
     ('May the discounts be with you! Enjoy 50% off your cart items on MoodPanda! #StayHomeStaySafe', 'May the fourth', 'percentage', 50, '2020-04-23', '2020-05-24'),
     ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24'),
     ('Here is a promo code to tide you through this rough period, enjoy $5 off!', 'Promo for the King', 'fixed', 5, '2020-05-14', '2020-05-20'),
