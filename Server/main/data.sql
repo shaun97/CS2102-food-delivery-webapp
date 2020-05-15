@@ -3,7 +3,7 @@
 INSERT INTO Users
     (name, email, password, date_signup)
 VALUES
-    ('Athene Stuffins', 'astuffins0@microsoft.com', 'iCtuba', '2020-02-01'),
+    ('Athene Stuffins', 'customer@gmail.com', 'abcde', '2020-02-01'),
     ('Darbee Hadwick', 'dhadwick1@amazon.de', 'T3BAJF8', '2020-02-01'),
     ('Hollyanne Shelton', 'hshelton2@behance.net', '2PrXOPzOClr', '2020-02-01'),
     ('Angele Oxborough', 'aoxborough3@netlog.com', '66EsfeREPmJk', '2020-02-01'),
@@ -23,7 +23,7 @@ VALUES
     ('Levi Barber', 'massa.non@Curabiturdictum.edu', 'ATO66CZL6EN', '2020-04-01'),
     ('Caleb Brooks', 'iaculis@Donecfelisorci.com', 'JLT05ILN4MB', '2020-05-01'),
     ('Mark Perez', 'nibh.enim.gravida@velarcu.ca', 'NQR04WUD1HJ', '2020-05-01'),
-    ('Jade Myers', 'velit@mollis.edu', 'HNQ80CSD7GZ', '2020-05-01'),
+    ('Jade Myers', 'velit@mollis.edu', 'abcde', '2020-05-01'),
     ('Jin Wen', 'jinwenntay@gmail.com', 'abcde', '2020-01-01'),
     ('Jin Wen Tay', 'jinwen.tay@u.nus.edu', 'abcde', '2020-05-06'),
     ('Speedy Rider', 'speedyzoom@gmail.com', 'abcde', '2020-05-06'),
