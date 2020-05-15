@@ -9,12 +9,13 @@ const pool = require('../../db');
 restaurant.get('/api/get/restaurantsfromdb', (req, res, next) => {
         pool.query(`
         WITH maincategory as (
-                SELECT rname, category
+                SELECT rname, category, COUNT(category)
                 FROM Sells s
                 GROUP BY (rname, category)
-                HAVING COUNT(category) >= ANY (SELECT COUNT(category) 
+                HAVING COUNT(CATEGORY) >= ALL (SELECT COUNT(CATEGORY)
                                                 FROM Sells s1
-                                                WHERE s1.rname = s.rname)
+                                                GROUP BY (rname, category)
+                                                HAVING s1.rname = s.rname)
         )
         SELECT * FROM Restaurants NATURAL JOIN maincategory`,
                 (q_err, q_res) => {
