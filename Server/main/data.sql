@@ -373,7 +373,15 @@ VALUES
     (18, 'I feel like a king now', 5),
     (19, 'I love egg prata', 4),
     (22, 'The prata is bomb', 5),
-    (24, 'Fried rice a bit dry', 3)
+    (23, 'The prata is bombbay', 5),
+    (24, 'Fried rice a bit dry and the tea abit wet. dissapointing', 3),
+    (25, 'The prata is bomber', 5),
+    (26, 'a bit dry', 3),
+    (27, 'The tea is bomb', 5),
+    (28, 'Fried rice a bit oily', 3),
+    (29, 'Very nice', 5),
+    (30, 'This helped me get through this tough period :)', 3),
+    (31, 'Fried rice a bit dry', 3)
 ;
 
 INSERT INTO FTRiders
