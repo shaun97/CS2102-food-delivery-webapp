@@ -148,7 +148,7 @@ router.get("/api/get/userprofilefromdb", (req, res, next) => {
     pool.query(queryText, [email, password], (q_err, q_res) => {
       if (q_res.rowCount !== 0) {
         res.json(q_res.rows);
-      } //Is there a better way to show if not found? currently if rows empty then means no account
+      } 
       else {
         res.json();
       }

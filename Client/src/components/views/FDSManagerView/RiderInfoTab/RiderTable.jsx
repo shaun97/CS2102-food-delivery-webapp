@@ -27,12 +27,12 @@ function RiderTable(props) {
             for (var j = 0; j < riderOrders.length; j++) {
                 if (riderOrders[j].name === riderHours[i].name) {
                     numOrder = riderOrders[j].numorders;
-                    console.log("Num Order: ", riderOrders[j].name, numOrder);
                     break;
                 }
             }
             let salary = 0;
             let fee = 0;
+
             for (var j = 0; j < riderDelivery.length; j++) {
                 if (riderDelivery[j].name === riderHours[j].name) {
                     fee = Number(riderDelivery[j].fee);

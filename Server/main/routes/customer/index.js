@@ -16,7 +16,6 @@ customer.get('/api/get/getorderhistory', (req, res, next) => {
     ORDER BY orid DESC
     LIMIT 5`, [cid],
         (q_err, q_res) => {
-            //console.log(q_err);
             res.json(q_res.rows);
         })
 

@@ -29,7 +29,8 @@ BEGIN
 
     IF valid = 1 THEN  
         NEW.name = btrim(regexp_replace(NEW.name, '\s+', ' ', 'g'));
-        NEW.email = btrim(regexp_replace(NEW.name, '\s+', ' ', 'g'));
+        NEW.email = btrim(regexp_replace(NEW.email, '\s+', ' ', 'g'));
+        NEW.password = btrim(regexp_replace(NEW.password, '\s+', ' ', 'g'));
         RETURN NEW;
     END IF;
     RETURN NULL;
@@ -55,7 +56,6 @@ BEGIN
     WHERE R.rname = NEW.rname;
     IF NEW.cartCost < minOrder THEN
             RAISE EXCEPTION 'Order did not hit min order';
---RETURN NULL;
 END
 IF;
         RETURN NEW;
