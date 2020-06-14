@@ -12,7 +12,7 @@ VALUES
     ('Cart Esp', 'cesp6@wordpress.org', '7eZfcPkBu3T', '2020-01-01'),
     ('Mar Fincher', 'songfeng@songfengco.com', 'asdfg', '2020-01-01'),
     ('Devondra Haresnape', 'yumyum@google.it', '12345', '2020-01-01'),
-    ('Wash Fish', 'wfish1@freewebs.com', 'P5Nt5P', '2020-04-01'),
+    ('Wash Fish', 'ck@gmail.com', 'abcde', '2020-04-01'),
     ('Bucky Maple', 'kfcftw@hotmail.com', 'P@ssw0rd', '2020-04-01'),
     ('Nerea Rosa', 'magna@fringillaestMauris.edu', 'NXN89PWN5IY', '2020-04-01'),
     ('Dahlia Dodson', 'In.ornare.sagittis@semper.co.uk', 'DTC15WZS8SM', '2020-04-01'),
@@ -92,7 +92,7 @@ VALUES
     ('Chinese Kitchen', 'Tomato Noodle Soup', 0, 10, true, 'Chinese', 6, 'Tomatoes and QQ noodles'),
     ('Chinese Kitchen', 'Fried Rice', 0, 10, true, 'Chinese', 6, 'Yangzhou style fried rice with sausage'),
     ('Chinese Kitchen', 'Sweet and Sour Pork Rice', 0, 10, true, 'Chinese', 6, 'Sweetest and sourest pork around'),
-    ('Chinese Kitchen', 'Salted Egg Rice', 1, 10, true, 'Chinese', 6, 'Smells like salted eggs'),
+    ('Chinese Kitchen', 'Salted Egg Rice', 1, 40, true, 'Chinese', 6, 'Smells like salted eggs'),
     ('Chinese Kitchen', 'Century Egg Porridge', 3, 10, true, 'Chinese', 6, 'Yummm'),
 
     ('Song Feng Chicken', 'Set A Chicken Wing', 0, 20, true, 'Malay', 3, 'Value for money, Chicken wing and Egg on the side'),
@@ -181,8 +181,40 @@ VALUES
     (1, 'Sayonara', 9, 'Bishan', 'Completed'),
     (1, 'Sayonara', 20, 'Bukit Panjang', 'Completed'),
     (1, 'Sayonara', 40, 'Loyang', 'Completed'),
-    (1, 'King Fried Chicken', 18, 'Clementi', 'Completed')
+    (1, 'King Fried Chicken', 18, 'Clementi', 'Completed'),
 
+    --32 onwards
+    (1, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (15, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (15, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (15, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (15, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (15, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (1, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (15, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (4, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (4, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+
+    (4, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (4, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (4, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (25, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (25, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed'),
+    (30, 'Chinese Kitchen', 6, 'Macritche', 'Completed')
 ;
 
 INSERT INTO Deliver
@@ -220,7 +252,39 @@ VALUES
     (29, 3, 5, 'Rider has delivered your order.'),
     (30, 2, 5, 'Rider has delivered your order.'),
     (31, 3, 5, 'Rider has delivered your order.'),
-    (32, 17, 5, 'Rider has delivered your order.')
+    (32, 17, 5, 'Rider has delivered your order.'),
+
+    (33, 16, 5, 'Rider has delivered your order.'),
+    (34, 3, 5, 'Rider has delivered your order.'),
+    (35, 2, 5, 'Rider has delivered your order.'),
+    (36, 3, 5, 'Rider has delivered your order.'),
+    (37, 17, 5, 'Rider has delivered your order.'),
+    (38, 16, 5, 'Rider has delivered your order.'),
+    (39, 3, 5, 'Rider has delivered your order.'),
+    (40, 2, 5, 'Rider has delivered your order.'),
+    (41, 3, 5, 'Rider has delivered your order.'),
+    (42, 17, 5, 'Rider has delivered your order.'),
+
+    (43, 16, 5, 'Rider has delivered your order.'),
+    (44, 3, 5, 'Rider has delivered your order.'),
+    (45, 2, 5, 'Rider has delivered your order.'),
+    (46, 3, 5, 'Rider has delivered your order.'),
+    (47, 17, 5, 'Rider has delivered your order.'),
+    (48, 16, 5, 'Rider has delivered your order.'),
+    (49, 3, 5, 'Rider has delivered your order.'),
+    (50, 2, 5, 'Rider has delivered your order.'),
+    (51, 3, 5, 'Rider has delivered your order.'),
+    (52, 17, 5, 'Rider has delivered your order.'),
+    (53, 16, 5, 'Rider has delivered your order.'),
+    (54, 3, 5, 'Rider has delivered your order.'),
+    (55, 2, 5, 'Rider has delivered your order.'),
+    (56, 3, 5, 'Rider has delivered your order.'),
+    (57, 17, 5, 'Rider has delivered your order.'),
+    (58, 16, 5, 'Rider has delivered your order.'),
+    (59, 3, 5, 'Rider has delivered your order.'),
+    (60, 2, 5, 'Rider has delivered your order.'),
+    (61, 3, 5, 'Rider has delivered your order.'),
+    (62, 17, 5, 'Rider has delivered your order.')
 ;
 
 INSERT INTO DeliveryTime
@@ -258,7 +322,39 @@ VALUES
     (29, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
     (30, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
     (31, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
-    (32, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24')
+    (32, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+
+    (33, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (34, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (35, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (36, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (37, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (38, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (39, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (40, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (41, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (42, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+
+    (43, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (44, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (45, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (46, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (47, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (48, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (49, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (50, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (51, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (52, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (53, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (54, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (55, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (56, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (57, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (58, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24'),
+    (59, '2020-05-15 10:23:54', '2020-05-15 10:30:03', '2020-05-15 10:32:50', '2020-05-15 10:40:24'),
+    (60, '2020-05-15 9:25:54', '2020-05-15 9:31:03', '2020-05-15 9:36:50', '2020-05-15 9:46:24'),
+    (61, '2020-05-15 8:23:54', '2020-05-15 8:30:03', '2020-05-15 8:32:50', '2020-05-15 8:40:24'),
+    (62, '2020-05-15 8:25:54', '2020-05-15 8:31:03', '2020-05-15 8:36:50', '2020-05-15 8:46:24')
 ;
 
 INSERT INTO OrderItems
@@ -335,7 +431,39 @@ VALUES
     (30, 'Green Tea', 2),
     (31, 'Curry Rice', 3),
     (31, 'Green Tea', 4),
-    (32, 'Kimchi Fried Chicken', 1)
+    (32, 'Kimchi Fried Chicken', 1),
+
+    (33, 'Salted Egg Rice', 1),
+    (34, 'Salted Egg Rice', 1),
+    (35, 'Salted Egg Rice', 1),
+    (36, 'Salted Egg Rice', 1),
+    (37, 'Salted Egg Rice', 1),
+    (38, 'Salted Egg Rice', 1),
+    (39, 'Salted Egg Rice', 1),
+    (40, 'Salted Egg Rice', 1),
+    (41, 'Salted Egg Rice', 1),
+    (42, 'Salted Egg Rice', 1),
+
+    (43, 'Salted Egg Rice', 1),
+    (44, 'Salted Egg Rice', 1),
+    (45, 'Salted Egg Rice', 1),
+    (46, 'Salted Egg Rice', 1),
+    (47, 'Salted Egg Rice', 1),
+    (48, 'Salted Egg Rice', 1),
+    (49, 'Salted Egg Rice', 1),
+    (50, 'Salted Egg Rice', 1),
+    (51, 'Salted Egg Rice', 1),
+    (52, 'Salted Egg Rice', 1),
+    (53, 'Salted Egg Rice', 1),
+    (54, 'Salted Egg Rice', 1),
+    (55, 'Salted Egg Rice', 1),
+    (56, 'Salted Egg Rice', 1),
+    (57, 'Salted Egg Rice', 1),
+    (58, 'Salted Egg Rice', 1),
+    (59, 'Salted Egg Rice', 1),
+    (60, 'Salted Egg Rice', 1),
+    (61, 'Salted Egg Rice', 1),
+    (62, 'Salted Egg Rice', 1)
 ;
 
 -- 5 Staffs: 5,8,9,10,11, 29
@@ -479,11 +607,12 @@ INSERT INTO allPromotions
 VALUES
     ('Stay home and stay safe, enjoy all these food at a discounted price! Enjoy an additional $10 off your cart items courtesy of MoodPanda!', 'Stay Home Promo', 'fixed', 10 , '2020-05-3', '2020-05-26'),
     ('May the discounts be with you! Enjoy 50% off your cart items on MoodPanda! #StayHomeStaySafe', 'May the fourth', 'percentage', 50, '2020-04-23', '2020-05-24'),
-    ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-01', '2020-05-24'),
+    ('Chinese Kitchen onboarding promotion, feast on! Enjoy $2 off your food items', 'CK Promo', 'fixed', 2, '2020-05-14', '2020-05-16'),
     ('Here is a promo code to tide you through this rough period, enjoy $5 off!', 'Promo for the King', 'fixed', 5, '2020-05-14', '2020-05-20'),
     ('COVID PROMOTION 20% OFF', 'Stay Home Promo', 'percentage', 20 , '2020-05-23', '2020-05-26'),
     ('#SupportLocal 10$ off', '$10 off', 'fixed', 10, '2020-05-23', '2020-05-24'),
-    ('Sayonara sale, literally we are going out of business $20 off', 'Sayonara $20 off', 'fixed', 20, '2020-05-01', '2020-05-24')
+    ('Sayonara sale, literally we are going out of business $20 off', 'Sayonara $20 off', 'fixed', 20, '2020-05-01', '2020-05-24'),
+    ('#SupportLocal 10$ off', '$10 off', 'fixed', 10, '2020-05-01', '2020-05-16')
 ;
 
 INSERT INTO RPromotions
@@ -493,7 +622,8 @@ VALUES
     (4, 'King Fried Chicken'),
     (5, 'Nippi Place'),
     (6, 'Naknoh Thai'),
-    (7, 'Sayonara')
+    (7, 'Sayonara'),
+    (8, 'Chinese Kitchen')
 ;
 
 INSERT INTO FDPromotions
